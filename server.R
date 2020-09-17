@@ -233,7 +233,7 @@ server <- shinyServer(function(input, output) {
 
     geneUniverse <- unique(ConvertedGeneSymbols[[1]])
     ConvertedGeneSymbolsWithoutUniverse <- ConvertedGeneSymbols[2:length(ConvertedGeneSymbols)]
-    names(ConvertedGeneSymbolsWithoutUniverse) <- ModuleNames[2:length(ConvertedGeneSymbols)]
+    names(ConvertedGeneSymbolsWithoutUniverse) <- ModuleNames2
 
     AllezEnriched <- list()
     for(i in 1:length(ConvertedGeneSymbolsWithoutUniverse)){
@@ -242,9 +242,10 @@ server <- shinyServer(function(input, output) {
                                         SpeciesLibrary = speciesLibrary) #species library
       # is defined in the control flow in lines 462-473
     }
+    names(AllezEnriched) <- ModuleNames2
 
     ## Create the workbook with the Allez sheets
-    createAllezEnrichmentXLSX(geneUniverse, AllezPvalues)
+    createAllezEnrichmentXLSX(geneUniverse, AllezEnriched)
 
     message("Allez Enrichment workflow completed")
   })
