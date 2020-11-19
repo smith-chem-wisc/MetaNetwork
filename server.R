@@ -70,6 +70,26 @@ server <- shinyServer(function(input, output) {
     # Calculate the module eigenproteins
     #The threshold for the merge. Default is 0.25, corresponding to a correlation of 0.75
     message("Merging modules")
+    message(print(paste("Modules below ", MCutHeight, " will be merged.", sep = ""))
+    # tryCatch statment to deal with errors due to MCutHeight being too low
+    mergedClust <- tryCatch({mergeModuleEigenproteins(allDataFile_t,
+                                                     moduleColors = dynamicColors,
+                                                     cutHeight = MCutHeight)},
+                              error=function(cond){
+                                message("MCutHeight too low!")
+                                MCutHeight <- MCutHeight + 0.1
+                                mergeModuleEigenproteins(allDataFile_t,
+                                                         moduleColors = dynamicColors,
+                                                         cutHeight = MCutHeight)
+                              },
+                              warning=function(cond){
+                                message("MCutHeight too low!")
+                                MCutHeight <- MCutHeight + 0.1
+                                mergeModuleEigenproteins(allDataFile_t,
+                                                         moduleColors = dynamicColors,
+                                                         cutHeight = MCutHeight)
+                            }
+                            )
     mergedClust <- mergeModuleEigenproteins(allDataFile_t, moduleColors = dynamicColors,
                                             cutHeight = MCutHeight)
     mergedColors <- mergedClust$colors
