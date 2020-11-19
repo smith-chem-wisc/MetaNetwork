@@ -25,3 +25,4 @@ mergeAndWriteWGCNAWorkbook <- function(selectedDatabase,
   createResultsWGCNAExcelWorkbook(dat.resMerged, list.cluster.datMerged, ...)
   message("WGCNA workbook saved")
 }
+
