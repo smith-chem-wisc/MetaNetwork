@@ -18,20 +18,37 @@ server <- shinyServer(function(input, output) {
     req(input$dataFile)
     req(input$groupsFile)
     req(input$databaseFile)
-
+    # Assign settings to variables
     RCutoff <- as.numeric(input$rcutoff)
     MCutHeight <- as.numeric(input$mcutheight)
     PowerUpper <- as.numeric(input$powerupper)
     minModuleSize <- as.numeric(input$minmodsize)
     IgnoreCols <- as.numeric(input$ignorecols)
-
+    #Default WGCNA power for ~20 samples
+    softPower <- 12
+    # Check if advanced options are enabled
+    AdvancedOptionsEnabled <- input$advancedOptions
     # Load the data files ----
     # Read the files in with read.csv, not read_csv
+      # Need to expand the types of files that can be read
     allDataFile <- read.csv(file = input$dataFile$datapath,
                             fileEncoding = "UTF-8-BOM")
     groupsFile <- read.csv(file = input$groupsFile$datapath,
                            fileEncoding = "UTF-8-BOM")
+    # Command flow for advanced options
+    if(input$threads == ""){
+      # Enable multi-threading
+      enableWGCNAThreads()
+    }else{
+      #Enable multi-threading with n threads
+      threads <- as.numeric(input$threads)
+      enableWGCNAThreads(threads)
+      }
 
+    if(input$overridePowerSelection != ""){
+      softPower <- as.numeric(input$overridePowerSelection)
+      message(print(softPower))
+    }
     # Transpose data so that genes are columns and samples are rows ----
     allDataFile_t <- as.data.frame(t(allDataFile[,-c(1:IgnoreCols)]) )
     # column names and row names are now switched.
@@ -39,14 +56,15 @@ server <- shinyServer(function(input, output) {
     colnames(allDataFile_t) <- allDataFile[,1]
 
     #WGCNA Workflow starts here ----
-    allowWGCNAThreads()
     # Choose a set of soft-thresholding powers
     powers <- c(c(1:10), seq(from = 12, to=PowerUpper, by=2))
     sft <- pickSoftThreshold(allDataFile_t,
                              powerVector = powers,
                              RsquaredCut = RCutoff,
                              verbose = 5)
-    softPower <- 12 ## Need to implement
+    if(input$automaticPowerSelection == TRUE){
+      softPower <- sft$powerEstimate
+    }
     # Build the adjacency table - use "signed" for proteomics data
     # create control flow for signed versus unsigned data
     adjacency <- adjacency(allDataFile_t, power = softPower, type="signed")
