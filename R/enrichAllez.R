@@ -1,14 +1,13 @@
 ## Adapted from the enrich_shiny application found at https://github.com/lengning/Enrich_shiny
 enrichAllez <- function(GeneSymbols, 
                         GeneUniverse, 
-                        SpeciesLibrary = "org.Hs.eg", 
+                        SpeciesLibrary, 
                         idtype = "SYMBOL", 
                         alter = TRUE, 
                         Lowersetsize = 5, 
                         Uppsersetsize = 500, 
                         outprefix, 
                         ...){
-  
   Scores <- rep(0, length(GeneUniverse))
   names(Scores) <- as.vector(GeneUniverse)
   Scores[base::intersect(names(Scores), GeneSymbols)] <- 1
