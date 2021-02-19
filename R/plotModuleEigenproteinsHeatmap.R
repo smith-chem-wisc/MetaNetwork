@@ -1,6 +1,6 @@
 plotmoduleEigenproteinsHeatmap <- function(moduleEigenproteins, 
                                        fileName = "Results/ModuleEigenproteinsHeatmap.pdf", 
-                                       widthInches = 10){
+                                       widthInches = 15){
   modulesHeatmap <- heatmap3(moduleEigenproteins, 
                              distfun = function(x) dist(x, method="euclidean"),
                              main = "Module Eigenproteins",

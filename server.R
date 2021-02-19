@@ -1,5 +1,8 @@
 ## test comment
+AnimalsAndDatabases <- tibble::tibble(readRDS(file = "./AppData/AnimalsAndDatabases.rds"))
+
 server <- shinyServer(function(input, output) {
+  
   # Generate the file preview ----
   output$preview <- renderTable({
     req(input$dataFile)
@@ -24,9 +27,27 @@ server <- shinyServer(function(input, output) {
     PowerUpper <- as.numeric(input$powerupper)
     minModuleSize <- as.numeric(input$minmodsize)
     IgnoreCols <- as.numeric(input$ignorecols)
-
+    softPower <- 12 # sets default power parameter to 12
+    AdvancedOptionsEnabled <- input$advancedOptions
+    path <- getwd()  
+      if(input$threads == ""){
+        enableWGCNAThreads()
+      }else{
+        threads <- as.numeric(input$threads)
+        enableWGCNAThreads(threads)
+        }
+      
+      if(input$overridePowerSelection != ""){
+        softPower <- as.numeric(input$overridePowerSelection)
+        message(print(softPower))
+      }
+    
+    ## WGCNA workflow based on WGCNA tutorials available at https://horvath.genetics.ucla.edu/html/CoexpressionNetwork/Rpackages/WGCNA/Tutorials/
+    ## and adopted from the workflow written by Wu et al, which can be found in the supplementary information.  
+    ## Citation: Jemma X. Wu, Dana Pascovici, Yunqi Wu, Adam K. Walker, and Mehdi Mirzaei
+    ## Journal of Proteome Research 2020 19 (7), 2898-2906. 
+    
     # Load the data files ----
-    # Read the files in with read.csv, not read_csv
     allDataFile <- read.csv(file = input$dataFile$datapath,
                             fileEncoding = "UTF-8-BOM")
     groupsFile <- read.csv(file = input$groupsFile$datapath,
@@ -39,16 +60,17 @@ server <- shinyServer(function(input, output) {
     colnames(allDataFile_t) <- allDataFile[,1]
 
     #WGCNA Workflow starts here ----
-    allowWGCNAThreads()
     # Choose a set of soft-thresholding powers
     powers <- c(c(1:10), seq(from = 12, to=PowerUpper, by=2))
     sft <- pickSoftThreshold(allDataFile_t,
                              powerVector = powers,
                              RsquaredCut = RCutoff,
                              verbose = 5)
-    softPower <- 12 ## Need to implement
-    # Build the adjacency table - use "signed" for proteomics data
-    # create control flow for signed versus unsigned data
+    
+    if(input$automaticPowerSelection == TRUE){
+      softPower <- sft$powerEstimate
+    }
+    
     adjacency <- adjacency(allDataFile_t, power = softPower, type="signed")
     TOM <- TOMsimilarity(adjacency)
     dissTOM <- 1-TOM
@@ -56,8 +78,7 @@ server <- shinyServer(function(input, output) {
     # Clustering using TOM-based dissimilarity
     proTree <- hclust(as.dist(dissTOM), method = "average")
 
-    path <- getwd()
-    message("Creating results folder")
+    message("Creating Results folder")
     dir.create(file.path(path, "Results"))
 
     message("Identifying modules")
@@ -70,8 +91,25 @@ server <- shinyServer(function(input, output) {
     # Calculate the module eigenproteins
     #The threshold for the merge. Default is 0.25, corresponding to a correlation of 0.75
     message("Merging modules")
-    mergedClust <- mergeModuleEigenproteins(allDataFile_t, moduleColors = dynamicColors,
-                                            cutHeight = MCutHeight)
+    message(print(MCutHeight))
+    mergedClust <- tryCatch({mergeModuleEigenproteins(allDataFile_t, 
+                                                     moduleColors = dynamicColors,
+                                                     cutHeight = MCutHeight)}, 
+                              error=function(cond){
+                                message("MCutHeight too low!")
+                                MCutHeight <- MCutHeight + 0.1
+                                mergeModuleEigenproteins(allDataFile_t, 
+                                                         moduleColors = dynamicColors, 
+                                                         cutHeight = MCutHeight)
+                              },
+                              warning=function(cond){
+                                message("MCutHeight too low!")
+                                MCutHeight <- MCutHeight + 0.1
+                                mergeModuleEigenproteins(allDataFile_t, 
+                                                         moduleColors = dynamicColors, 
+                                                         cutHeight = MCutHeight)
+                            }
+                            )
     mergedColors <- mergedClust$colors
     mergedMEs <- mergedClust$newMEs
     moduleColors <- mergedColors
@@ -130,8 +168,6 @@ server <- shinyServer(function(input, output) {
 
     ## Output the files
     message("Starting output to Results folder")
-    path <- getwd()
-    dir.create(file.path(path, "Results"))
     # Write the files
     # module memberships
     userInputDatabase <- read_tsv(input$databaseFile$datapath)
@@ -201,50 +237,52 @@ server <- shinyServer(function(input, output) {
       #Grid arrange the plots in preparation for output
     ## use the renderImage function to display the output plots.
     })
-  }) # this one is the close of the observeEvent function that wraps the WGCNA analysis workflow
+  }) 
 
   observeEvent(input$action2, {
     #require GO File to be uploaded----
     req(input$WGCNAResults)
-
+    ## Get the database based on user choice
+    organism <- input$organismID 
     ## Load the WGCNA Results File
     wgcnaResults <- read_excel_allsheets(input$WGCNAResults$datapath)
     sheetNumber <- length(wgcnaResults)
-    ## Load biomaRt (update this to make it faster -AVC 08/04/20)
-    BiocManager::install("biomaRt", update = FALSE)
-    library(biomaRt)
-    ## Get the correct database
-    if(input$organismID == "Human"){
-      mart <- fetchMart("Human")
-      BiocManager::install('org.Hs.eg.db')
-      speciesLibrary <- 'org.Hs.eg'
-      library(org.Hs.eg.db)
-    } else if(input$organismID == "Mouse"){
-      mart <- fetchMart("Mouse")
-      BiocManager::install('org.Mm.eg.db')
-      library(org.Mm.eg.db)
-      speciesLibrary <- 'org.Mm.eg'
-    }
-
-    ModuleNames2 <- names(wgcnaResults)[2:length(wgcnaResults)]
-    ## The next three things will probably end up as a single function
+    organismID <- input$organismID
+    organismIndex <- which(AnimalsAndDatabases[[1]] == organismID)
+    installed.packages(AnimalsAndDatabases[[4]][organismIndex])
+    library(AnimalsAndDatabases[[4]][organismIndex], character.only = TRUE)
+    ## ModuleNames2 stands for "module names starting at the second page of the WGCNA workbook"
+    ModuleNames2 <- names(wgcnaResults)[2:length(wgcnaResults)]    
+    
+    library(biomaRt) ## Biomart is loaded here because it can be a little slow 
+    ## to load, so I just load it when needed
+    
+    ## Get the organism specific biomart for accession conversion to gene symbols
+    mart <- fetchMart(AnimalsAndDatabases[[2]][organismIndex])
+    
     ## Convert the Uniprot Acessions to Gene Symbols for each sample
     ConvertedGeneSymbols <- convertAccessions(wgcnaResults = wgcnaResults, mart = mart)
 
-    geneUniverse <- unique(ConvertedGeneSymbols[[1]])
+    geneUniverse <- unique(ConvertedGeneSymbols[[1]]) 
     ConvertedGeneSymbolsWithoutUniverse <- ConvertedGeneSymbols[2:length(ConvertedGeneSymbols)]
-    names(ConvertedGeneSymbolsWithoutUniverse) <- ModuleNames[2:length(ConvertedGeneSymbols)]
-
+    names(ConvertedGeneSymbolsWithoutUniverse) <- ModuleNames2
+  
+    ## AllezEnriched function is adapted from the enrich_shiny application that can be found as a standalone, R shiny-based application 
+    ## at https://github.com/lengning/Enrich_shiny. The Enrich_shiny application uses Allez for GO enrichment analysis. 
+    ## The allez package can be found at https://github.com/wiscstatman/allez. 
     AllezEnriched <- list()
     for(i in 1:length(ConvertedGeneSymbolsWithoutUniverse)){
       AllezEnriched[[i]] <- enrichAllez(ConvertedGeneSymbolsWithoutUniverse[[i]],
                                         GeneUniverse = geneUniverse,
-                                        SpeciesLibrary = speciesLibrary) #species library
+                                        SpeciesLibrary = AnimalsAndDatabases[[3]][organismIndex]) #species library
       # is defined in the control flow in lines 462-473
     }
+    names(AllezEnriched) <- ModuleNames2
 
     ## Create the workbook with the Allez sheets
-    createAllezEnrichmentXLSX(geneUniverse, AllezPvalues)
+    path <- getwd()
+    dir.create(file.path(path, "Results"))
+    createAllezEnrichmentXLSX(geneUniverse, AllezEnriched)
 
     message("Allez Enrichment workflow completed")
   })
