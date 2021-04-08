@@ -1,0 +1,25 @@
+{
+    "id": "D17E4418",
+    "path": "~/GitHub/MetaNetwork/R/Enrichment workflow functions.R",
+    "project_path": "R/Enrichment workflow functions.R",
+    "type": "r_source",
+    "hash": "2321334138",
+    "contents": "",
+    "dirty": false,
+    "created": 1611592795263.0,
+    "source_on_save": false,
+    "relative_order": 2,
+    "properties": {
+        "tempName": "Untitled1",
+        "cursorPosition": "20,3",
+        "scrollLine": "0"
+    },
+    "folds": "99|29|144|0|\n148|36|157|0|\n160|73|195|0|\n198|60|226|0|\n",
+    "lastKnownWriteTime": 1611780035,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1611780035110,
+    "read_only": false,
+    "read_only_alternatives": []
+}

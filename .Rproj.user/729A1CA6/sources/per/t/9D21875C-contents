@@ -1,0 +1,29 @@
+Package: MetaNetwork
+Title: What the Package Does (One Line, Title Case)
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Austin",
+           family = "Carr",
+           role = c("aut", "cre"),
+           email = "first.last@example.com",
+           comment = c(ORCID = "YOUR-ORCID-ID"))
+Description: Performs weight gene correlation network analysis (WGCNA) on proteomics data.
+License: `use_mit_license()'
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+biocViews: 
+Imports: 
+  shiny ()
+  heatmap3
+  WGCNA
+  readxl
+  openxlsx
+  BiocManager
+  tidyverse
+  allez
+  ggdendro
+  biomaRt
+Remotes: 
+  github::wiscstatman/allez
