@@ -2238,6 +2238,7 @@ library(zip)
   ### App script
   ### App Settings
   options(shiny.maxRequestSize = 30 * 1024^2)
+  dir_temp <- tempdir()
   ## App library dependencies
 
   if(!require(tidyverse)) install.packages("tidyverse")
@@ -2552,12 +2553,6 @@ library(zip)
 
 
     })
-    ## Create temporary directory in response to creation of server output object
-    ## Needs to happen first thing after the server output is created
-    dir_temp <- observe({
-      req(WGCNA_workflow_results)
-      tempdir()
-    })
     ## Update the inputs for the selection menus when WGCNA_workflow_results finishes
     ## This observer function: 
     ## 1. Updates module name depedent picker inputs
@@ -2653,11 +2648,11 @@ library(zip)
                          "Module_Eigenprotein_Plots/density",
                          "Eigenprotein_Diagnostics")
 
-        dir.create(file.path(dir_temp(), "Results"))
+        dir.create(file.path(dir_temp, "Results"))
         for(i in 1:length(directories)){
-          dir.create(file.path(dir_temp(), "Results", directories[i]))
+          dir.create(file.path(dir_temp, "Results", directories[i]))
         }
-        path_to_temp <- file.path(dir_temp(), "Results")
+        path_to_temp <- file.path(dir_temp, "Results")
         WriteResultsToTempFolder(WGCNA_workflow_results(), path_to_temp)
         zip::zipr(zipfile = file.path(dir_temp, "WGCNAResults.zip"), files = path_to_temp)
       })
@@ -2669,7 +2664,7 @@ library(zip)
                                     "zip",
                                     sep = "."))},
         content = function(file){
-          file.copy(file.path(dir_temp(), "WGCNAResults.zip"), file)
+          file.copy(file.path(dir_temp, "WGCNAResults.zip"), file)
         },
         contentType = "application/zip"
       )
