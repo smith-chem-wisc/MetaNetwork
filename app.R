@@ -14,6 +14,7 @@ if(!require(shinyWidgets)) install.packages("shinyWidgets", dependencies = TRUE)
 if(!require(gprofiler2)) install.packages("gprofiler2", dependencies = TRUE)
 if(!require(withr)) install.packages("withr")
 if(!require(zip)) devtools::install_github("zip")
+if(!require(rmarkdown)) install.packages("rmarkdown")
 
 library(BiocManager)
 options(repos = BiocManager::repositories())
@@ -2237,6 +2238,7 @@ library(zip)
   ### App script
   ### App Settings
   options(shiny.maxRequestSize = 30 * 1024^2)
+  dir_temp <- tempdir()
   ## App library dependencies
 
   if(!require(tidyverse)) install.packages("tidyverse")
@@ -2551,10 +2553,14 @@ library(zip)
 
 
     })
-
     ## Update the inputs for the selection menus when WGCNA_workflow_results finishes
+    ## This observer function: 
+    ## 1. Updates module name depedent picker inputs
+    ## 2. Selects the plots to display in response to user input
+    ## 3. Creates the temporary directory in preparation for call to downloadHandler. 
     observe({
       req(WGCNA_workflow_results())
+      ## Updates the picker input with the names of the modules
       module_names <- fetch_gProfiler_names(WGCNA_workflow_results())
 
       module_colors <- list()
@@ -2582,7 +2588,7 @@ library(zip)
                         inputId = "module_data",
                         choices = module_colors)
 
-      ## WGCNA Diagnostics Plots
+      ## Renders ME plots Diagnostics Plots on input changes
       observe({
         req(WGCNA_workflow_results())
         output$MEPlot <- renderPlot(
@@ -2591,7 +2597,7 @@ library(zip)
                               plot_name = input$module)
         )
       })
-
+      ## Renders gprofiler plots on input change
       observe({
         req(WGCNA_workflow_results())
         output$gProfilerPlot <- renderPlotly(
@@ -2599,7 +2605,7 @@ library(zip)
                                 plot_name = input$selectModule)
         )
       })
-
+      ## Renders Diagnostic plots on input changes
       observe({
         req(WGCNA_workflow_results())
         output$diagnostic_plot <- renderPlot(
@@ -2607,7 +2613,7 @@ library(zip)
                                        plot = input$plot_select)
         )
       })
-
+      ## Renders data tables for displaying propvar, gprofiler, and module membership results
       output$prop_var <- DT::renderDT(
         prop_var_output(WGCNA_workflow_results()),
       )
@@ -2630,9 +2636,11 @@ library(zip)
                                         input$module_data)
         )
       })
+      ## Creates folders and names and save plots for download in a temporary 
+      ## folder in preparation for call to download handler
       observe({
         req(WGCNA_workflow_results())
-        dir_temp <- tempdir()
+
         directories <- c("gProfiler_Plots",
                          "Module_Eigenprotein_Plots",
                          "Module_Eigenprotein_Plots/boxplots",
@@ -2650,6 +2658,7 @@ library(zip)
       })
 
     })
+    
     output$downloader <- downloadHandler(
         filename = function(){file.path(paste("WGCNAResults",
                                     "zip",
