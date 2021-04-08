@@ -2631,9 +2631,15 @@ library(zip)
                                         input$module_data)
         )
       })
+      ## Create temporary directory in response to creation of server output object
+      dir_temp <- observe({
+        req(WGCNA_workflow_results)
+            tempdir()
+            })
+      
       observe({
         req(WGCNA_workflow_results())
-        dir_temp <- tempdir()
+
         directories <- c("gProfiler_Plots",
                          "Module_Eigenprotein_Plots",
                          "Module_Eigenprotein_Plots/boxplots",
@@ -2641,11 +2647,11 @@ library(zip)
                          "Module_Eigenprotein_Plots/density",
                          "Eigenprotein_Diagnostics")
 
-        dir.create(file.path(dir_temp, "Results"))
+        dir.create(file.path(dir_temp(), "Results"))
         for(i in 1:length(directories)){
-          dir.create(file.path(dir_temp, "Results", directories[i]))
+          dir.create(file.path(dir_temp(), "Results", directories[i]))
         }
-        path_to_temp <- file.path(dir_temp, "Results")
+        path_to_temp <- file.path(dir_temp(), "Results")
         WriteResultsToTempFolder(WGCNA_workflow_results(), path_to_temp)
         zip::zipr(zipfile = file.path(dir_temp, "WGCNAResults.zip"), files = path_to_temp)
       })
