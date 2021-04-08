@@ -32,7 +32,7 @@ library(WGCNA)
 library(withr)
 library(zip)
 ## Classes ####
-### Classes
+### Classesx
   ## Classes not S4 need to be set as S4 classes using the setClass function: ####
   setClass("hclust")
   setClass("ggplot")
@@ -570,7 +570,7 @@ library(zip)
         OverridePower = OverridePower,
         AutomaticPowerSelection = AutomaticPowerSelection)
   }
-
+  ## ModuleEigenprotein Plots ####
   ModuleEigenproteinPlots <- function(METidy,
                                       comparisonsObject){
     MEPlotsOutput <- new("ModuleEigenproteinPlots")
@@ -1518,6 +1518,25 @@ library(zip)
                                               RsquaredCut = PowerObject@R_squared_cutoff,
                                               powerVector = PowerObject@powerVector,
                                               verbose = 5)
+              ## check_soft_threshold_power_estimate makes sure that sft is returning a non-NA
+              ##  value for the power estimate.
+              if(!check_soft_threshold_power_estimate(sft)){
+                message("Power determination failed to reach scale-free topology threshold. \n
+                        Defaulting to power selection based on the number of samples.")
+                number_samples <- length(CleanData@Samples)
+                if (PowerObject@networkType == "signed"){
+                  if (number_samples < 20) sft$powerEstimate <- 18
+                  if (number_samples >= 20 & number_samples < 30) sft$powerEstimate <- 16
+                  if (number_samples >= 30 & number_samples < 40) sft$powerEstimate <- 14
+                  if (number_samples >= 40) sft$powerEstimate <- 12
+                }else if (PowerObject@networkType == "unsigned"){
+                  if (number_samples < 20) sft$powerEstimate <- 9
+                  if (number_samples >= 20 & number_samples < 30) sft$powerEstimate <- 8
+                  if (number_samples >= 30 & number_samples < 40) sft$powerEstimate <- 7
+                  if (number_samples >= 40) sft$powerEstimate <- 6
+                }
+              }
+              
               ScaleFreeTopologyObject@fitIndices <- sft$fitIndices
               ScaleFreeTopologyObject@Parameters <- PowerObject
               ScaleFreeTopologyObject@powerEstimate <- sft$powerEstimate
@@ -1527,7 +1546,6 @@ library(zip)
               }
               ScaleFreeTopologyObject
             })
-
 
   ## ScaleFreeTopologyPlot ####
   setMethod("ScaleFreeTopologyPlot",
