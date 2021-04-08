@@ -2656,7 +2656,7 @@ library(zip)
                                     "zip",
                                     sep = "."))},
         content = function(file){
-          file.copy(file.path(dir_temp, "WGCNAResults.zip"), file)
+          file.copy(file.path(dir_temp(), "WGCNAResults.zip"), file)
         },
         contentType = "application/zip"
       )
