@@ -11,6 +11,7 @@ MetaNetwork requires:
 If running in the RGui, MetaNetwork requires the installation of Pandoc[https://pandoc.org/]. For Windows computers, run the following code in RGui to install Pandoc: 
 
 install.packages(c("installr", "rmarkdown"))
+
 installr::install.pandoc() 
 
 Pandoc will begin downloading and require a restart before MetaNetwork will function correctly. 
@@ -21,6 +22,7 @@ rmarkdown::find_pandoc()
 This command should return the version and location of the Pandoc installation. MetaNetwork will be ready to run using the following commands: 
 
 install.packages("shiny") 
+
 shiny::runGitHub("MetaNetwork", "smith-chem-wisc")
 
 [![image](https://user-images.githubusercontent.com/64652734/114082840-dd83de80-9873-11eb-86cf-1f1e6bdac27b.png)]
@@ -33,6 +35,7 @@ On MacOS, we recommend using RStudio to run MetaNetwork if because the install.p
 Type the following commands into the console of RStudio to run MetaNetwork on either Windows or Mac: 
 
 install.packages("shiny") 
+
 shiny::runGitHub("MetaNetwork", "smith-chem-wisc")
 
 [![image](https://user-images.githubusercontent.com/64652734/114083000-12903100-9874-11eb-9df8-97c2febd74af.png)
