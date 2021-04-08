@@ -14,6 +14,7 @@ if(!require(shinyWidgets)) install.packages("shinyWidgets", dependencies = TRUE)
 if(!require(gprofiler2)) install.packages("gprofiler2", dependencies = TRUE)
 if(!require(withr)) install.packages("withr")
 if(!require(zip)) devtools::install_github("zip")
+if(!require(rmarkdown)) install.packages("rmarkdown")
 
 library(BiocManager)
 options(repos = BiocManager::repositories())
