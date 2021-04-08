@@ -2270,20 +2270,23 @@ library(zip)
                tabPanel("WGCNA Workflow",
                         sidebarPanel(
                           fileInput(inputId = "dataFile",
-                                    label = "Upload data (.csv file)"),
+                                    label = "Upload data file (.csv file)"),
                           fileInput(inputId = "groupsFile",
-                                    label = "Upload experimental groups (.csv)"),
+                                    label = "Upload experimental groups file (.csv)"),
                           fileInput(inputId = "databaseFile",
-                                    label = "Upload database file"),
+                                    label = "Upload data table file containing gene names, 
+                                    UniProt accessions, and  protein names in .tsv format."),
                           textInput(inputId = "organism",
-                                    label = "Input species in g:Profiler format."),
+                                    label = "Input species in g:Profiler format: 
+                                    H. sapiens = hsapiens; M. musculus = mmusculus."),
                           tags$a(href = "https://biit.cs.ut.ee/gprofiler/page/organism-list",
-                                 "Click here for full reference of g:Profiler compatible organisms and abbreviations."),
+                                 "Click here for full reference of g:Profiler compatible organisms. 
+                                 \n Abbreviations can be found in the 'id' column."),
                           #WGCNA Workflow Parameters
                           h2("WGCNA Parameters"),
                           h3("Network Parameters"),
                           textInput(inputId = "rcutoff",
-                                    label = "Scale-free approximation threshold",
+                                    label = "Scale-free topology approximation threshold",
                                     value = 0.85),
                           textInput(inputId = "powerupper",
                                     label = "Max power for scale-free network testing",
@@ -2301,7 +2304,8 @@ library(zip)
                           br(),
                           h3("Advanced Options"),
                           textInput(inputId = "overridePowerSelection",
-                                    label = "User-entered power selection",
+                                    label = "User-entered power selection. \n 
+                                    Value is not used unless 'Check for automatic power selection' is unchecked.",
                                     value = 12),
                           checkboxInput(inputId = "networkType",
                                         label = "Signed Network",
@@ -2323,10 +2327,7 @@ library(zip)
                                       label = "Output verbosity",
                                       min = 0,
                                       max = 5,
-                                      value = 5),
-                          checkboxInput(inputId = "threads",
-                                        label = "Allow multithreading",
-                                        value = FALSE),
+                                      value = 5), 
                           br(),
                           actionButton(inputId = "RunWGCNAWorkflow",
                                        label = "Submit job")
@@ -2463,14 +2464,9 @@ library(zip)
 
       organismID <- input$organism
 
-      if(input$threads){
-        ## To avoid error when running MetaNetwork in quick succession, I added
-        ## closeAllConnections() before enabling WGCNA multi-threading
-        closeAllConnections()
-        WGCNA::enableWGCNAThreads()
-      }else{
-        WGCNA::disableWGCNAThreads()
-      }
+      ## System threading won't work on Mac and it doesn't properly work on Windows, 
+      ## so I needed to explicitly disable all multithreading used by the WGCNA package. 
+      WGCNA::disableWGCNAThreads()
 
       ## Create RawData and CleanData objects from path
       raw_data <-  ReadDataFromPath(RawData(path = path_dataFile))
