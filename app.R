@@ -2552,10 +2552,20 @@ library(zip)
 
 
     })
-
+    ## Create temporary directory in response to creation of server output object
+    ## Needs to happen first thing after the server output is created
+    dir_temp <- observe({
+      req(WGCNA_workflow_results)
+      tempdir()
+    })
     ## Update the inputs for the selection menus when WGCNA_workflow_results finishes
+    ## This observer function: 
+    ## 1. Updates module name depedent picker inputs
+    ## 2. Selects the plots to display in response to user input
+    ## 3. Creates the temporary directory in preparation for call to downloadHandler. 
     observe({
       req(WGCNA_workflow_results())
+      ## Updates the picker input with the names of the modules
       module_names <- fetch_gProfiler_names(WGCNA_workflow_results())
 
       module_colors <- list()
@@ -2583,7 +2593,7 @@ library(zip)
                         inputId = "module_data",
                         choices = module_colors)
 
-      ## WGCNA Diagnostics Plots
+      ## Renders ME plots Diagnostics Plots on input changes
       observe({
         req(WGCNA_workflow_results())
         output$MEPlot <- renderPlot(
@@ -2592,7 +2602,7 @@ library(zip)
                               plot_name = input$module)
         )
       })
-
+      ## Renders gprofiler plots on input change
       observe({
         req(WGCNA_workflow_results())
         output$gProfilerPlot <- renderPlotly(
@@ -2600,7 +2610,7 @@ library(zip)
                                 plot_name = input$selectModule)
         )
       })
-
+      ## Renders Diagnostic plots on input changes
       observe({
         req(WGCNA_workflow_results())
         output$diagnostic_plot <- renderPlot(
@@ -2608,7 +2618,7 @@ library(zip)
                                        plot = input$plot_select)
         )
       })
-
+      ## Renders data tables for displaying propvar, gprofiler, and module membership results
       output$prop_var <- DT::renderDT(
         prop_var_output(WGCNA_workflow_results()),
       )
@@ -2631,12 +2641,8 @@ library(zip)
                                         input$module_data)
         )
       })
-      ## Create temporary directory in response to creation of server output object
-      dir_temp <- observe({
-        req(WGCNA_workflow_results)
-            tempdir()
-            })
-      
+      ## Creates folders and names and save plots for download in a temporary 
+      ## folder in preparation for call to download handler
       observe({
         req(WGCNA_workflow_results())
 
@@ -2657,6 +2663,7 @@ library(zip)
       })
 
     })
+    
     output$downloader <- downloadHandler(
         filename = function(){file.path(paste("WGCNAResults",
                                     "zip",
