@@ -31,6 +31,7 @@ library(gprofiler2)
 library(WGCNA)
 library(withr)
 library(zip)
+library(rmarkdown)
 ## Classes ####
 ### Classes
   ## Classes not S4 need to be set as S4 classes using the setClass function: ####
