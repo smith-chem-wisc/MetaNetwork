@@ -1510,6 +1510,9 @@ library(rmarkdown)
             })
 
   ## PickSoftThreshold ####
+  check_soft_threshold_power_estimate <- function(object){
+    if(!is.na(object$powerEstimate)){TRUE}else{FALSE}
+  }
   setMethod("PickSoftThreshold",
             signature(PowerObject = "PowerDeterminationParameters",
                       CleanData = "CleanData"),
@@ -1521,7 +1524,7 @@ library(rmarkdown)
                                               verbose = 5)
               ## check_soft_threshold_power_estimate makes sure that sft is returning a non-NA
               ##  value for the power estimate.
-              if(!check_soft_threshold_power_estimate(sft)){
+              if (!check_soft_threshold_power_estimate(sft)){
                 message("Power determination failed to reach scale-free topology threshold. \n
                         Defaulting to power selection based on the number of samples.")
                 number_samples <- length(CleanData@Samples)
@@ -1537,7 +1540,7 @@ library(rmarkdown)
                   if (number_samples >= 40) sft$powerEstimate <- 6
                 }
               }
-              
+
               ScaleFreeTopologyObject@fitIndices <- sft$fitIndices
               ScaleFreeTopologyObject@Parameters <- PowerObject
               ScaleFreeTopologyObject@powerEstimate <- sft$powerEstimate
@@ -2293,13 +2296,13 @@ library(rmarkdown)
                           fileInput(inputId = "groupsFile",
                                     label = "Upload experimental groups file (.csv)"),
                           fileInput(inputId = "databaseFile",
-                                    label = "Upload data table file containing gene names, 
+                                    label = "Upload data table file containing gene names,
                                     UniProt accessions, and  protein names in .tsv format."),
                           textInput(inputId = "organism",
-                                    label = "Input species in g:Profiler format: 
+                                    label = "Input species in g:Profiler format:
                                     H. sapiens = hsapiens; M. musculus = mmusculus."),
                           tags$a(href = "https://biit.cs.ut.ee/gprofiler/page/organism-list",
-                                 "Click here for full reference of g:Profiler compatible organisms. 
+                                 "Click here for full reference of g:Profiler compatible organisms.
                                  \n Abbreviations can be found in the 'id' column."),
                           #WGCNA Workflow Parameters
                           h2("WGCNA Parameters"),
@@ -2323,7 +2326,7 @@ library(rmarkdown)
                           br(),
                           h3("Advanced Options"),
                           textInput(inputId = "overridePowerSelection",
-                                    label = "User-entered power selection. \n 
+                                    label = "User-entered power selection. \n
                                     Value is not used unless 'Check for automatic power selection' is unchecked.",
                                     value = 12),
                           checkboxInput(inputId = "networkType",
@@ -2346,7 +2349,7 @@ library(rmarkdown)
                                       label = "Output verbosity",
                                       min = 0,
                                       max = 5,
-                                      value = 5), 
+                                      value = 5),
                           br(),
                           actionButton(inputId = "RunWGCNAWorkflow",
                                        label = "Submit job")
@@ -2483,8 +2486,8 @@ library(rmarkdown)
 
       organismID <- input$organism
 
-      ## System threading won't work on Mac and it doesn't properly work on Windows, 
-      ## so I needed to explicitly disable all multithreading used by the WGCNA package. 
+      ## System threading won't work on Mac and it doesn't properly work on Windows,
+      ## so I needed to explicitly disable all multithreading used by the WGCNA package.
       WGCNA::disableWGCNAThreads()
 
       ## Create RawData and CleanData objects from path
@@ -2569,10 +2572,10 @@ library(rmarkdown)
 
     })
     ## Update the inputs for the selection menus when WGCNA_workflow_results finishes
-    ## This observer function: 
+    ## This observer function:
     ## 1. Updates module name depedent picker inputs
     ## 2. Selects the plots to display in response to user input
-    ## 3. Creates the temporary directory in preparation for call to downloadHandler. 
+    ## 3. Creates the temporary directory in preparation for call to downloadHandler.
     observe({
       req(WGCNA_workflow_results())
       ## Updates the picker input with the names of the modules
@@ -2651,7 +2654,7 @@ library(rmarkdown)
                                         input$module_data)
         )
       })
-      ## Creates folders and names and save plots for download in a temporary 
+      ## Creates folders and names and save plots for download in a temporary
       ## folder in preparation for call to download handler
       observe({
         req(WGCNA_workflow_results())
@@ -2673,7 +2676,7 @@ library(rmarkdown)
       })
 
     })
-    
+
     output$downloader <- downloadHandler(
         filename = function(){file.path(paste("WGCNAResults",
                                     "zip",
