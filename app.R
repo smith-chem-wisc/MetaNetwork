@@ -1152,6 +1152,12 @@ library(rmarkdown)
             definition = function(MEPlots){
               MEPlots@Plots@ModuleEigenproteinPlots@Violin
             })
+
+  setMethod("fetch_violin_plots", signature(MEPlots = "ModuleEigenproteinPlots"),
+            definition = function(MEPlots){
+              MEPlots@Violin
+            })
+
   setMethod("fetch_boxplots", signature(MEPlots = "ServerOutput"),
             definition = function(MEPlots){
               MEPlots@Plots@ModuleEigenproteinPlots@Boxplot
@@ -1164,6 +1170,11 @@ library(rmarkdown)
             definition = function(MEPlots){
               MEPlots@Plots@ModuleEigenproteinPlots@Density
             })
+  setMethod("fetch_density_plots", signature(MEPlots = "ModuleEigenproteinPlots"),
+            definition = function(MEPlots){
+              MEPlots@Density
+            })
+
 
   ## get_specific_MEPlot ####
   setMethod("get_specific_MEPlot", signature(parent = "ServerOutput",
