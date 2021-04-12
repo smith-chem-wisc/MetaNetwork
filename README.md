@@ -1,5 +1,5 @@
 # MetaNetwork
-Network analysis and visualization of proteomics data using weighted gene correlation network analysis. 
+Network analysis and visualization of proteomics data using weighted gene correlation network analysis. This file details how to run MetaNetwork. [MetaNetwork's wiki](https://github.com/smith-chem-wisc/MetaNetwork/wiki) contains a vignette using data available in this GitHub repository and details how to use and interpret MetaNetwork's results.
 
 ## How to Run MetaNetwork
 ### System Requirements
@@ -8,7 +8,7 @@ MetaNetwork requires:
   (optional) RStudio 1.3.1073
 ### Running MetaNetwork via RGui
 #### Windows
-If running in the RGui, MetaNetwork requires the installation of Pandoc[https://pandoc.org/]. For Windows computers, run the following code in RGui to install Pandoc: 
+If running in the RGui, MetaNetwork requires the installation of (Pandoc)[https://pandoc.org/]. For Windows computers, run the following code in RGui to install Pandoc: 
 
 install.packages(c("installr", "rmarkdown"))
 
