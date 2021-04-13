@@ -12,6 +12,7 @@ if(!require(plotly)) install.packages("plotly", dependencies = TRUE)
 if(!require(shinythemes)) install.packages("shinythemes", dependencies = TRUE)
 if(!require(shinyWidgets)) install.packages("shinyWidgets", dependencies = TRUE)
 if(!require(gprofiler2)) install.packages("gprofiler2", dependencies = TRUE)
+if(!require(ggdendro)) install.packages("ggdendro", dependencies = TRUE)
 if(!require(withr)) install.packages("withr")
 if(!require(zip)) devtools::install_github("zip")
 if(!require(rmarkdown)) install.packages("rmarkdown")
@@ -32,6 +33,7 @@ library(WGCNA)
 library(withr)
 library(zip)
 library(rmarkdown)
+library(ggdendro)
 ## Classes ####
 ### Classesx
   ## Classes not S4 need to be set as S4 classes using the setClass function: ####
