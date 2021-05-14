@@ -2298,7 +2298,7 @@ gprofiler2::set_base_url("http://www.biit.cs.ut.ee/gprofiler_archive3/e102_eg49_
   # source("./R/S4_generics.R")
   # source("./R/S4_methods.R")
 
-  ### Shiny UI
+  ### Shiny UI ####
   ui <- bootstrapPage(
     navbarPage(title = "MetaNetwork",
                theme = shinytheme("flatly"),
@@ -2345,7 +2345,8 @@ gprofiler2::set_base_url("http://www.biit.cs.ut.ee/gprofiler_archive3/e102_eg49_
                           h3("Advanced Options"),
                           textInput(inputId = "overridePowerSelection",
                                     label = "User-entered power selection. \n
-                                    Value is not used unless 'Check for automatic power selection' is unchecked.",
+                                    Value is not used unless 'Check for automatic 
+                                    power selection' is unchecked.",
                                     value = 12),
                           checkboxInput(inputId = "networkType",
                                         label = "Signed Network",
@@ -2380,7 +2381,8 @@ gprofiler2::set_base_url("http://www.biit.cs.ut.ee/gprofiler_archive3/e102_eg49_
                             tabPanel("Experimental Groups",
                                      DT::DTOutput("ExpGroupsFilePreview")
                             )
-                          ))
+                          ), 
+                          textOutput(outputId = "WorkflowCompletion"))
                ),
                tabPanel("WGCNA Diagnostics",
                         sidebarPanel(
@@ -2457,7 +2459,7 @@ gprofiler2::set_base_url("http://www.biit.cs.ut.ee/gprofiler_archive3/e102_eg49_
                tabPanel("About MetaNetwork")
     )
   )
-
+  ## Server ####
   server <- function(input, output, session){
     output$DataFilePreview <- DT::renderDT({
 
@@ -2587,15 +2589,23 @@ gprofiler2::set_base_url("http://www.biit.cs.ut.ee/gprofiler_archive3/e102_eg49_
       CreateServerOutput(PlotsOutput = plots_output, DataOutput = data_output)
 
 
-
-    })
+    }) ## End of WGCNA Workflow
+    
+    ## DATA VISUALIZATION
+    ## 
     ## Update the inputs for the selection menus when WGCNA_workflow_results finishes
     ## This observer function:
-    ## 1. Updates module name depedent picker inputs
+    ## 1. Updates module name dependent picker inputs
     ## 2. Selects the plots to display in response to user input
     ## 3. Creates the temporary directory in preparation for call to downloadHandler.
+
     observe({
       req(WGCNA_workflow_results())
+      ## Message indicating workflow is complete
+      output$WorkflowCompletion <- renderText({
+        "WGCNA Workflow Complete."
+      })
+      showNotification("WGCNA Workflow Complete")
       ## Updates the picker input with the names of the modules
       module_names <- fetch_gProfiler_names(WGCNA_workflow_results())
 
