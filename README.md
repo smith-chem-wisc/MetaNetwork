@@ -9,7 +9,7 @@ Network analysis and visualization of proteomics data using weighted gene correl
 2. Type the following commands into the console of RStudio to run MetaNetwork on either Windows or MacOS: 
 
 ```
-install.packages("shiny") 
+if(!require(shiny)) install.packages("shiny", dependencies = TRUE)
 shiny::runGitHub("MetaNetwork", "smith-chem-wisc")
 ```
 
