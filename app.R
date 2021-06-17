@@ -2509,6 +2509,15 @@ gprofiler2::set_base_url("http://www.biit.cs.ut.ee/gprofiler_archive3/e102_eg49_
       ## System threading won't work on Mac and it doesn't properly work on Windows,
       ## so I needed to explicitly disable all multithreading used by the WGCNA package.
       WGCNA::disableWGCNAThreads()
+      
+      ## Begin data cleanup and calculations here: 
+      progress <- Progress$new(session, min = 1, max = 6) 
+      on.exit(progress$close())
+      progress$set(message = "WGCNA Workflow in progress.", 
+                   detail = "This may take some time.")
+      progress$set(value = 1)
+      ## The above code is R6 OOP FYI
+      ## ## $ symbol calls method like "." in C# 
 
       ## Create RawData and CleanData objects from path
       raw_data <-  ReadDataFromPath(RawData(path = path_dataFile))
@@ -2535,6 +2544,7 @@ gprofiler2::set_base_url("http://www.biit.cs.ut.ee/gprofiler_archive3/e102_eg49_
                  TRUE,
                  FALSE)
       )
+      progress$set(value = 2) ## update progress bar
       sft_object <- PickSoftThreshold(power_parameters, cleaned_data)
       sft_object <- ScaleFreeTopologyPlot(sft_object)
       ## Create the WGCNAParameters Object
@@ -2549,10 +2559,12 @@ gprofiler2::set_base_url("http://www.biit.cs.ut.ee/gprofiler_archive3/e102_eg49_
                                           maxBlockSize = maxBlockSize,
                                           nPreclusteringCenters = nPreclusteringCenters,
                                           verbose = verbosity)
+      progress$set(value = 3) ## update progress bar
       ## Run WGCNA and save results in a WGCNA Results Object
       wgcna_results_object <- WGCNAResults(
         results = RunBlockwiseModules(wgcna_parameters, cleaned_data = cleaned_data),
         CleanData = cleaned_data, ExperimentalGroups = exp_groups)
+      progress$set(value = 4) ## update progress bar
 
       ## Create tidy module eigenproteins
       mep_object <- ModuleEigenproteinsTidy(wgcna_results_object,
@@ -2569,6 +2581,7 @@ gprofiler2::set_base_url("http://www.biit.cs.ut.ee/gprofiler_archive3/e102_eg49_
       ## Run g:Profiler enrichment analysis
       gProfiler_results <- gost(gprofiler_parameters,
                                 module_membership)
+      progress$set(value = 5) ## update progress bar
       ## Build PlotsOutput Object
       plots_output <- BuildAllPlots(METidy = mep_object,
                                     WGCNAResults = wgcna_results_object,
@@ -2587,6 +2600,8 @@ gprofiler2::set_base_url("http://www.biit.cs.ut.ee/gprofiler_archive3/e102_eg49_
       ## Build DataOutput object
       ## Combine plots and data to make final output object
       CreateServerOutput(PlotsOutput = plots_output, DataOutput = data_output)
+      progress$set(value = 6) ## update progress bar
+      
 
 
     }) ## End of WGCNA Workflow
