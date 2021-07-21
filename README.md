@@ -9,6 +9,7 @@ Network analysis and visualization of proteomics data using weighted gene correl
 2. Open Terminal (Mac) or Powershell (Windows).
 3. Run the following code to download and launch MetaNetwork: 
 ```
+docker pull 
 docker run --p 3838:3838 avc167/metanetwork:latest
 ```
 Open a web browser and type localhost:3838 (Windows) or 0.0.0.0:3838 into the search bar. MetaNetwork will now be visible. 
