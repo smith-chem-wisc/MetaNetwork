@@ -3,7 +3,17 @@ Network analysis and visualization of proteomics data using weighted gene correl
 
 ## How to Run MetaNetwork
 
-### Installing and running MetaNetwork via RStudio (Windows and MacOS)
+### (Reccomended) Run from Docker
+
+1. Download [Docker](https://docs.docker.com/get-docker/) compatible with your operating system. 
+2. Open Terminal (Mac) or Powershell (Windows).
+3. Run the following code to download and launch MetaNetwork: 
+```
+docker run --p 3838:3838 avc167/metanetwork:latest
+```
+Open a web browser and type localhost:3838 (Windows) or 0.0.0.0:3838 into the search bar. MetaNetwork will now be visible. 
+
+### (Not recommended) Installing and running MetaNetwork via RStudio (Windows and MacOS)
 
 1. Install [RStudio](https://www.rstudio.com)
 2. Type the following commands into the console of RStudio to run MetaNetwork on either Windows or MacOS: 
@@ -15,7 +25,7 @@ shiny::runGitHub("MetaNetwork", "smith-chem-wisc")
 
 ![image](https://user-images.githubusercontent.com/64652734/114083000-12903100-9874-11eb-9df8-97c2febd74af.png)
 
-### Installing and running MetaNetwork via RGui
+### (Not recommended) Installing and running MetaNetwork via RGui
 
 1. Please see instructions below for setting up Pandoc in the system environment. 
 2. Then, MetaNetwork will be ready to run using the following commands:
@@ -26,9 +36,6 @@ shiny::runGitHub("MetaNetwork", "smith-chem-wisc")
 ```
 
 ![image](https://user-images.githubusercontent.com/64652734/114082840-dd83de80-9873-11eb-86cf-1f1e6bdac27b.png)
-
-### Running MetaNetwork via ShinyApps server
-https://avc167.shinyapps.io/MetaNetwork_Shiny/ is the link to the web app version of MetaNetwork. Note that this version of MetaNetwork does not have access to the console log or any error messages produced, so it is impossible to troubleshoot. Future updates will add console logs and error messages. 
 
 ## System Requirements
 MetaNetwork requires: 
