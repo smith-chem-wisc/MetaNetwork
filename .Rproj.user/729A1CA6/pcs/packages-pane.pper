@@ -1,0 +1,7 @@
+{
+    "installOptions": {
+        "installFromRepository": true,
+        "libraryPath": "C:/Users/Austin/Documents/GitHub/MetaNetwork/renv/library/R-4.0/x86_64-w64-mingw32",
+        "installDependencies": true
+    }
+}
