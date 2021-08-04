@@ -2483,8 +2483,7 @@ gprofiler2::set_base_url("http://www.biit.cs.ut.ee/gprofiler_archive3/e102_eg49_
                         sidebarPanel(
                           downloadButton(outputId = "downloader",
                                          label = "Download MetaNetwork Results")
-                        )),
-               tabPanel("About MetaNetwork")
+                        ))
     )
   )
   ## Server ####
