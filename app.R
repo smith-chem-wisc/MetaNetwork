@@ -2599,8 +2599,9 @@ gprofiler2::set_base_url("http://www.biit.cs.ut.ee/gprofiler_archive3/e102_eg49_
 
       ## Build DataOutput object
       ## Combine plots and data to make final output object
-      CreateServerOutput(PlotsOutput = plots_output, DataOutput = data_output)
       progress$set(value = 6) ## update progress bar
+      CreateServerOutput(PlotsOutput = plots_output, DataOutput = data_output)
+
       
 
 
