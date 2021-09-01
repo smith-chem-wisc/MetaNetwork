@@ -2305,7 +2305,7 @@ gprofiler2::set_base_url("http://www.biit.cs.ut.ee/gprofiler_archive3/e102_eg49_
 ## App ####
   ### App script
   ### App Settings
-  options(shiny.maxRequestSize = 30 * 1024^2)
+  options(shiny.maxRequestSize = 300 * 1024^2)
   dir_temp <- tempdir()
   ## App library dependencies
 
