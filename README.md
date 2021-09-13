@@ -14,6 +14,13 @@ docker run --p 3838:3838 avc167/metanetwork:latest
 ```
 Open a web browser and type localhost:3838 (Windows) or 0.0.0.0:3838 into the search bar. MetaNetwork will now be visible. 
 
+#### IMPORTANT NOTE FOR MAC USERS
+Docker for MacOS requires users to allocate memory for its processes. If not enough memory is allocated to MetaNetwork, it will crash without warning or throwing an error message while processing data. To increase the amount of memory allocated to MetaNetwork, you must open the Docker Desktop application and navigate to settings (circled in red in the below image): 
+![image](https://user-images.githubusercontent.com/64652734/133110120-874da43b-2db9-44e0-82c5-422b8f01a17e.png)
+
+Then click Resources, and use the slider to increase the amount of memory and/or CPUs allocated to MetaNetwork's processes. Typically 10 GB of memory enables an analysis of ~8000 proteins without memory issues. 
+![image](https://user-images.githubusercontent.com/64652734/133110586-7799b2ec-ee56-49ef-bc46-f13d370e98ef.png) 
+
 ## Using MetaNetwork
 When running MetaNetwork for the first time, it will take a few moments to load the necessary R packages. The GUI will then be visible. 
 ![image](https://user-images.githubusercontent.com/64652734/114083377-816d8a00-9874-11eb-8e1b-113829b1c5be.png)
