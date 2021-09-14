@@ -897,7 +897,9 @@ gprofiler2::set_base_url("http://www.biit.cs.ut.ee/gprofiler_archive3/e102_eg49_
               dev.off()
 
               ## TOMPlot
-              png(filename = list_of_paths[[8]], width = 1200, height = 1200)
+              png(filename = list_of_paths[[8]], 
+                  width = 1200, height = 1200, 
+                  antialias = "none")
               replayPlot(fetch_TOM_plot(ServerOutput))
               dev.off()
             })
@@ -1978,14 +1980,21 @@ gprofiler2::set_base_url("http://www.biit.cs.ut.ee/gprofiler_archive3/e102_eg49_
                                                       TOMType = WGCNAParameters@networkType,
                                                       replaceMissingAdjacencies =
                                                         WGCNAParameters@replaceMissingAdjacencies)
+              ## Calculate dissimilarity TOM for the clustering. This matches the WGCNA 
+              ## analysis. 
               dissim_TOM <- 1 - sim_TOM
               
+              ## Create the heatmap colors 
+              colors <- c("gold", "orange", "lemonchiffon")
+              heatmapColors <- colorRampPalette(colors)(250)
               plot.new()
               dev.control("enable")
               WGCNA::TOMplot(
                 dissim = dissim_TOM^6,
-                dendro = WGCNAResults@dendrogram@hclust,
-                ColorsLeft = WGCNAResults@colors[WGCNAResults@goodGenes == TRUE]
+                dendro = WGCNAResults@dendrogram@hclust, 
+                Colors = WGCNAResults@colors[WGCNAResults@goodGenes == TRUE], 
+                ColorsLeft = WGCNAResults@colors[WGCNAResults@goodGenes == TRUE],
+                col = colors
               )
               tomplot_output@Plot <- recordPlot()
               dev.off()
