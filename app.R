@@ -54,7 +54,7 @@ gprofiler2::set_base_url("http://www.biit.cs.ut.ee/gprofiler_archive3/e102_eg49_
 
 
 
-
+  ## setOldClass takes an S3 class and puts it into S4 compatible format 
   setOldClass("ggplot")
   setOldClass("gg")
   setOldClass(c("gg", "ggplot")) ## apparently you have to use setOldClass sequentially
@@ -2522,7 +2522,9 @@ gprofiler2::set_base_url("http://www.biit.cs.ut.ee/gprofiler_archive3/e102_eg49_
       minModuleSize <- as.numeric(input$minModuleSize)
       maxBlockSize <- as.numeric(input$maxBlockSize)
       nPreclusteringCenters <- as.numeric(input$nPreclusteringCenters)
-
+      ## Kill MetaNetwork if any of these are NA. 
+      
+      
       automaticPowerSelection <- input$automaticPowerSelection
       overridePowerSelection <- as.numeric(input$overridePowerSelection)
       networkType <- ifelse(input$networkType == TRUE, "signed", "unsigned")

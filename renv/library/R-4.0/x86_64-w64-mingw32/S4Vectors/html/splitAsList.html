@@ -1,0 +1,160 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Divide a vector-like object into groups</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for splitAsList {S4Vectors}"><tr><td>splitAsList {S4Vectors}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Divide a vector-like object into groups</h2>
+
+<h3>Description</h3>
+
+<p><code>split</code> divides the data in a vector-like object <code>x</code> into the
+groups defined by <code>f</code>.
+</p>
+<p>NOTE: This man page is for the <code>split</code> methods defined in the
+<span class="pkg">S4Vectors</span> package. See <code>?base::<a href="../../base/html/split.html">split</a></code> for the
+default method (defined in the <span class="pkg">base</span> package).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S4 method for signature 'Vector,ANY'
+split(x, f, drop=FALSE, ...)
+
+## S4 method for signature 'ANY,Vector'
+split(x, f, drop=FALSE, ...)
+
+## S4 method for signature 'Vector,Vector'
+split(x, f, drop=FALSE, ...)
+
+## S4 method for signature 'list,Vector'
+split(x, f, drop=FALSE, ...)
+
+splitAsList(x, f, drop=FALSE, ...)
+
+relistToClass(x)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x, f</code></td>
+<td>
+
+<p>2 vector-like objects of the same length. <code>f</code> will typically be a
+factor, but not necessarily.
+</p>
+</td></tr>
+<tr valign="top"><td><code>drop</code></td>
+<td>
+
+<p>Logical indicating if levels that do not occur should be dropped (if
+<code>f</code> is a factor).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Extra arguments passed to any of the first 3 <code>split()</code> methods
+will be passed to <code>splitAsList()</code> (see Details below).
+</p>
+<p>Extra arguments passed to the last <code>split()</code> method will be passed
+to <code>base::<a href="../../base/html/split.html">split</a>()</code> (see Details below).
+</p>
+<p>Extra arguments passed to <code>splitAsList()</code> will be passed to the
+specific method selected by method dispatch.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The first 3 <code>split()</code> methods just delegate to <code>splitAsList()</code>.
+</p>
+<p>The last <code>split()</code> method just does:
+</p>
+<pre>    split(x, as.vector(f), drop=drop, ...)
+</pre>
+<p><code>splitAsList()</code> is an S4 generic function. It is the workhorse
+behind the first 3 <code>split()</code> methods above. It behaves like
+<code>base::split()</code> except that it returns a <a href="List-class.html">List</a> derivative
+instead of an ordinary list. The exact class of this <a href="List-class.html">List</a>
+derivative depends only on the class of <code>x</code> and can be obtained
+independently with <code>relistToClass(x)</code>.
+</p>
+<p>Note that <code>relistToClass(x)</code> is the opposite of <code>elementType(y)</code>
+in the sense that the former returns the class of the result of relisting
+(or splitting) <code>x</code> while the latter returns the class of the result
+of unlisting (or unsplitting) <code>y</code>.
+More formally, if <code>x</code> is an object that is relistable and <code>y</code>
+a list-like object:
+</p>
+<pre>    relistToClass(x) is class(relist(x, some_skeleton))
+    elementType(y) is class(unlist(y))
+</pre>
+<p>Therefore, for any object <code>x</code> for which <code>relistToClass(x)</code>
+is defined and returns a valid class,
+<code>elementType(new(relistToClass(x)))</code> should return <code>class(x)</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p><code>splitAsList()</code> and the first 3 <code>split()</code> methods behave like
+<code>base::<a href="../../base/html/split.html">split</a>()</code> except that they return a <a href="List-class.html">List</a>
+derivative (of class <code>relistToClass(x)</code>) instead of an
+ordinary list. Like with <code>base::<a href="../../base/html/split.html">split</a>()</code>, all the
+list elements in this object have the same class as <code>x</code>.
+</p>
+
+
+<h3>See Also</h3>
+
+
+<ul>
+<li><p> The <code><a href="../../base/html/split.html">split</a></code> function in the <span class="pkg">base</span> package.
+</p>
+</li>
+<li><p> The <code><a href="../../IRanges/html/relist.html">relist</a></code> methods and
+<code><a href="../../IRanges/html/extractList.html">extractList</a></code> generic function defined
+in the <span class="pkg">IRanges</span> package.
+</p>
+</li>
+<li> <p><a href="Vector-class.html">Vector</a> and <a href="List-class.html">List</a> objects.
+</p>
+</li>
+<li> <p><a href="Rle-class.html">Rle</a> and <a href="DataFrame-class.html">DataFrame</a> objects.
+</p>
+</li></ul>
+
+
+
+<h3>Examples</h3>
+
+<pre>
+## On an Rle object:
+x &lt;- Rle(101:105, 6:2)
+split(x, c("B", "B", "A", "B", "A"))
+
+## On a DataFrame object:
+groups &lt;- c("group1", "group2")
+DF &lt;- DataFrame(
+    a=letters[1:10],
+    i=101:110,
+    group=rep(factor(groups, levels=groups), c(3, 7))
+)
+split(DF, DF$group)
+
+## Use splitAsList() if you need to split an ordinary vector into a
+## List object:
+split(letters, 1:2)        # ordinary list
+splitAsList(letters, 1:2)  # List object
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>S4Vectors</em> version 0.28.1 <a href="00Index.html">Index</a>]</div>
+</body></html>

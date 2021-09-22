@@ -1,0 +1,347 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Factor objects</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for Factor-class {S4Vectors}"><tr><td>Factor-class {S4Vectors}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Factor objects</h2>
+
+<h3>Description</h3>
+
+<p>The Factor class serves a similar role as <a href="../../base/html/factor.html">factor</a> in base R (a.k.a.
+ordinary factor) except that the levels of a Factor object can be
+<em>any vector-like object</em>, that is, they can be an ordinary vector
+or a <a href="Vector-class.html">Vector</a> derivative, or even an ordinary factor or another
+Factor object.
+</p>
+<p>A notable difference with ordinary factors is that Factor objects cannot
+contain <code>NA</code>s, at least for now.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+Factor(x, levels, index=NULL, ...)  # constructor function
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x, levels</code></td>
+<td>
+
+<p>At least one of <code>x</code> and <code>levels</code> must be specified.
+If <code>index</code> is <code>NULL</code>, both can be specified.
+</p>
+<p>When <code>levels</code> is specified, it must be a <em>vector-like object</em>
+(see above) with no duplicates (i.e. <code>anyDuplicated(levels)</code> must
+return 0).
+</p>
+<p>When <code>x</code> and <code>levels</code> are both specified, they should
+typically have the same class (or, at least, <code>match(x, levels)</code>
+must work on them), and all the elements in <code>x</code> must be
+represented in <code>levels</code> (i.e. the integer vector returned
+by <code>match(x, levels)</code> should contain no <code>NA</code>s).
+See Details section below.
+</p>
+</td></tr>
+<tr valign="top"><td><code>index</code></td>
+<td>
+
+<p><code>NULL</code> or an integer (or numeric) vector of valid positive indices
+(no <code>NA</code>s) into <code>levels</code>. See Details section below.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Optional metadata columns.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>There are 4 different ways to use the <code>Factor()</code> constructor function:
+</p>
+
+<ol>
+<li> <p><code>Factor(x, levels)</code> (i.e. <code>index</code> is missing):
+In this case <code>match(x, levels)</code> is used internally to encode
+<code>x</code> as a Factor object. An error is returned if some elements
+in <code>x</code> cannot be matched to <code>levels</code> so it's important to
+make sure that all the elements in <code>x</code> are represented in
+<code>levels</code> when doing <code>Factor(x, levels)</code>.
+</p>
+</li>
+<li> <p><code>Factor(x)</code> (i.e. <code>levels</code> and <code>index</code> are missing):
+This is equivalent to <code>Factor(x, levels=unique(x))</code>.
+</p>
+</li>
+<li> <p><code>Factor(levels=levels, index=index)</code> (i.e. <code>x</code> is missing):
+In this case the encoding of the Factor object is supplied via
+<code>index</code>, that is, <code>index</code> must be an integer (or numeric)
+vector of valid positive indices (no <code>NA</code>s) into <code>levels</code>.
+This is the most efficient way to construct a Factor object.
+</p>
+</li>
+<li> <p><code>Factor(levels=levels)</code> (i.e. <code>x</code> and <code>index</code> are
+missing): This is a convenient way to construct a 0-length Factor
+object with the specified levels. In other words, it's equivalent
+to <code>Factor(levels=levels, index=integer(0))</code>.
+</p>
+</li></ol>
+
+
+
+<h3>Value</h3>
+
+<p>A Factor object.
+</p>
+
+
+<h3>Accessors</h3>
+
+<p>Factor objects support the same set of accessors as ordinary factors. That
+is:
+</p>
+
+<ul>
+<li> <p><code>length(x)</code> to get the length of Factor object <code>x</code>.
+</p>
+</li>
+<li> <p><code>names(x)</code> and <code>names(x) &lt;- value</code> to get and set the
+names of Factor object <code>x</code>.
+</p>
+</li>
+<li> <p><code>levels(x)</code> and <code>levels(x) &lt;- value</code> to get and set the
+levels of Factor object <code>x</code>.
+</p>
+</li>
+<li> <p><code>nlevels(x)</code> to get the number of levels of Factor
+object <code>x</code>.
+</p>
+</li>
+<li> <p><code>as.integer(x)</code> to get the encoding of Factor object <code>x</code>.
+Note that <code>length(as.integer(x))</code> and
+<code>names(as.integer(x))</code> are the same as <code>length(x)</code>
+and <code>names(x)</code>, respectively.
+</p>
+</li></ul>
+
+<p>In addition, because Factor objects are <a href="Vector-class.html">Vector</a> derivatives, they
+support the <code>mcols()</code> and <code>metadata()</code> getters and setters.
+</p>
+
+
+<h3>Decoding a Factor</h3>
+
+<p><code>unfactor(x)</code> can be used to <em>decode</em> Factor object <code>x</code>.
+It returns an object of the same class as <code>levels(x)</code> and same length
+as <code>x</code>. Note that it is the analog of <code>as.character()</code> on ordinary
+factors, with the notable difference that <code>unfactor(x)</code> propagates the
+names on <code>x</code>.
+</p>
+<p>For convenience, <code>unfactor(x)</code> also works on ordinary factor <code>x</code>.
+</p>
+<p><code>unfactor()</code> supports extra arguments <code>use.names</code> and
+<code>ignore.mcols</code> to control whether the names and metadata columns
+on the Factor object to decode should be propagated or not.
+By default they are propagated, that is, the default values for
+<code>use.names</code> and <code>ignore.mcols</code> are <code>TRUE</code> and
+<code>FALSE</code>, respectively.
+</p>
+
+
+<h3>Coercion</h3>
+
+<p>From vector or Vector to Factor: coercion of a vector-like object <code>x</code>
+to Factor is supported via <code>as(x, "Factor")</code> and is equivalent to
+<code>Factor(x)</code>. There are 2 IMPORTANT EXCEPTIONS to this:
+</p>
+
+<ol>
+<li><p> If <code>x</code> is an ordinary factor, <code>as(x, "Factor")</code> returns
+a Factor with the same levels, encoding, and names, as <code>x</code>.
+Note that after coercing an ordinary factor to Factor, going back
+to factor again (with <code>as.factor()</code>) restores the original
+object with no loss.
+</p>
+</li>
+<li><p> If <code>x</code> is a Factor object, <code>as(x, "Factor")</code> is either
+a no-op (when <code>x</code> is a Factor <em>instance</em>), or a
+demotion to Factor (when <code>x</code> is a Factor derivative like
+<a href="../../GenomicRanges/html/GRangesFactor.html">GRangesFactor</a>).
+</p>
+</li></ol>
+
+<p>From Factor to integer: <code>as.integer(x)</code> is supported on Factor object
+<code>x</code> and returns its encoding (see Accessors section above).
+</p>
+<p>From Factor to factor: <code>as.factor(x)</code> is supported on Factor object
+<code>x</code> and returns an ordinary factor where the levels are
+<code>as.character(levels(x))</code>.
+</p>
+<p>From Factor to character: <code>as.character(x)</code> is supported on Factor
+object <code>x</code> and is equivalent to <code>unfactor(as.factor(x))</code>, which
+is also equivalent to <code>as.character(unfactor(x))</code>.
+</p>
+
+
+<h3>Subsetting</h3>
+
+<p>A Factor object can be subsetted with <code>[</code>, like an ordinary factor.
+</p>
+
+
+<h3>Concatenation</h3>
+
+<p>2 or more Factor objects can be concatenated with <code>c()</code>.
+Note that, unlike with ordinary factors, <code>c()</code> on Factor objects
+preserves the class i.e. it returns a Factor object. In other words,
+<code>c()</code> acts as an <em>endomorphism</em> on Factor objects.
+</p>
+<p>The levels of <code>c(x, y)</code> are obtained by appending to <code>levels(x)</code>
+the levels in <code>levels(y)</code> that are &quot;new&quot; i.e. that are not already
+in <code>levels(x)</code>.
+</p>
+<p><code>append()</code>, which is implemented on top of <code>c()</code>, also works
+on Factor objects.
+</p>
+
+
+<h3>Comparing &amp; Ordering</h3>
+
+<p>Comparing (e.g. <code>==</code>, <code>!=</code>, <code>&lt;=</code>, <code>&lt;</code>, <code>match()</code>)
+and ordering (e.g. <code>order()</code>, <code>sort()</code>, <code>rank()</code>) Factor
+objects is supported and behave like on the <em>unfactored</em> objects.
+</p>
+<p>For example <code>F1 &lt;= F2</code>, <code>match(F1, F2)</code>, and <code>sort(F1)</code>,
+are equivalent to <code>unfactor(F1) &lt;= unfactor(F2)</code>,
+<code>match(unfactor(F1), unfactor(F2))</code>, and <code>sort(unfactor(F1))</code>,
+respectively.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Hervé Pagès, with contributions from Aaron Lun</p>
+
+
+<h3>See Also</h3>
+
+
+<ul>
+<li> <p><a href="../../base/html/factor.html">factor</a> in base R.
+</p>
+</li>
+<li> <p><a href="../../GenomicRanges/html/GRangesFactor.html">GRangesFactor</a> objects in the
+<span class="pkg">GenomicRanges</span> package.
+</p>
+</li>
+<li> <p><a href="../../IRanges/html/IRanges.html">IRanges</a> objects in the <span class="pkg">IRanges</span> package.
+</p>
+</li>
+<li> <p><a href="Vector-class.html">Vector</a> objects for the parent class.
+</p>
+</li>
+<li> <p><code><a href="../../BiocGenerics/html/anyDuplicated.html">anyDuplicated</a></code> in the <span class="pkg">BiocGenerics</span>
+package.
+</p>
+</li></ul>
+
+
+
+<h3>Examples</h3>
+
+<pre>
+showClass("Factor")  # Factor extends Vector
+
+## ---------------------------------------------------------------------
+## CONSTRUCTOR &amp; ACCESSORS
+## ---------------------------------------------------------------------
+library(IRanges)
+set.seed(123)
+ir0 &lt;- IRanges(sample(5, 8, replace=TRUE), width=10,
+               names=letters[1:8], ID=paste0("ID", 1:8))
+
+## Use explicit levels:
+ir1 &lt;- IRanges(1:6, width=10)
+F1 &lt;- Factor(ir0, levels=ir1)
+F1
+length(F1)
+names(F1)
+levels(F1)  # ir1
+nlevels(F1)
+as.integer(F1)  # encoding
+
+## If we don't specify the levels, they'll be set to unique(ir0):
+F2 &lt;- Factor(ir0)
+F2
+length(F2)
+names(F2)
+levels(F2)  # unique(ir0)
+nlevels(F2)
+as.integer(F2)
+
+## ---------------------------------------------------------------------
+## DECODING
+## ---------------------------------------------------------------------
+unfactor(F1)
+
+stopifnot(identical(ir0, unfactor(F1)))
+stopifnot(identical(ir0, unfactor(F2)))
+
+unfactor(F1, use.names=FALSE)
+unfactor(F1, ignore.mcols=TRUE)
+
+## ---------------------------------------------------------------------
+## COERCION
+## ---------------------------------------------------------------------
+F2b &lt;- as(ir0, "Factor")  # same as Factor(ir0)
+stopifnot(identical(F2, F2b))
+
+as.factor(F2)
+as.factor(F1)
+
+as.character(F1)  # same as unfactor(as.factor(F1)),
+                  # and also same as as.character(unfactor(F1))
+
+## On an ordinary factor 'f', 'as(f, "Factor")' and 'Factor(f)' are
+## NOT the same:
+f &lt;- factor(sample(letters, 500, replace=TRUE), levels=letters)
+as(f, "Factor")  # same levels as 'f'
+Factor(f)        # levels **are** 'f'!
+
+stopifnot(identical(f, as.factor(as(f, "Factor"))))
+
+## ---------------------------------------------------------------------
+## CONCATENATION
+## ---------------------------------------------------------------------
+ir3 &lt;- IRanges(c(5, 2, 8:6), width=10)
+F3 &lt;- Factor(levels=ir3, index=2:4)
+F13 &lt;- c(F1, F3)
+F13
+levels(F13)
+
+stopifnot(identical(c(unfactor(F1), unfactor(F3)), unfactor(F13)))
+
+## ---------------------------------------------------------------------
+## COMPARING &amp; ORDERING
+## ---------------------------------------------------------------------
+F1 == F2   # same as unfactor(F1) == unfactor(F2)
+
+order(F1)  # same as order(unfactor(F1))
+order(F2)  # same as order(unfactor(F2))
+
+## The levels of the Factor influence the order of the table:
+table(F1)
+table(F2)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>S4Vectors</em> version 0.28.1 <a href="00Index.html">Index</a>]</div>
+</body></html>

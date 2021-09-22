@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Number of mapped keys for the maps in package GO.db</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GOMAPCOUNTS {GO.db}"><tr><td>GOMAPCOUNTS {GO.db}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Number of mapped keys for the maps in package GO.db</h2>
+
+<h3>Description</h3>
+
+<p>GOMAPCOUNTS provides the &quot;map count&quot; (i.e. the
+count of mapped keys) for each map in package GO.db.
+</p>
+
+
+<h3>Details</h3>
+
+  
+<p>This &quot;map count&quot; information is precalculated and stored in the
+package annotation DB. This allows some quality control and is used by
+the <code><a href="../../AnnotationDbi/html/AnnDbPkg-checker.html">checkMAPCOUNTS</a></code>
+function defined in AnnotationDbi to compare and validate different
+methods (like <code>count.mappedkeys(x)</code> or
+<code>sum(!is.na(as.list(x)))</code>) for getting the &quot;map count&quot; of a given
+map.
+</p>
+
+
+<h3>See Also</h3>
+
+
+<ul>
+<li> <p><code><a href="../../AnnotationDbi/html/Bimap-keys.html">mappedkeys</a></code>,
+</p>
+</li>
+<li> <p><code><a href="../../AnnotationDbi/html/Bimap-keys.html">count.mappedkeys</a></code>,
+</p>
+</li>
+<li> <p><code><a href="../../AnnotationDbi/html/AnnDbPkg-checker.html">checkMAPCOUNTS</a></code>
+</p>
+</li>
+<li> <p><code><a href="../../AnnotationDbi/html/AnnotationDb-class.html">AnnotationDb-class</a></code> for use of
+the <code>select()</code> interface.
+</p>
+</li></ul>
+
+
+
+<h3>Examples</h3>
+
+<pre>
+## select() interface:
+## Objects in this package can be accessed using the select() interface
+## from the AnnotationDbi package. See ?select for details.
+
+## Bimap interface:
+GOMAPCOUNTS
+mapnames &lt;- names(GOMAPCOUNTS)
+GOMAPCOUNTS[mapnames[1]]
+x &lt;- get(mapnames[1])
+sum(!is.na(as.list(x)))
+count.mappedkeys(x)   # much faster!
+
+## Check the "map count" of all the maps in package GO.db
+checkMAPCOUNTS("GO.db")
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>GO.db</em> version 3.12.1 <a href="00Index.html">Index</a>]</div>
+</body></html>

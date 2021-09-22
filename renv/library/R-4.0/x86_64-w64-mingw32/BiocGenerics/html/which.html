@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Which values in an object are considered TRUE?</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for which {BiocGenerics}"><tr><td>which {BiocGenerics}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Which values in an object are considered TRUE?</h2>
+
+<h3>Description</h3>
+
+<p>Give the indices of the values in a vector-, array-, or list-like object
+that are considered <code>TRUE</code>, allowing for array indices in the case
+of an array-like object.
+</p>
+<p>NOTE: This man page is for the <code>which</code> <em>S4 generic function</em>
+defined in the <span class="pkg">BiocGenerics</span> package.
+See <code>?base::<a href="../../base/html/which.html">which</a></code> for the default method (defined
+in the <span class="pkg">base</span> package).
+Bioconductor packages can define specific methods for objects (typically
+vector-, array-, or list-like) not supported by the default methods.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+which(x, arr.ind=FALSE, useNames=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>An object, typically with a vector-, array-, or list-like semantic.
+</p>
+</td></tr>
+<tr valign="top"><td><code>arr.ind, useNames</code></td>
+<td>
+
+<p>See <code>?base::<a href="../../base/html/which.html">which</a></code> for a description of
+these arguments.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>See <code>?base::<a href="../../base/html/which.html">which</a></code> for the value returned
+by the default method.
+</p>
+<p>Specific methods defined in Bioconductor packages should
+behave as consistently as possible with the default method.
+</p>
+
+
+<h3>See Also</h3>
+
+
+<ul>
+<li> <p><code>base::<a href="../../base/html/which.html">which</a></code> for the default <code>which</code> method.
+</p>
+</li>
+<li> <p><code><a href="../../methods/html/showMethods.html">showMethods</a></code> for displaying a summary of the
+methods defined for a given generic function.
+</p>
+</li>
+<li> <p><code><a href="../../methods/html/selectMethod.html">selectMethod</a></code> for getting the definition of
+a specific method.
+</p>
+</li>
+<li> <p><a href="../../DelayedArray/html/which,DelayedArray-method.html">which,DelayedArray-method</a> in the
+<span class="pkg">DelayedArray</span> package for an example of a specific
+<code>which</code> method (defined for <a href="../../DelayedArray/html/DelayedArray.html">DelayedArray</a>
+objects).
+</p>
+</li>
+<li> <p><a href="BiocGenerics-package.html">BiocGenerics</a> for a summary of all the generics defined
+in the <span class="pkg">BiocGenerics</span> package.
+</p>
+</li></ul>
+
+
+
+<h3>Examples</h3>
+
+<pre>
+which
+showMethods("which")
+selectMethod("which", "ANY")  # the default method
+
+library(DelayedArray)
+showMethods("which")
+## The which() method for DelayedArray objects:
+selectMethod("which", "DelayedArray")
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>BiocGenerics</em> version 0.36.1 <a href="00Index.html">Index</a>]</div>
+</body></html>

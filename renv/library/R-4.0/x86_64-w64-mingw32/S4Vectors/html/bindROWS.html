@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Combine objects by ROWS or COLS</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for bindROWS {S4Vectors}"><tr><td>bindROWS {S4Vectors}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Combine objects by ROWS or COLS</h2>
+
+<h3>Description</h3>
+
+<p><code>bindROWS</code> and <code>bindCOLS</code> are low-level generic functions
+defined in the <span class="pkg">S4Vectors</span> package for binding objects along their
+1st or 2nd dimension. They are the workhorses behind higher-level
+operations like <code>c()</code>, <code>rbind()</code>, or <code>cbind()</code> on
+most vector-like or rectangular objects defined in Bioconductor.
+They are not intended to be used directly by the end user.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+bindROWS(x, objects=list(), use.names=TRUE, ignore.mcols=FALSE, check=TRUE)
+bindCOLS(x, objects=list(), use.names=TRUE, ignore.mcols=FALSE, check=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>An S4 object.
+</p>
+</td></tr>
+<tr valign="top"><td><code>objects</code></td>
+<td>
+
+<p>A list of S4 objects to bind to <code>x</code>. They should typically (but not
+necessarily) have the same class as <code>x</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>use.names</code></td>
+<td>
+
+<p>Should the names on the input objects be propagated? By default they are.
+</p>
+</td></tr>
+<tr valign="top"><td><code>ignore.mcols</code></td>
+<td>
+
+<p>Should the metadata columns on the input objects be ignored? By defaut
+they are not (i.e. they are propagated).
+</p>
+</td></tr>
+<tr valign="top"><td><code>check</code></td>
+<td>
+
+<p>Should the result object be validated before being returned to the user?
+By default it is.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>An object of the same class as <code>x</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Hervé Pagès</p>
+
+
+<h3>See Also</h3>
+
+
+<ul>
+<li><p> The <code><a href="../../BiocGenerics/html/NROW.html">NROW</a></code> and
+<code><a href="../../BiocGenerics/html/NCOL.html">NCOL</a></code> generic functions
+defined in the <span class="pkg">BiocGenerics</span> package.
+</p>
+</li></ul>
+
+
+<hr /><div style="text-align: center;">[Package <em>S4Vectors</em> version 0.28.1 <a href="00Index.html">Index</a>]</div>
+</body></html>

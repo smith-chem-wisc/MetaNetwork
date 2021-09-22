@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: DataFrame comparison methods</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for DataFrame-comparison {S4Vectors}"><tr><td>DataFrame-comparison {S4Vectors}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>DataFrame comparison methods</h2>
+
+<h3>Description</h3>
+
+<p>The <code>DataFrame</code> class provides methods to compare across
+rows of the <code>DataFrame</code>, including ordering and matching. Each
+<code>DataFrame</code> is effectively treated as a vector of rows.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S4 method for signature 'DataFrame'
+sameAsPreviousROW(x)
+
+## S4 method for signature 'DataFrame,DataFrame'
+match(x, table, nomatch = NA_integer_, incomparables = NULL, ...)
+
+## S4 method for signature 'DataFrame'
+order(..., na.last = TRUE, decreasing = FALSE, method = c("auto", 
+    "shell", "radix"))
+
+## S4 method for signature 'DataFrame,DataFrame'
+pcompare(x, y)
+
+## S4 method for signature 'DataFrame,DataFrame'
+e1 == e2
+
+## S4 method for signature 'DataFrame,DataFrame'
+e1 &lt;= e2
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x, table, y, e1, e2</code></td>
+<td>
+
+<p>A <code><a href="DataFrame-class.html">DataFrame</a></code> object.
+</p>
+</td></tr>
+<tr valign="top"><td><code>nomatch, incomparables</code></td>
+<td>
+
+<p>See <code>?base::<a href="../../base/html/match.html">match</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>For <code>match</code>, further arguments to pass to <code><a href="../../base/html/match.html">match</a></code>.
+</p>
+<p>For <code>order</code>, one or more <code><a href="DataFrame-class.html">DataFrame</a></code> objects.
+</p>
+</td></tr>
+<tr valign="top"><td><code>decreasing, na.last, method</code></td>
+<td>
+
+<p>See <code>?base::<a href="../../base/html/order.html">order</a></code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The treatment of a <code>DataFrame</code> as a &ldquo;vector of rows&rdquo;
+is useful in many cases, e.g., when each row is a record that needs
+to be ordered or matched. The methods provided here allow the use of
+all methods described in <code>?<a href="Vector-comparison.html">Vector-comparison</a></code>, including
+sorting, matching, de-duplication, and so on.
+</p>
+<p>Careful readers will notice this behaviour differs from the usual 
+semantics of a <code>data.frame</code>, which acts as a list-like vector 
+of columns. This discrepancy rarely causes problems, as it is not
+particularly common to compare columns of a <code>data.frame</code> in 
+the first place.
+</p>
+<p>Note that a <code>match</code> method for <code>DataFrame</code> objects is 
+explicitly defined to avoid calling the corresponding method for 
+<code><a href="List-class.html">List</a></code> objects, which would yield the (undesired) list-like
+semantics. The same rationale is behind the explicit definition of
+<code>&lt;=</code> and <code>==</code> despite the availability of <code>pcompare</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>For <code>sameAsPreviousROW</code>: see <code><a href="Vector-comparison.html">sameAsPreviousROW</a></code>.
+</p>
+<p>For <code>match</code>: see <code><a href="../../base/html/match.html">match</a></code>.
+</p>
+<p>For <code>order</code>: see <code><a href="../../base/html/order.html">order</a></code>.
+</p>
+<p>For <code>pcompare</code>, <code>==</code> and <code>&lt;=</code>: see <code><a href="Vector-comparison.html">pcompare</a></code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Aaron Lun
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+# Mocking up a DataFrame.
+DF &lt;- DataFrame(
+    A=sample(LETTERS, 100, replace=TRUE),
+    B=sample(5, 100, replace=TRUE)
+)
+
+# Matching:
+match(DF, DF[1:10,])
+selfmatch(DF)
+unique(DF)
+
+# Ordering, alone and with other vectors:
+sort(DF)
+order(DF, runif(nrow(DF)))
+
+# Parallel comparison:
+DF==DF
+DF==DF[1,]
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>S4Vectors</em> version 0.28.1 <a href="00Index.html">Index</a>]</div>
+</body></html>

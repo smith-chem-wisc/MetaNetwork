@@ -1,0 +1,34 @@
+GO.db                   Bioconductor annotation data package
+GOBPANCESTOR            Annotation of GO Identifiers to their
+                        Biological Process Ancestors
+GOBPCHILDREN            Annotation of GO Identifiers to their
+                        Biological Process Children
+GOBPOFFSPRING           Annotation of GO Identifiers to their
+                        Biological Process Offspring
+GOBPPARENTS             Annotation of GO Identifiers to their
+                        Biological Process Parents
+GOCCANCESTOR            Annotation of GO Identifiers to their Cellular
+                        Component Ancestors
+GOCCCHILDREN            Annotation of GO Identifiers to their Cellular
+                        Component Children
+GOCCOFFSPRING           Annotation of GO Identifiers to their Cellular
+                        Component Offspring
+GOCCPARENTS             Annotation of GO Identifiers to their Cellular
+                        Component Parents
+GOMAPCOUNTS             Number of mapped keys for the maps in package
+                        GO.db
+GOMFANCESTOR            Annotation of GO identifiers to their Molecular
+                        Function Ancestors
+GOMFCHILDREN            Annotation of GO Identifiers to their Molecular
+                        Function Children
+GOMFOFFSPRING           Annotation of GO Identifiers to their Molecular
+                        Function Offspring
+GOMFPARENTS             Annotation of GO Identifiers to their Molecular
+                        Function Parents
+GOOBSOLETE              Annotation of GO identifiers by terms defined
+                        by Gene Ontology Consortium and their status
+                        are obsolete
+GOSYNONYM               Map from GO synonyms to GO terms
+GOTERM                  Annotation of GO Identifiers to GO Terms
+GO_dbconn               Collect information about the package
+                        annotation DB
