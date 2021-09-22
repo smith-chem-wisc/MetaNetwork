@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Quantile Normalization using a specified target distribution...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for normalize.quantiles.target {preprocessCore}"><tr><td>normalize.quantiles.target {preprocessCore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Quantile Normalization using a specified target distribution vector</h2>
+
+<h3>Description</h3>
+
+<p>Using a normalization based upon quantiles, these function
+normalizes the columns of a matrix based upon a specified
+normalization distribution
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  normalize.quantiles.use.target(x,target,copy=TRUE,subset=NULL)
+  normalize.quantiles.determine.target(x,target.length=NULL,subset=NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>A matrix of intensities where each column corresponds to a
+chip and each row is a probe.</p>
+</td></tr>
+<tr valign="top"><td><code>copy</code></td>
+<td>
+<p>Make a copy of matrix before normalizing. Usually safer to
+work with a copy</p>
+</td></tr>
+<tr valign="top"><td><code>target</code></td>
+<td>
+<p>A vector containing datapoints from the distribution to
+be normalized to</p>
+</td></tr>
+<tr valign="top"><td><code>target.length</code></td>
+<td>
+<p>number of datapoints to return in target
+distribution vector. If <code>NULL</code> then this will be taken to be
+equal to the number of rows in the matrix.</p>
+</td></tr> 
+<tr valign="top"><td><code>subset</code></td>
+<td>
+<p>A logical variable indexing whether corresponding row should be used in reference distribution determination</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This method is based upon the concept of a quantile-quantile
+plot extended to n dimensions. No special allowances are made for
+outliers. If you make use of quantile normalization either through
+<code><a href="../../affy/html/rma.html">rma</a></code> or <code><a href="../../affy/html/expresso.html">expresso</a></code>
+please cite Bolstad et al, Bioinformatics (2003).
+</p>
+<p>These functions will handle missing data (ie NA values), based on the
+assumption that the data is missing at random.
+</p>
+
+
+<h3>Value</h3>
+
+<p>From <code>normalize.quantiles.use.target</code> a normalized <code>matrix</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Ben Bolstad, <a href="mailto:bmb@bmbolstad.com">bmb@bmbolstad.com</a></p>
+
+
+<h3>References</h3>
+
+<p>Bolstad, B (2001) <em>Probe Level Quantile Normalization of High Density
+Oligonucleotide Array Data</em>. Unpublished manuscript
+<a href="http://bmbolstad.com/stuff/qnorm.pdf">http://bmbolstad.com/stuff/qnorm.pdf</a>
+</p>
+<p>Bolstad, B. M., Irizarry R. A., Astrand, M, and Speed, T. P. (2003)
+<em>A Comparison of Normalization Methods for High Density
+Oligonucleotide Array Data Based on Bias and Variance.</em>
+Bioinformatics 19(2) ,pp 185-193. <a href="http://bmbolstad.com/misc/normalize/normalize.html">http://bmbolstad.com/misc/normalize/normalize.html</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="normalize.quantiles.html">normalize.quantiles</a></code></p>
+
+<hr /><div style="text-align: center;">[Package <em>preprocessCore</em> version 1.52.1 <a href="00Index.html">Index</a>]</div>
+</body></html>

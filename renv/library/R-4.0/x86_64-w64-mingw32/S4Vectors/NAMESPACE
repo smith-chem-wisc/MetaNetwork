@@ -1,0 +1,501 @@
+useDynLib(S4Vectors)
+
+import(methods)
+importFrom(utils, head, tail, head.matrix, tail.matrix, getS3method, stack)
+importFrom(stats, cov, cor, median, quantile,
+           smoothEnds, runmed, window, "window<-", aggregate,
+           na.omit, na.exclude, complete.cases, setNames, terms)
+importFrom(stats4, summary, update)
+
+import(BiocGenerics)
+
+
+### - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+### Export S4 classes
+###
+
+exportClasses(
+    character_OR_NULL, vector_OR_factor, atomic,
+    LLint, integer_OR_LLint,
+    RectangularData,
+    NSBS,
+    Annotated,
+    DataFrame_OR_NULL,
+    Vector, vector_OR_Vector,
+    Hits, SelfHits, SortedByQueryHits, SortedByQuerySelfHits,
+    Rle,
+    Factor,
+    List, list_OR_List,
+    SimpleList,
+    HitsList, SortedByQueryHitsList,
+    DataFrame, DFrame, TransposedDataFrame,
+    Pairs,
+    expression_OR_function, FilterRules, FilterMatrix
+)
+
+
+### - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+### Export S3 methods
+###
+
+S3method(aggregate, Vector)
+
+S3method(anyDuplicated, NSBS)
+S3method(anyDuplicated, Vector)
+S3method(anyDuplicated, Rle)
+
+S3method(as.character, LLint)
+
+S3method(as.data.frame, Vector)
+S3method(as.data.frame, Hits)
+
+S3method(as.integer, LLint)
+
+S3method(as.list, Vector)
+
+S3method(as.logical, LLint)
+
+S3method(as.matrix, Vector)
+
+S3method(as.numeric, LLint)
+
+S3method(as.vector, Rle)
+
+S3method(cbind, RectangularData)
+S3method(cbind, DataFrame)
+
+S3method(diff, Rle)
+
+S3method(droplevels, List)
+S3method(droplevels, Rle)
+
+S3method(duplicated, Vector)
+S3method(duplicated, DataFrame)
+
+S3method(head, LLint)
+S3method(head, RectangularData)
+S3method(head, Vector)
+
+S3method(intersect, Vector)
+
+S3method(levels, Rle)
+
+S3method(mean, Rle)
+
+S3method(median, Rle)
+
+S3method(quantile, Rle)
+
+S3method(rbind, RectangularData)
+
+S3method(rev, Vector)
+S3method(rev, Rle)
+
+S3method(setdiff, Vector)
+
+S3method(setequal, Vector)
+
+S3method(sort, Vector)
+S3method(sort, Rle)
+S3method(sort, List)
+S3method(sort, DataFrame)
+
+S3method(subset, Vector)
+
+S3method(summary, Vector)
+S3method(summary, Hits)
+S3method(summary, Rle)
+
+S3method(t, Hits)
+S3method(t, HitsList)
+S3method(t, DataFrame)
+S3method(t, TransposedDataFrame)
+
+S3method(tail, LLint)
+S3method(tail, RectangularData)
+S3method(tail, Vector)
+
+S3method(transform, Vector)
+S3method(transform, DataFrame)
+
+S3method(union, Vector)
+
+S3method(unique, Vector)
+S3method(unique, DataFrame)
+
+S3method(window, LLint)
+S3method(window, Vector)
+
+### We also export them thru the export() directive so that (a) they can be
+### called directly, (b) tab-completion on the name of the generic shows them,
+### and (c) methods() doesn't asterisk them.
+export(
+    aggregate.Vector,
+
+    anyDuplicated.NSBS,
+    anyDuplicated.Vector,
+    anyDuplicated.Rle,
+
+    as.character.LLint,
+
+    as.data.frame.Vector,
+    as.data.frame.Hits,
+
+    as.integer.LLint,
+
+    as.list.Vector,
+
+    as.logical.LLint,
+
+    as.matrix.Vector,
+
+    as.numeric.LLint,
+
+    as.vector.Rle,
+
+    cbind.RectangularData,
+    cbind.DataFrame,
+
+    diff.Rle,
+
+    droplevels.Rle,
+    droplevels.List,
+
+    duplicated.Vector,
+    duplicated.DataFrame,
+
+    head.LLint,
+    head.RectangularData,
+    head.Vector,
+
+    intersect.Vector,
+
+    levels.Rle,
+
+    mean.Rle,
+
+    median.Rle,
+
+    quantile.Rle,
+
+    rbind.RectangularData,
+
+    rev.Vector,
+    rev.Rle,
+
+    setdiff.Vector,
+
+    setequal.Vector,
+
+    sort.Vector,
+    sort.Rle,
+    sort.List,
+    sort.DataFrame,
+
+    subset.Vector,
+
+    summary.Vector,
+    summary.Hits,
+    summary.Rle,
+
+    t.Hits,
+    t.HitsList,
+    t.DataFrame,
+    t.TransposedDataFrame,
+
+    tail.LLint,
+    tail.RectangularData,
+    tail.Vector,
+
+    transform.Vector,
+    transform.DataFrame,
+
+    union.Vector,
+
+    unique.Vector,
+    unique.DataFrame,
+
+    window.LLint,
+    window.Vector
+)
+
+
+### - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+### Export S4 methods for generics NOT defined in this package
+###
+
+exportMethods(
+    ## Methods for generics defined in the base package:
+    length, names, "names<-",
+    dim, nrow, ncol,
+    dimnames, "dimnames<-",
+    rownames, "rownames<-",
+    colnames, "colnames<-",
+    is.na, anyNA,
+    as.logical, as.integer, as.numeric,
+    as.complex, as.character, as.raw, as.factor,
+    as.list, as.data.frame,
+    as.matrix, as.table,
+    "[", "[<-",
+    subset, rev, rep, rep.int,
+    c, append,
+    "==", "!=", "<=", ">=", "<", ">",
+    "Ops", "Summary",
+    "!",
+    match, duplicated, unique, anyDuplicated, "%in%",
+    order, sort, is.unsorted, rank, xtfrm,
+    merge,
+    t,
+    by,
+    nchar, substr, substring, levels, "levels<-", droplevels,
+    "[[", "[[<-", "$", "$<-",
+    lengths,
+    split,
+    eval, with, within,
+    expand.grid,
+
+    ## Methods for generics defined in the methods package:
+    coerce, show,
+
+    ## Methods for generics defined in the utils package:
+    head, tail, stack,
+
+    ## Methods for generics defined in the stats package:
+    var, cov, cor, sd, window, aggregate, na.omit, na.exclude, complete.cases,
+
+    ## Methods for generics defined in the stats4 package:
+    summary,
+
+    ## Methods for generics defined in the BiocGenerics package:
+    rbind, cbind,
+    lapply, sapply,
+    Reduce, Filter,
+    unlist,
+    do.call,
+    union, intersect, setdiff, setequal,
+    xtabs,
+    start, end, width,
+    grep, grepl,
+    updateObject
+)
+
+
+### - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+### Export non-generic functions
+###
+
+export(
+    ## S4-utils.R:
+    setValidity2, new2, setMethods,
+
+    ## show-utils.R:
+    coolcat,
+    cbind_mcols_for_display,
+    makePrettyMatrixForCompactPrinting,
+    makeClassinfoRowForCompactPrinting,
+
+    ## utils.R:
+    wmsg,
+    .Call2,
+    get_showHeadLines, get_showTailLines,
+    printAtomicVectorInAGrid,
+
+    ## normarg-utils.R:
+    isTRUEorFALSE, isSingleInteger, isSingleNumber, isSingleString,
+    isSingleNumberOrNA, isSingleStringOrNA,
+    recycleIntegerArg, recycleNumericArg,
+    recycleLogicalArg, recycleCharacterArg,
+    recycleArg,
+    fold,
+
+    ## LLint-class.R:
+    is.LLint, as.LLint, LLint,
+
+    ## subsetting-utils.R:
+    normalizeSingleBracketSubscript,
+    normalizeDoubleBracketSubscript,
+
+    ## integer-utils.R:
+    isSequence,
+    toListOfIntegerVectors,
+    orderIntegerPairs,
+    matchIntegerPairs, selfmatchIntegerPairs, duplicatedIntegerPairs,
+    orderIntegerQuads,
+    matchIntegerQuads, selfmatchIntegerQuads, duplicatedIntegerQuads,
+
+    ## character-utils.R:
+    safeExplode,
+    svn.time,
+
+    ## Vector-class.R:
+    parallelSlotNames,
+
+    ## Hits-class.R:
+    queryHits, subjectHits,
+    queryLength, subjectLength,
+    countQueryHits, countSubjectHits,
+    Hits, SelfHits,
+    selectHits,
+    breakTies,
+    remapHits,
+    isSelfHit,
+    isRedundantHit,
+
+    ## Factor-class.R:
+    Factor,
+
+    ## List-class.R:
+    List, pc,
+
+    ## List-utils.R:
+    endoapply, mendoapply,
+
+    ## SimpleList-class.R:
+    SimpleList,
+
+    ## HitsList-class.R:
+    HitsList,
+
+    ## DataFrame-class.R:
+    DataFrame, make_zero_col_DFrame,
+
+    ## Pairs-class.R:
+    Pairs,
+
+    ## FilterRules-class.R:
+    FilterRules, FilterMatrix
+)
+
+
+### - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+### Export S4 generics defined in S4Vectors + export corresponding methods
+###
+
+export(
+    ## show-utils.R:
+    classNameForDisplay, showAsCell, makeNakedCharacterMatrixForDisplay,
+
+    ## bindROWS.R:
+    bindROWS, bindCOLS,
+
+    ## isSorted.R:
+    isConstant, isSorted, isStrictlySorted,
+
+    ## subsetting-utils.R:
+    NSBS,
+    normalizeSingleBracketReplacementValue,
+    extractROWS, replaceROWS, mergeROWS, extractCOLS, replaceCOLS,
+    getListElement, setListElement,
+
+    ## character-utils.R:
+    unstrsplit,
+
+    ## RectangularData-class.R:
+    vertical_slot_names, horizontal_slot_names,
+    ROWNAMES,
+
+    ## Annotated-class.R:
+    metadata, "metadata<-",
+
+    ## Vector-class.R:
+    parallel_slot_names, parallelVectorNames,
+    elementMetadata, mcols, values,
+    "elementMetadata<-", "mcols<-", "values<-",
+    rename,
+    as.env,
+
+    ## Vector-comparison.R:
+    pcompare,
+    sameAsPreviousROW,
+    selfmatch,
+    findMatches, countMatches,
+
+    ## Hits-class.R:
+    from, to, nLnode, nRnode, nnode, countLnodeHits, countRnodeHits,
+
+    ## Rle-class.R:
+    runLength, "runLength<-", runValue, "runValue<-", nrun,
+    Rle,
+    findRun, decode,
+
+    ## Rle-utils.R:
+    runsum, runmean, runwtsum, runq,
+
+    ## Factor-class.R:
+    FactorToClass, unfactor,
+
+    ## List-class.R:
+    elementType, elementNROWS, isEmpty,
+
+    ## List-comparison.R:
+    pcompareRecursively,
+
+    ## splitAsList.R:
+    relistToClass, splitAsList,
+
+    ## List-utils.R:
+    revElements,
+
+    ## HitsList-class.R:
+    space,
+
+    ## DataFrame-utils.R:
+    transform,
+
+    ## Pairs-class.R:
+    first, "first<-", second, "second<-", zipup, zipdown,
+
+    ## FilterRules-class.R:
+    active, "active<-", evalSeparately, subsetByFilter, params, filterRules,
+
+    ## mstack-methods.R
+    mstack,
+
+    ## expand-methods.R
+    expand,
+
+    ## shiftApply-methods.R:
+    shiftApply
+)
+
+### Exactly the same list as above.
+exportMethods(
+    classNameForDisplay, showAsCell, makeNakedCharacterMatrixForDisplay,
+    bindROWS, bindCOLS,
+    isConstant, isSorted, isStrictlySorted,
+    NSBS,
+    normalizeSingleBracketReplacementValue,
+    extractROWS, replaceROWS,
+    getListElement, setListElement,
+    unstrsplit,
+    vertical_slot_names, horizontal_slot_names,
+    ROWNAMES,
+    metadata, "metadata<-",
+    parallel_slot_names, parallelVectorNames,
+    elementMetadata, mcols, values,
+    "elementMetadata<-", "mcols<-", "values<-",
+    rename,
+    as.env,
+    pcompare,
+    sameAsPreviousROW,
+    selfmatch,
+    findMatches, countMatches,
+    from, to, nLnode, nRnode, nnode, countLnodeHits, countRnodeHits,
+    runLength, "runLength<-", runValue, "runValue<-", nrun,
+    Rle,
+    findRun,
+    runsum, runmean, runwtsum, runq,
+    FactorToClass, unfactor,
+    elementType, elementNROWS, isEmpty,
+    pcompareRecursively,
+    relistToClass, splitAsList,
+    revElements,
+    space,
+    transform,
+    first, "first<-", second, "second<-", zipup, zipdown,
+    active, "active<-", evalSeparately, subsetByFilter, params, filterRules,
+    mstack,
+    expand,
+    shiftApply
+)
+

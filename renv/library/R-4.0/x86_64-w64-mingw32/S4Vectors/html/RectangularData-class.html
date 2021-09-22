@@ -1,0 +1,165 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: RectangularData objects</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for RectangularData-class {S4Vectors}"><tr><td>RectangularData-class {S4Vectors}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>RectangularData objects</h2>
+
+<h3>Description</h3>
+
+<p>RectangularData is a virtual class with no slots to be extended by
+classes that aim at representing objects with a rectangular shape.
+Current RectangularData derivatives are <a href="DataFrame-class.html">DataFrame</a>,
+<a href="../../DelayedArray/html/DelayedMatrix.html">DelayedMatrix</a>,
+<a href="../../SummarizedExperiment/html/SummarizedExperiment.html">SummarizedExperiment</a>, and
+<a href="../../SummarizedExperiment/html/Assays.html">Assays</a> objects.
+</p>
+<p>RectangularData derivatives are expected to support the 2D API: at least
+<code>dim()</code>, but also typically <code>dimnames</code>, <code>[</code> (the 2D form
+<code>x[i, j]</code>), <code>bindROWS()</code>, and <code>bindCOLS()</code>.
+</p>
+
+
+<h3>Accessors</h3>
+
+<p>In the following code snippets, <code>x</code> is a RectangularData derivative.
+</p>
+
+<dl>
+<dt></dt><dd>
+<p><code>nrow(x)</code>, <code>ncol(x)</code>:
+Get the number of rows and columns, respectively.
+</p>
+</dd>
+<dt></dt><dd>
+<p><code>NROW(x)</code>, <code>NCOL(x)</code>:
+Same as <code>nrow(x)</code> and <code>ncol(x)</code>, respectively.
+</p>
+</dd>
+<dt></dt><dd>
+<p><code>dim(x)</code>:
+Length two integer vector defined as <code>c(nrow(x), ncol(x))</code>.
+</p>
+</dd>
+<dt></dt><dd>
+<p><code>rownames(x)</code>, <code>colnames(x)</code>:
+Get the names of the rows and columns, respectively.
+</p>
+</dd>
+<dt></dt><dd>
+<p><code>dimnames(x)</code>:
+Length two list of character vectors defined as
+<code>list(rownames(x), colnames(x))</code>.
+</p>
+</dd>
+</dl>
+
+
+
+<h3>Subsetting</h3>
+
+<p>In the code snippets below, <code>x</code> is a RectangularData derivative.
+</p>
+
+<dl>
+<dt></dt><dd>
+<p><code>x[i, j, drop=TRUE]</code>:
+Return a new RectangularData derivative of the same class as <code>x</code>
+made of the selected rows and columns.
+</p>
+<p>For single row and/or column selection, the <code>drop</code> argument
+specifies whether or not to &quot;drop the dimensions&quot; of the result.
+More precisely, when <code>drop=TRUE</code> (the default), a single
+row or column is returned as a vector-like object (of length/NROW
+equal to <code>ncol(x)</code> if a single row, or equal to <code>nrow(x)</code>
+if a single column).
+</p>
+<p>Not all RectangularData derivatives support the <code>drop</code> argument.
+For example <a href="DataFrame-class.html">DataFrame</a> and <a href="../../DelayedArray/html/DelayedMatrix.html">DelayedMatrix</a>
+objects support it (only for a single column
+selection for <a href="DataFrame-class.html">DataFrame</a> objects), but
+<a href="../../SummarizedExperiment/html/SummarizedExperiment.html">SummarizedExperiment</a> objects don't
+(<code>drop</code> is ignored for these objects and subsetting always
+returns a <a href="../../SummarizedExperiment/html/SummarizedExperiment.html">SummarizedExperiment</a>
+derivative of the same class as <code>x</code>).
+</p>
+</dd>
+<dt></dt><dd>
+<p><code>head(x, n=6L)</code>:
+If <code>n</code> is non-negative, returns the first n rows of the
+RectangularData derivative.
+If <code>n</code> is negative, returns all but the last <code>abs(n)</code>
+rows of the RectangularData derivative.
+</p>
+</dd>
+<dt></dt><dd>
+<p><code>tail(x, n=6L)</code>:
+If <code>n</code> is non-negative, returns the last n rows of the
+RectangularData derivative.
+If <code>n</code> is negative, returns all but the first <code>abs(n)</code>
+rows of the RectangularData derivative.
+</p>
+</dd>
+<dt></dt><dd>
+<p><code>subset(x, subset, select, drop=FALSE)</code>:
+Return a new RectangularData derivative using:
+</p>
+
+<dl>
+<dt>subset</dt><dd><p>logical expression indicating rows to keep, where missing
+values are taken as FALSE.</p>
+</dd>
+<dt>select</dt><dd><p>expression indicating columns to keep.</p>
+</dd>
+<dt>drop</dt><dd><p>passed on to <code>[</code> indexing operator.</p>
+</dd>
+</dl>
+
+</dd>
+</dl>
+
+
+
+<h3>Combining</h3>
+
+<p>In the code snippets below, <code>x</code> is a RectangularData derivative.
+</p>
+
+<dl>
+<dt></dt><dd>
+<p><code>rbind(...)</code>: Creates a new RectangularData derivative by
+combining the rows of the RectangularData derivatives in <code>...</code>.
+</p>
+</dd>
+<dt></dt><dd>
+<p><code>cbind(...)</code>: Creates a new RectangularData derivative by
+combining the columns of the RectangularData derivatives in <code>...</code>.
+</p>
+</dd>
+</dl>
+
+
+
+<h3>See Also</h3>
+
+
+<ul>
+<li> <p><a href="DataFrame-class.html">DataFrame</a> for an implementation that mimics <code>data.frame</code>.
+</p>
+</li>
+<li> <p><a href="../../base/html/data.frame.html">data.frame</a>
+</p>
+</li></ul>
+
+
+
+<h3>Examples</h3>
+
+<pre>
+showClass("RectangularData")  # shows (some of) the known subclasses
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>S4Vectors</em> version 0.28.1 <a href="00Index.html">Index</a>]</div>
+</body></html>

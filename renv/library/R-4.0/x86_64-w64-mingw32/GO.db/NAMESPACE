@@ -1,0 +1,14 @@
+import(methods)
+import(AnnotationDbi)
+
+### Only put what is statically exported here. All the AnnObj instances
+### created at load time are dynamically exported (refer to R/zzz.R for
+### the details).
+export(
+    GO,
+    GO_dbconn,
+    GO_dbfile,
+    GO_dbschema,
+    GO_dbInfo
+)
+

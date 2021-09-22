@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Annotation of GO identifiers by terms defined by Gene...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GOOBSOLETE {GO.db}"><tr><td>GOOBSOLETE {GO.db}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Annotation of GO identifiers by terms defined by Gene Ontology
+Consortium and their status are obsolete</h2>
+
+<h3>Description</h3>
+
+<p>This is an R object mapping GO identifiers to the specific
+terms in defined by Gene Ontology Consortium and their definition are obsolete
+</p>
+
+
+<h3>Details</h3>
+
+<p>All the obsolete GO terms that are collected in this index will no longer exist 
+in other mapping objects.
+</p>
+<p>Mappings were based on data provided by: Gene Ontology  
+http://current.geneontology.org/ontology/go-basic.obo  
+With a date stamp from the source of: 2020-09-10
+</p>
+
+
+<h3>References</h3>
+
+<p><a href="https://www.ncib.nlm.nih.gov/LocusLink">https://www.ncib.nlm.nih.gov/LocusLink</a> 
+</p>
+
+
+<h3>See Also</h3>
+
+
+<ul>
+<li> <p><code><a href="../../AnnotationDbi/html/AnnotationDb-class.html">AnnotationDb-class</a></code> for use of
+the <code>select()</code> interface.
+</p>
+</li></ul>
+
+
+
+<h3>Examples</h3>
+
+<pre>
+## select() interface:
+## Objects in this package can be accessed using the select() interface
+## from the AnnotationDbi package. See ?select for details.
+
+## Bimap interface:
+# Convert the object to a list
+xx &lt;- as.list(GOTERM)
+if(length(xx) &gt; 0){
+    # Get the TERMS for the first elent of xx
+    GOID(xx[[1]])
+    Ontology(xx[[1]])
+}
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>GO.db</em> version 3.12.1 <a href="00Index.html">Index</a>]</div>
+</body></html>

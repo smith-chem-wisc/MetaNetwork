@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Accessing the type of an object</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for type {BiocGenerics}"><tr><td>type {BiocGenerics}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Accessing the type of an object</h2>
+
+<h3>Description</h3>
+
+<p>Get or set the <em>type</em> of an object.
+</p>
+<p>Note that <code>type</code> and <code>type&lt;-</code> are defined as <em>S4 generic
+functions</em> and what <em>type</em> means exactly (and what <code>type()</code>
+returns) depends on the objects for which <code>type</code> and/or <code>type&lt;-</code>
+methods are defined.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+type(x)
+type(x) &lt;- value
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>Any object for which the <code>type()</code> getter or setter is defined.
+Note that objects will either: not support the getter or setter at all,
+or support only the getter, or support the getter and setter.
+</p>
+</td></tr>
+<tr valign="top"><td><code>value</code></td>
+<td>
+
+<p>The type to set on <code>x</code> (assuming <code>x</code> supports the <code>type()</code>
+setter). <code>value</code> is typically (but not necessarily) expected to be
+a single string (i.e. a character vector of length 1).
+</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p><code>type(x)</code> returns the type of <code>x</code>, typically (but not necessarily)
+as a single string (i.e. as a character vector of length 1).
+</p>
+
+
+<h3>See Also</h3>
+
+
+<ul>
+<li> <p><code><a href="../../methods/html/showMethods.html">showMethods</a></code> for displaying a summary of the
+methods defined for a given generic function.
+</p>
+</li>
+<li> <p><code><a href="../../methods/html/selectMethod.html">selectMethod</a></code> for getting the definition of
+a specific method.
+</p>
+</li>
+<li> <p><a href="../../DelayedArray/html/type,ANY-method.html">type,ANY-method</a> in the <span class="pkg">DelayedArray</span>
+package for the default <code>type</code> method.
+</p>
+</li>
+<li> <p><a href="../../Biostrings/html/type,PairwiseAlignments-method.html">type,PairwiseAlignments-method</a> in the
+<span class="pkg">Biostrings</span> package for an example of a specific
+<code>type</code> method (defined for <a href="../../Biostrings/html/PairwiseAlignments.html">PairwiseAlignments</a>
+objects).
+</p>
+</li>
+<li> <p><a href="BiocGenerics-package.html">BiocGenerics</a> for a summary of all the generics defined
+in the <span class="pkg">BiocGenerics</span> package.
+</p>
+</li></ul>
+
+
+
+<h3>Examples</h3>
+
+<pre>
+type
+showMethods("type")
+
+`type&lt;-`
+showMethods("type&lt;-")
+
+library(DelayedArray)
+showMethods("type")
+selectMethod("type", "ANY")  # the default "type" method
+
+library(Biostrings)
+showMethods("type")
+## The type() method for PairwiseAlignments objects:
+selectMethod("type", "PairwiseAlignments")
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>BiocGenerics</em> version 0.36.1 <a href="00Index.html">Index</a>]</div>
+</body></html>

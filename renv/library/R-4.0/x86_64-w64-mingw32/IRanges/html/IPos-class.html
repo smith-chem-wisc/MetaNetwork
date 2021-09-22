@@ -1,0 +1,364 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: IPos objects</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for IPos-class {IRanges}"><tr><td>IPos-class {IRanges}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>IPos objects</h2>
+
+<h3>Description</h3>
+
+<p>The IPos class is a container for storing a set of <em>integer positions</em>.
+It exists in 2 flavors: UnstitchedIPos and StitchedIPos. Each flavor uses
+a particular internal representation:
+</p>
+
+<ul>
+<li><p> In an UnstitchedIPos instance the positions are stored as an
+integer vector.
+</p>
+</li>
+<li><p> In a StitchedIPos instance the positions are stored as an
+<a href="IRanges-constructor.html">IRanges</a> object where each range represents a run of
+<em>consecutive positions</em> (i.e. a run of positions that
+are adjacent and in <em>ascending order</em>). This storage is
+particularly memory-efficient when the vector of positions
+contains long runs of consecutive positions.
+</p>
+</li></ul>
+
+<p>Because integer positions can be seen as integer ranges of width 1, the
+IPos class extends the <a href="IntegerRanges-class.html">IntegerRanges</a> virtual class.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+IPos(pos=integer(0), names=NULL, ..., stitch=NA)  # constructor function
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>pos</code></td>
+<td>
+
+<p>An integer or numeric vector, or an <a href="IRanges-constructor.html">IRanges</a> object (or other
+<a href="IntegerRanges-class.html">IntegerRanges</a> derivative). If <code>pos</code> is anything else,
+<code>IPos()</code> will first try to coerce it to an IRanges object with
+<code>as(pos, "IRanges")</code>.
+</p>
+<p>When <code>pos</code> is an <a href="IRanges-constructor.html">IRanges</a> object (or other <a href="IntegerRanges-class.html">IntegerRanges</a>
+derivative), each range in it is interpreted as a run of
+consecutive positions.
+</p>
+</td></tr>
+<tr valign="top"><td><code>names</code></td>
+<td>
+
+<p>A character vector or <code>NULL</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Metadata columns to set on the IPos object. All the metadata columns
+must be vector-like objects of the same length as the object to construct.
+</p>
+</td></tr>
+<tr valign="top"><td><code>stitch</code></td>
+<td>
+
+<p><code>TRUE</code>, <code>FALSE</code>, or <code>NA</code> (the default).
+</p>
+<p>Controls which internal representation should be used: StitchedIPos
+(when <code>stitch</code> is <code>TRUE</code>) or UnstitchedIPos (when <code>stitch</code>
+is <code>FALSE</code>).
+</p>
+<p>When <code>stitch</code> is <code>NA</code> (the default), which internal
+representation will be used depends on the type of <code>pos</code>:
+UnstitchedIPos if <code>pos</code> is an integer or numeric vector,
+and StitchedIPos otherwise.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Even though an <a href="IRanges-constructor.html">IRanges</a> object can be used for storing integer
+positions, using an IPos object is more efficient. In particular the
+memory footprint of an UnstitchedIPos object is half that of an
+<a href="IRanges-constructor.html">IRanges</a> object.
+</p>
+<p>OTOH the memory footprint of a StitchedIPos object can vary a lot but
+will never be worse than that of an <a href="IRanges-constructor.html">IRanges</a> object. However it
+will reduce dramatically if the vector of positions contains long runs
+of consecutive positions. In the worst case scenario (i.e. when the
+object contains no consecutive positions) its memory footprint will
+be the same as that of an <a href="IRanges-constructor.html">IRanges</a> object.
+</p>
+<p>Like for any <a href="../../S4Vectors/html/Vector.html">Vector</a> derivative, the length of an
+IPos object cannot exceed <code>.Machine$integer.max</code> (i.e. 2^31 on
+most platforms). <code>IPos()</code> will return an error if <code>pos</code>
+contains too many positions.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An UnstitchedIPos or StitchedIPos object. If the input object <code>pos</code>
+is itself an IPos derivative, its metadata columns are propagated.
+</p>
+
+
+<h3>Accessors</h3>
+
+
+
+<h4>Getters</h4>
+
+<p>IPos objects support the same set of getters as other <a href="IntegerRanges-class.html">IntegerRanges</a>
+derivatives (i.e. <code>length()</code>, <code>start()</code>, <code>end()</code>,
+<code>names()</code>, <code>mcols()</code>, etc...), plus the <code>pos()</code> getter
+which is equivalent to <code>start()</code> and <code>end()</code>.
+See <code>?<a href="IntegerRanges-class.html">IntegerRanges</a></code> for the list of getters supported by
+<a href="IntegerRanges-class.html">IntegerRanges</a> derivatives.
+</p>
+
+
+
+<h4>Setters</h4>
+
+<p>IPos derivatives support the <code>names()</code>, <code>mcols()</code> and
+<code>metadata()</code> setters only.
+</p>
+<p>In particular there is no <code>pos()</code> setter for IPos derivatives
+at the moment (although one might be added in the future).
+</p>
+
+
+
+<h3>Coercion</h3>
+
+<p>From UnstitchedIPos to StitchedIPos and vice-versa: coercion back and
+forth between UnstitchedIPos and StitchedIPos is supported via
+<code>as(x, "StitchedIPos")</code> and <code>as(x, "UnstitchedIPos")</code>.
+This is the most efficient and recommended way to switch between the
+2 internal representations. Note that this switch can have dramatic
+consequences on memory usage so is for advanced users only.
+End users should almost never need to do this switch when following
+a typical workflow.
+</p>
+<p>From <a href="IntegerRanges-class.html">IntegerRanges</a> to UnstitchedIPos, StitchedIPos, or IPos:
+An <a href="IntegerRanges-class.html">IntegerRanges</a> derivative <code>x</code> in which all the ranges have
+a width of 1 can be coerced to an UnstitchedIPos or StitchedIPos object
+with <code>as(x, "UnstitchedIPos")</code> or <code>as(x, "StitchedIPos")</code>,
+respectively. For convenience <code>as(x, "IPos")</code> is supported and is
+equivalent to <code>as(x, "UnstitchedIPos")</code>.
+</p>
+<p>From IPos to <a href="IRanges-constructor.html">IRanges</a>:
+An IPos derivative <code>x</code> can be coerced to an <a href="IRanges-constructor.html">IRanges</a> object
+with <code>as(x, "IRanges")</code>. However be aware that if <code>x</code> is a
+StitchedIPos instance, the memory footprint of the resulting object
+can be thousands times (or more) than that of <code>x</code>!
+See &quot;MEMORY USAGE&quot; in the Examples section below.
+</p>
+<p>From IPos to ordinary R objects:
+Like with any other <a href="IntegerRanges-class.html">IntegerRanges</a> derivative, <code>as.character()</code>,
+<code>as.factor()</code>, and <code>as.data.frame()</code> work on an IPos derivative
+<code>x</code>. Note however that <code>as.data.frame(x)</code> returns a data frame
+with a <code>pos</code> column (containing <code>pos(x)</code>) instead of the
+<code>start</code>, <code>end</code>, and <code>width</code> columns that one gets with other
+<a href="IntegerRanges-class.html">IntegerRanges</a> derivatives.
+</p>
+
+
+<h3>Subsetting</h3>
+
+<p>An IPos derivative can be subsetted exactly like an <a href="IRanges-constructor.html">IRanges</a> object.
+</p>
+
+
+<h3>Concatenation</h3>
+
+<p>IPos derivatives can be concatenated with <code>c()</code> or <code>append()</code>.
+See <code>?<a href="../../S4Vectors/html/c.html">c</a></code> in the <span class="pkg">S4Vectors</span> package for
+more information about concatenating Vector derivatives.
+</p>
+
+
+<h3>Splitting and Relisting</h3>
+
+<p>Like with an <a href="IRanges-constructor.html">IRanges</a> object, <code>split()</code> and <code>relist()</code> work
+on an IPos derivative.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Hervé Pagès; based on ideas borrowed from Georg Stricker
+<a href="mailto:georg.stricker@in.tum.de">georg.stricker@in.tum.de</a> and Julien Gagneur
+<a href="mailto:gagneur@in.tum.de">gagneur@in.tum.de</a>
+</p>
+
+
+<h3>See Also</h3>
+
+
+<ul>
+<li><p> The <a href="../../GenomicRanges/html/GPos.html">GPos</a> class in the <span class="pkg">GenomicRanges</span>
+package for representing a set of <em>genomic positions</em> (i.e.
+genomic ranges of width 1, a.k.a. <em>genomic loci</em>).
+</p>
+</li>
+<li><p> The <a href="IRanges-constructor.html">IRanges</a> class for storing a set of <em>integer ranges</em>
+of arbitrary width.
+</p>
+</li>
+<li> <p><a href="IPosRanges-comparison.html">IPosRanges-comparison</a> for comparing and ordering integer
+ranges and/or positions.
+</p>
+</li>
+<li> <p><a href="findOverlaps-methods.html">findOverlaps-methods</a> for finding overlapping
+integer ranges and/or positions.
+</p>
+</li>
+<li> <p><a href="intra-range-methods.html">intra-range-methods</a> and <a href="inter-range-methods.html">inter-range-methods</a>
+for <em>intra range</em> and <em>inter range</em> transformations.
+</p>
+</li>
+<li> <p><a href="coverage-methods.html">coverage-methods</a> for computing the coverage
+of a set of ranges and/or positions.
+</p>
+</li>
+<li> <p><a href="nearest-methods.html">nearest-methods</a> for finding the nearest integer
+range/position neighbor.
+</p>
+</li></ul>
+
+
+
+<h3>Examples</h3>
+
+<pre>
+showClass("IPos")  # shows the known subclasses
+
+## ---------------------------------------------------------------------
+## BASIC EXAMPLES
+## ---------------------------------------------------------------------
+
+## Example 1:
+ipos1a &lt;- IPos(c(44:53, 5:10, 2:5))
+ipos1a  # unstitched
+
+length(ipos1a)
+pos(ipos1a)  # same as 'start(ipos1a)' and 'end(ipos1a)'
+as.character(ipos1a)
+as.data.frame(ipos1a)
+as(ipos1a, "IRanges")
+as.data.frame(as(ipos1a, "IRanges"))
+ipos1a[9:17]
+
+ipos1b &lt;- IPos(c(44:53, 5:10, 2:5), stitch=TRUE)
+ipos1b  # stitched
+
+## 'ipos1a' and 'ipos1b' are semantically equivalent, only their
+## internal representations differ:
+all(ipos1a == ipos1b)
+
+ipos1c &lt;- IPos(c("44-53", "5-10", "2-5"))
+ipos1c  # stitched
+
+identical(ipos1b, ipos1c)
+
+## Example 2:
+my_pos &lt;- IRanges(c(1, 6, 12, 17), c(5, 10, 16, 20))
+ipos2 &lt;- IPos(my_pos)
+ipos2  # stitched
+
+## Example 3:
+ipos3A &lt;- ipos3B &lt;- IPos(c("1-15000", "15400-88700"))
+npos &lt;- length(ipos3A)
+
+mcols(ipos3A)$sample &lt;- Rle("sA")
+sA_counts &lt;- sample(10, npos, replace=TRUE)
+mcols(ipos3A)$counts &lt;- sA_counts
+
+mcols(ipos3B)$sample &lt;- Rle("sB")
+sB_counts &lt;- sample(10, npos, replace=TRUE)
+mcols(ipos3B)$counts &lt;- sB_counts
+
+ipos3 &lt;- c(ipos3A, ipos3B)
+ipos3
+
+## ---------------------------------------------------------------------
+## MEMORY USAGE
+## ---------------------------------------------------------------------
+
+## Coercion to IRanges works on a StitchedIPos object...
+ipos4 &lt;- IPos(c("1-125000", "135000-575000"))
+ir4 &lt;- as(ipos4, "IRanges")
+ir4
+## ... but is generally not a good idea:
+object.size(ipos4)
+object.size(ir4)  # 1652 times bigger than the StitchedIPos object!
+
+## Shuffling the order of the positions impacts memory usage:
+ipos4r &lt;- rev(ipos4)
+object.size(ipos4r)
+ipos4s &lt;- sample(ipos4)
+object.size(ipos4s)
+
+## If one anticipates a lot of shuffling of the positions,
+## then an UnstitchedIPos object should be used instead:
+ipos4b &lt;- as(ipos4, "UnstitchedIPos")
+object.size(ipos4b)  # initial size is bigger than stitched version
+object.size(rev(ipos4b))  # size didn't change
+object.size(sample(ipos4b))  # size didn't change
+
+## AN IMPORTANT NOTE: In the worst situations, IPos still performs
+## as good as an IRanges object.
+object.size(as(ipos4r, "IRanges"))  # same size as 'ipos4r'
+object.size(as(ipos4s, "IRanges"))  # same size as 'ipos4s'
+
+## Best case scenario is when the object is strictly sorted (i.e.
+## positions are in strict ascending order).
+## This can be checked with:
+is.unsorted(ipos4, strict=TRUE)  # 'ipos4' is strictly sorted
+
+## ---------------------------------------------------------------------
+## USING MEMORY-EFFICIENT METADATA COLUMNS
+## ---------------------------------------------------------------------
+## In order to keep memory usage as low as possible, it is recommended
+## to use a memory-efficient representation of the metadata columns that
+## we want to set on the object. Rle's are particularly well suited for
+## this, especially if the metadata columns contain long runs of
+## identical values. This is the case for example if we want to use an
+## IPos object to represent the coverage of sequencing reads along a
+## chromosome.
+
+## Example 5:
+library(pasillaBamSubset)
+library(Rsamtools)  # for the BamFile() constructor function
+bamfile1 &lt;- BamFile(untreated1_chr4())
+bamfile2 &lt;- BamFile(untreated3_chr4())
+ipos5 &lt;- IPos(IRanges(1, seqlengths(bamfile1)[["chr4"]]))
+library(GenomicAlignments)  # for "coverage" method for BamFile objects
+cvg1 &lt;- coverage(bamfile1)$chr4
+cvg2 &lt;- coverage(bamfile2)$chr4
+mcols(ipos5) &lt;- DataFrame(cvg1, cvg2)
+ipos5
+
+object.size(ipos5)  # lightweight
+
+## Keep only the positions where coverage is at least 10 in one of the
+## 2 samples:
+ipos5[mcols(ipos5)$cvg1 &gt;= 10 | mcols(ipos5)$cvg2 &gt;= 10]
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>IRanges</em> version 2.24.1 <a href="00Index.html">Index</a>]</div>
+</body></html>

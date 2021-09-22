@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Annotation of GO Identifiers to GO Terms</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GOTERM {GO.db}"><tr><td>GOTERM {GO.db}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Annotation of GO Identifiers to GO Terms</h2>
+
+<h3>Description</h3>
+
+<p>This data set gives mappings between GO identifiers and their respective terms.
+</p>
+
+
+<h3>Details</h3>
+
+<p>Each GO identifier is mapped to a <code>GOTerms</code> object that has 6 slots:
+GOID: GO Identifier
+Term: The term for that GO id
+Synonym: Synonymous terms
+Secondary: Secondary terms that have been merged into this term
+Definition: Further definition of the GO term
+Ontology: One of MF - molecular function, BP - biological
+process, or CC - cellular component
+</p>
+<p>All the obsolete GO terms are under the nodes &quot;obsolete molecular
+function&quot; (GO:0008369), &quot;obsolete cellular component&quot; (GO id
+GO:0008370), and &quot;obsolete biological process&quot; (GO:0008371). Each of
+these GO identifiers has a group of GO identifiers as their direct children with GO
+terms that were defined by GO but are
+deprecated in the current build. These deprecated GO terms were
+appended by &quot;(obsolete)&quot; when the data package was built. 
+</p>
+<p>Mappings were based on data provided by: Gene Ontology  
+http://current.geneontology.org/ontology/go-basic.obo  
+With a date stamp from the source of: 2020-09-10
+</p>
+
+
+<h3>References</h3>
+
+<p><a href="https://www.ncib.nlm.nih.gov/entrez/query.fcgi?db=gene">https://www.ncib.nlm.nih.gov/entrez/query.fcgi?db=gene</a> 
+</p>
+
+
+<h3>See Also</h3>
+
+
+<ul>
+<li> <p><code><a href="../../AnnotationDbi/html/AnnotationDb-class.html">AnnotationDb-class</a></code> for use of
+the <code>select()</code> interface.
+</p>
+</li></ul>
+
+
+
+<h3>Examples</h3>
+
+<pre>
+## select() interface:
+## Objects in this package can be accessed using the select() interface
+## from the AnnotationDbi package. See ?select for details.
+
+## Bimap interface:
+# Convert the object to a list
+xx &lt;- as.list(GOTERM)
+if(length(xx) &gt; 0){
+    # Get the TERMS for the first elent of xx
+    GOID(xx[[1]])
+    Term(xx[[1]])
+    Synonym(xx[[1]])
+    Secondary(xx[[1]])
+    Definition(xx[[1]])
+    Ontology(xx[[1]])
+}
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>GO.db</em> version 3.12.1 <a href="00Index.html">Index</a>]</div>
+</body></html>

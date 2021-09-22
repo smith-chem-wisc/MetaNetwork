@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: TransposedDataFrame objects</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for TransposedDataFrame-class {S4Vectors}"><tr><td>TransposedDataFrame-class {S4Vectors}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>TransposedDataFrame objects</h2>
+
+<h3>Description</h3>
+
+<p>The TransposedDataFrame class is a container for representing a transposed
+<a href="DataFrame-class.html">DataFrame</a> object, that is, a rectangular data container where the
+rows are the variables and the columns the observations.
+</p>
+<p>A typical situation for using a TransposedDataFrame object
+is when one needs to store a <a href="DataFrame-class.html">DataFrame</a> object in the
+<code><a href="../../SummarizedExperiment/html/assay.html">assay</a>()</code> component of
+a <a href="../../SummarizedExperiment/html/SummarizedExperiment.html">SummarizedExperiment</a> object
+but the rows in the <a href="DataFrame-class.html">DataFrame</a> object should correspond to the
+samples and the columns to the features. In this case the
+<a href="DataFrame-class.html">DataFrame</a> object must first be transposed so that the variables
+in it run &quot;horizontally&quot; instead of &quot;vertically&quot;. See the Examples
+section at the bottom of this man page for an example.
+</p>
+
+
+<h3>Details</h3>
+
+<p>TransposedDataFrame objects are constructed by calling <code>t()</code>
+on a <a href="DataFrame-class.html">DataFrame</a> object.
+</p>
+<p>Like for a <a href="DataFrame-class.html">DataFrame</a> object, or, more generally, for a
+data-frame-like object, the length of a TransposedDataFrame object
+is its number of variables. However, <em>unlike</em> for a data-frame-like
+object, its length is also its number of rows, not its number of columns.
+For this reason, a TransposedDataFrame object is NOT considered to be
+a data-frame-like object.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Hervé Pagès</p>
+
+
+<h3>See Also</h3>
+
+
+<ul>
+<li> <p><a href="DataFrame-class.html">DataFrame</a> objects.
+</p>
+</li>
+<li> <p><a href="../../SummarizedExperiment/html/SummarizedExperiment.html">SummarizedExperiment</a> objects in the
+<span class="pkg">SummarizedExperiment</span> package.
+</p>
+</li></ul>
+
+
+
+<h3>Examples</h3>
+
+<pre>
+## A DataFrame object with 3 variables:
+df &lt;- DataFrame(aa=101:126, bb=letters, cc=Rle(c(TRUE, FALSE), 13),
+                row.names=LETTERS)
+dim(df)
+length(df)
+df$aa
+
+tdf &lt;- t(df)
+tdf
+dim(tdf)
+length(tdf)
+tdf$aa
+
+t(tdf)  # back to 'df'
+stopifnot(identical(df, t(tdf)))
+
+tdf$aa &lt;- 0.05 * tdf$aa
+
+## A TransposedDataFrame object can be used in the assay() component of a
+## SummarizedExperiment object if the transposed layout is needed i.e. if
+## the rows and columns of the original DataFrame object need to be treated
+## as the samples and features (in this order) of the SummarizedExperiment
+## object:
+library(SummarizedExperiment)
+se1 &lt;- SummarizedExperiment(df)
+se1
+assay(se1)  # the 3 variables run "vertically"
+
+se2 &lt;- SummarizedExperiment(tdf)
+se2
+assay(se2)  # the 3 variables run "horizontally"
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>S4Vectors</em> version 0.28.1 <a href="00Index.html">Index</a>]</div>
+</body></html>

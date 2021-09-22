@@ -1,0 +1,181 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: A function to impute missing expression data</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for impute.knn {impute}"><tr><td>impute.knn {impute}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>A function to impute missing expression data</h2>
+
+<h3>Description</h3>
+
+<p>A function to impute missing expression data, using
+nearest neighbor averaging.</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+impute.knn(data ,k = 10, rowmax = 0.5, colmax = 0.8, maxp = 1500, rng.seed=362436069)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>data</code></td>
+<td>
+<p>An expression matrix with genes in the rows, samples in the columns</p>
+</td></tr>
+<tr valign="top"><td><code>k</code></td>
+<td>
+<p>Number of neighbors to be used in the
+imputation (default=10)</p>
+</td></tr>
+<tr valign="top"><td><code>rowmax</code></td>
+<td>
+<p>The maximum percent missing data allowed in any row
+(default 50%). For any rows with more than <code>rowmax</code>% missing
+are imputed using the overall mean per sample.</p>
+</td></tr>
+<tr valign="top"><td><code>colmax</code></td>
+<td>
+<p>The maximum percent missing data allowed in any column
+(default 80%). If any column has more than <code>colmax</code>% missing data,
+the program halts and reports an error.</p>
+</td></tr>
+<tr valign="top"><td><code>maxp</code></td>
+<td>
+<p>The largest block of genes imputed using the knn
+algorithm inside <code>impute.knn</code> (default
+1500); larger blocks are divided by two-means clustering
+(recursively) prior to imputation. If <code>maxp=p</code>, only knn
+imputation is done.</p>
+</td></tr>
+<tr valign="top"><td><code>rng.seed</code></td>
+<td>
+<p>The seed used for the random number generator (default
+362436069) for reproducibility.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><code>impute.knn</code> 
+uses <i>k</i>-nearest neighbors in the space of genes to impute missing
+expression values.
+</p>
+<p>For each gene with missing values, we find the <i>k</i> nearest neighbors using
+a Euclidean metric, confined to the columns for which that gene is NOT
+missing. Each candidate neighbor might be missing some of the
+coordinates used to calculate the distance. In this case we average the
+distance from the non-missing coordinates. Having found the k nearest
+neighbors for a gene, we impute the missing elements by averaging those
+(non-missing) elements of its neighbors. This can fail if ALL the
+neighbors are missing in a particular element. In this case we use the
+overall column mean for that block of genes.
+</p>
+<p>Since nearest neighbor imputation costs
+<i>O(p*log(p))</i> operations per gene, where <i>p</i> is the
+number of rows, the computational time can be excessive for large p and
+a large number of missing rows. Our strategy is to break blocks with
+more than <code>maxp</code> genes into two smaller blocks using two-mean
+clustering. This is done recursively till all blocks have less than
+<code>maxp</code> genes. For each block, <i>k</i>-nearest neighbor
+imputation is done separately.
+We have set the default value of <code>maxp</code> to 1500. Depending on the
+speed of the machine, and number of samples, this number might be
+increased. Making it too small is counter-productive, because the
+number of two-mean clustering algorithms will increase.
+</p>
+<p>For reproducibility, this function reseeds the random number
+generator using the seed provided or the default seed (362436069). 
+</p>
+
+
+<h3>Value</h3>
+
+<table summary="R valueblock">
+<tr valign="top"><td><code>data</code></td>
+<td>
+<p>the new imputed data matrix</p>
+</td></tr>
+<tr valign="top"><td><code>rng.seed</code></td>
+<td>
+<p>the rng.seed that can be used to
+reproduce the imputation. This should be saved by any prudent user
+if different from the default.</p>
+</td></tr>
+<tr valign="top"><td><code>rng.state</code></td>
+<td>
+<p>the state of the random number generator, if
+available, prior to the call to <code>set.seed</code>. Otherwise, it is
+<code>NULL</code>. If necessary, this can be used in the calling code to
+undo the side-effect of changing the random number generator
+sequence.</p>
+</td></tr> 
+</table>
+
+
+<h3>Note</h3>
+
+<p>A bug in the function <code>knnimp.split</code> was fixed in version 1.18.0. 
+This means that results from earlier versions may not be exactly reproducible. 
+We apologize for this inconvenience.</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Trevor Hastie, Robert Tibshirani, Balasubramanian Narasimhan, and Gilbert Chu</p>
+
+
+<h3>References</h3>
+
+<p>Hastie, T., Tibshirani, R., Sherlock, G., Eisen, M., Brown, P. and
+Botstein, D., Imputing Missing Data for Gene Expression Arrays,
+Stanford University Statistics Department Technical report (1999),
+http://www-stat.stanford.edu/~hastie/Papers/missing.pdf 
+</p>
+<p>Olga Troyanskaya, Michael Cantor, Gavin Sherlock, Pat Brown,
+Trevor Hastie, Robert Tibshirani, David Botstein and Russ B. Altman, Missing
+value estimation methods for DNA microarrays BIOINFORMATICS Vol. 17
+no. 6, 2001 Pages 520-525 </p>
+
+
+<h3>See Also</h3>
+
+<p>set.seed, save</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(khanmiss)
+khan.expr &lt;- khanmiss[-1, -(1:2)]
+##
+## First example
+##
+if(exists(".Random.seed")) rm(.Random.seed)
+khan.imputed &lt;- impute.knn(as.matrix(khan.expr))
+##
+## khan.imputed$data should now contain the imputed data matrix
+## khan.imputed$rng.seed should contain the random number seed used
+## in imputation. In the above invocation, it is the default seed.
+##
+khan.imputed$rng.seed # should be 362436069
+khan.imputed$rng.state # should be NULL
+##
+## Second example
+##
+set.seed(12345)
+saved.state &lt;- .Random.seed
+khan.imputed &lt;- impute.knn(as.matrix(khan.expr))
+# Assuming all goes well with no guarantees in case of error...
+.Random.seed &lt;- khan.imputed$rng.state
+sum(saved.state - khan.imputed$rng.state) # should be zero!
+save(khan.imputed, file="khanimputation.Rda")
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>impute</em> version 1.64.0 <a href="00Index.html">Index</a>]</div>
+</body></html>

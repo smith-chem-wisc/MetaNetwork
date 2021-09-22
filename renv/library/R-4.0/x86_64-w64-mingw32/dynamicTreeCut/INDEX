@@ -1,0 +1,12 @@
+cutreeDynamic           Adaptive Branch Pruning of Hierarchical
+                        Clustering Dendrograms
+cutreeDynamicTree       Dynamic Dendrogram Pruning Based on Dendrogram
+                        Only
+cutreeHybrid            Hybrid Adaptive Tree Cut for Hierarchical
+                        Clustering Dendrograms
+dynamicTreeCut-package
+                        Methods for Detection of Clusters in
+                        Hierarchical Clustering Dendrograms
+indentSpaces            Spaces for Indented Output
+merge2Clusters          Merge Two Clusters
+printFlush              Print Arguments and Flush the Console

@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Annotation of GO Identifiers to their Cellular Component...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GOCCANCESTOR {GO.db}"><tr><td>GOCCANCESTOR {GO.db}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Annotation of GO Identifiers to their Cellular Component Ancestors</h2>
+
+<h3>Description</h3>
+
+<p>This data set describes associations between GO molecular function (CC)
+terms and their ancestor CC terms, based on the directed acyclic
+graph (DAG) defined by the Gene Ontology Consortium. The format is an R
+object mapping the GO CC terms to all ancestor terms, where an
+ancestor term is a more general GO term that precedes
+the given GO term in the DAG (in other words, the parents, and all
+their parents, etc.).
+</p>
+
+
+<h3>Details</h3>
+
+<p>Each GO CC term is mapped to a vector of ancestor GO C terms.
+</p>
+<p>Cellular component is defined as the subcellular structures,
+locations, and macromolecular complexes; examples include nucleus,
+telomere, and origin recognition complex as defined by Gene Ontology
+Consortium.
+</p>
+<p>Mappings were based on data provided: Gene Ontology  
+http://current.geneontology.org/ontology/go-basic.obo  
+With a date stamp from the source of: 2020-09-10
+</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://www.geneontology.org/">http://www.geneontology.org/</a> and
+<a href="https://www.ncib.nlm.nih.gov/entrez/query.fcgi?db=gene">https://www.ncib.nlm.nih.gov/entrez/query.fcgi?db=gene</a> 
+</p>
+
+
+<h3>See Also</h3>
+
+
+<ul>
+<li> <p><code><a href="../../AnnotationDbi/html/AnnotationDb-class.html">AnnotationDb-class</a></code> for use of
+the <code>select()</code> interface.
+</p>
+</li></ul>
+
+
+
+<h3>Examples</h3>
+
+<pre>
+## select() interface:
+## Objects in this package can be accessed using the select() interface
+## from the AnnotationDbi package. See ?select for details.
+
+## Bimap interface:
+# Convert the object to a list
+xx &lt;- as.list(GOCCANCESTOR)
+# Remove GO IDs that do not have any ancestor
+xx &lt;- xx[!is.na(xx)]
+if(length(xx) &gt; 0){
+  # Get the ancestor GO IDs for the first two elents of xx
+  goids &lt;- xx[1:2]
+}
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>GO.db</em> version 3.12.1 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,725 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>R: Weighted Correlation Network Analysis</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+<h1> Weighted Correlation Network Analysis
+<img class="toplogo" src="../../../doc/html/Rlogo.svg" alt="[R logo]" />
+</h1>
+<hr/>
+<div style="text-align: center;">
+<a href="../../../doc/html/packages.html"><img class="arrow" src="../../../doc/html/left.jpg" alt="[Up]" /></a>
+<a href="../../../doc/html/index.html"><img class="arrow" src="../../../doc/html/up.jpg" alt="[Top]" /></a>
+</div><h2>Documentation for package &lsquo;WGCNA&rsquo; version 1.70-3</h2>
+
+<ul><li><a href="../DESCRIPTION">DESCRIPTION file</a>.</li>
+</ul>
+
+<h2>Help Pages</h2>
+
+
+<p style="text-align: center;">
+<a href="#A">A</a>
+<a href="#B">B</a>
+<a href="#C">C</a>
+<a href="#D">D</a>
+<a href="#E">E</a>
+<a href="#F">F</a>
+<a href="#G">G</a>
+<a href="#H">H</a>
+<a href="#I">I</a>
+<a href="#K">K</a>
+<a href="#L">L</a>
+<a href="#M">M</a>
+<a href="#N">N</a>
+<a href="#O">O</a>
+<a href="#P">P</a>
+<a href="#Q">Q</a>
+<a href="#R">R</a>
+<a href="#S">S</a>
+<a href="#T">T</a>
+<a href="#U">U</a>
+<a href="#V">V</a>
+<a href="#W">W</a>
+</p>
+
+
+<h2><a name="A">-- A --</a></h2>
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="accuracyMeasures.html">accuracyMeasures</a></td>
+<td>Accuracy measures for a 2x2 confusion matrix or for vectors of predicted and observed values.</td></tr>
+<tr><td style="width: 25%;"><a href="newBlockwiseData.html">addBlockToBlockwiseData</a></td>
+<td>Create, merge and expand BlockwiseData objects</td></tr>
+<tr><td style="width: 25%;"><a href="addErrorBars.html">addErrorBars</a></td>
+<td>Add error bars to a barplot.</td></tr>
+<tr><td style="width: 25%;"><a href="addGrid.html">addGrid</a></td>
+<td>Add grid lines to an existing plot.</td></tr>
+<tr><td style="width: 25%;"><a href="addGuideLines.html">addGuideLines</a></td>
+<td>Add vertical "guide lines" to a dendrogram plot</td></tr>
+<tr><td style="width: 25%;"><a href="addTraitToMEs.html">addTraitToMEs</a></td>
+<td>Add trait information to multi-set module eigengene structure</td></tr>
+<tr><td style="width: 25%;"><a href="adjacency.html">adjacency</a></td>
+<td>Calculate network adjacency</td></tr>
+<tr><td style="width: 25%;"><a href="adjacency.html">adjacency.fromSimilarity</a></td>
+<td>Calculate network adjacency</td></tr>
+<tr><td style="width: 25%;"><a href="adjacency.polyReg.html">adjacency.polyReg</a></td>
+<td>Adjacency matrix based on polynomial regression</td></tr>
+<tr><td style="width: 25%;"><a href="adjacency.splineReg.html">adjacency.splineReg</a></td>
+<td>Calculate network adjacency based on natural cubic spline regression</td></tr>
+<tr><td style="width: 25%;"><a href="AFcorMI.html">AFcorMI</a></td>
+<td>Prediction of Weighted Mutual Information Adjacency Matrix by Correlation</td></tr>
+<tr><td style="width: 25%;"><a href="alignExpr.html">alignExpr</a></td>
+<td>Align expression data with given vector</td></tr>
+<tr><td style="width: 25%;"><a href="allocateJobs.html">allocateJobs</a></td>
+<td>Divide tasks among workers</td></tr>
+<tr><td style="width: 25%;"><a href="allowWGCNAThreads.html">allowWGCNAThreads</a></td>
+<td>Allow and disable multi-threading for certain WGCNA calculations</td></tr>
+<tr><td style="width: 25%;"><a href="automaticNetworkScreening.html">automaticNetworkScreening</a></td>
+<td>One-step automatic network gene screening</td></tr>
+<tr><td style="width: 25%;"><a href="automaticNetworkScreeningGS.html">automaticNetworkScreeningGS</a></td>
+<td>One-step automatic network gene screening with external gene significance</td></tr>
+</table>
+
+<h2><a name="B">-- B --</a></h2>
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="BD.getData.html">BD.actualFileNames</a></td>
+<td>Various basic operations on 'BlockwiseData' objects.</td></tr>
+<tr><td style="width: 25%;"><a href="BD.getData.html">BD.blockLengths</a></td>
+<td>Various basic operations on 'BlockwiseData' objects.</td></tr>
+<tr><td style="width: 25%;"><a href="BD.getData.html">BD.checkAndDeleteFiles</a></td>
+<td>Various basic operations on 'BlockwiseData' objects.</td></tr>
+<tr><td style="width: 25%;"><a href="BD.getData.html">BD.getData</a></td>
+<td>Various basic operations on 'BlockwiseData' objects.</td></tr>
+<tr><td style="width: 25%;"><a href="BD.getData.html">BD.getMetaData</a></td>
+<td>Various basic operations on 'BlockwiseData' objects.</td></tr>
+<tr><td style="width: 25%;"><a href="BD.getData.html">BD.nBlocks</a></td>
+<td>Various basic operations on 'BlockwiseData' objects.</td></tr>
+<tr><td style="width: 25%;"><a href="bicor.html">bicor</a></td>
+<td>Biweight Midcorrelation</td></tr>
+<tr><td style="width: 25%;"><a href="bicorAndPvalue.html">bicorAndPvalue</a></td>
+<td>Calculation of biweight midcorrelations and associated p-values</td></tr>
+<tr><td style="width: 25%;"><a href="bicovWeights.html">bicovWeightFactors</a></td>
+<td>Weights used in biweight midcovariance</td></tr>
+<tr><td style="width: 25%;"><a href="bicovWeights.html">bicovWeights</a></td>
+<td>Weights used in biweight midcovariance</td></tr>
+<tr><td style="width: 25%;"><a href="bicovWeights.html">bicovWeightsFromFactors</a></td>
+<td>Weights used in biweight midcovariance</td></tr>
+<tr><td style="width: 25%;"><a href="binarizeCategoricalColumns.html">binarizeCategoricalColumns</a></td>
+<td>Turn categorical columns into sets of binary indicators</td></tr>
+<tr><td style="width: 25%;"><a href="binarizeCategoricalColumns.html">binarizeCategoricalColumns.forPlots</a></td>
+<td>Turn categorical columns into sets of binary indicators</td></tr>
+<tr><td style="width: 25%;"><a href="binarizeCategoricalColumns.html">binarizeCategoricalColumns.forRegression</a></td>
+<td>Turn categorical columns into sets of binary indicators</td></tr>
+<tr><td style="width: 25%;"><a href="binarizeCategoricalColumns.html">binarizeCategoricalColumns.pairwise</a></td>
+<td>Turn categorical columns into sets of binary indicators</td></tr>
+<tr><td style="width: 25%;"><a href="binarizeCategoricalVariable.html">binarizeCategoricalVariable</a></td>
+<td>Turn a categorical variable into a set of binary indicators</td></tr>
+<tr><td style="width: 25%;"><a href="newBlockInformation.html">BlockInformation</a></td>
+<td>Create a list holding information about dividing data into blocks</td></tr>
+<tr><td style="width: 25%;"><a href="blockSize.html">blockSize</a></td>
+<td>Attempt to calculate an appropriate block size to maximize efficiency of block-wise calcualtions.</td></tr>
+<tr><td style="width: 25%;"><a href="blockwiseConsensusModules.html">blockwiseConsensusModules</a></td>
+<td>Find consensus modules across several datasets.</td></tr>
+<tr><td style="width: 25%;"><a href="newBlockwiseData.html">BlockwiseData</a></td>
+<td>Create, merge and expand BlockwiseData objects</td></tr>
+<tr><td style="width: 25%;"><a href="blockwiseIndividualTOMs.html">blockwiseIndividualTOMs</a></td>
+<td>Calculation of block-wise topological overlaps</td></tr>
+<tr><td style="width: 25%;"><a href="blockwiseModules.html">blockwiseModules</a></td>
+<td>Automatic network construction and module detection</td></tr>
+<tr><td style="width: 25%;"><a href="BloodLists.html">BloodLists</a></td>
+<td>Blood Cell Types with Corresponding Gene Markers</td></tr>
+<tr><td style="width: 25%;"><a href="blueWhiteRed.html">blueWhiteRed</a></td>
+<td>Blue-white-red color sequence</td></tr>
+<tr><td style="width: 25%;"><a href="BrainLists.html">BrainLists</a></td>
+<td>Brain-Related Categories with Corresponding Gene Markers</td></tr>
+<tr><td style="width: 25%;"><a href="BrainRegionMarkers.html">BrainRegionMarkers</a></td>
+<td>Gene Markers for Regions of the Human Brain</td></tr>
+<tr><td style="width: 25%;"><a href="branchEigengeneDissim.html">branchEigengeneDissim</a></td>
+<td>Branch dissimilarity based on eigennodes (eigengenes).</td></tr>
+<tr><td style="width: 25%;"><a href="branchEigengeneDissim.html">branchEigengeneSimilarity</a></td>
+<td>Branch dissimilarity based on eigennodes (eigengenes).</td></tr>
+<tr><td style="width: 25%;"><a href="branchSplit.html">branchSplit</a></td>
+<td>Branch split.</td></tr>
+<tr><td style="width: 25%;"><a href="branchSplit.dissim.html">branchSplit.dissim</a></td>
+<td>Branch split based on dissimilarity.</td></tr>
+<tr><td style="width: 25%;"><a href="branchSplitFromStabilityLabels.html">branchSplitFromStabilityLabels</a></td>
+<td>Branch split (dissimilarity) statistics derived from labels determined from a stability study</td></tr>
+<tr><td style="width: 25%;"><a href="branchSplitFromStabilityLabels.html">branchSplitFromStabilityLabels.individualFraction</a></td>
+<td>Branch split (dissimilarity) statistics derived from labels determined from a stability study</td></tr>
+<tr><td style="width: 25%;"><a href="branchSplitFromStabilityLabels.html">branchSplitFromStabilityLabels.prediction</a></td>
+<td>Branch split (dissimilarity) statistics derived from labels determined from a stability study</td></tr>
+</table>
+
+<h2><a name="C">-- C --</a></h2>
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="checkAdjMat.html">checkAdjMat</a></td>
+<td>Check adjacency matrix</td></tr>
+<tr><td style="width: 25%;"><a href="checkSets.html">checkSets</a></td>
+<td>Check structure and retrieve sizes of a group of datasets.</td></tr>
+<tr><td style="width: 25%;"><a href="checkAdjMat.html">checkSimilarity</a></td>
+<td>Check adjacency matrix</td></tr>
+<tr><td style="width: 25%;"><a href="chooseOneHubInEachModule.html">chooseOneHubInEachModule</a></td>
+<td>Chooses a single hub gene in each module</td></tr>
+<tr><td style="width: 25%;"><a href="chooseTopHubInEachModule.html">chooseTopHubInEachModule</a></td>
+<td>Chooses the top hub gene in each module</td></tr>
+<tr><td style="width: 25%;"><a href="clusterCoef.html">clusterCoef</a></td>
+<td>Clustering coefficient calculation</td></tr>
+<tr><td style="width: 25%;"><a href="coClustering.html">coClustering</a></td>
+<td>Co-clustering measure of cluster preservation between two clusterings</td></tr>
+<tr><td style="width: 25%;"><a href="coClustering.permutationTest.html">coClustering.permutationTest</a></td>
+<td>Permutation test for co-clustering</td></tr>
+<tr><td style="width: 25%;"><a href="collapseRows.html">collapseRows</a></td>
+<td>Select one representative row per group</td></tr>
+<tr><td style="width: 25%;"><a href="collapseRowsUsingKME.html">collapseRowsUsingKME</a></td>
+<td>Selects one representative row per group based on kME</td></tr>
+<tr><td style="width: 25%;"><a href="collectGarbage.html">collectGarbage</a></td>
+<td>Iterative garbage collection.</td></tr>
+<tr><td style="width: 25%;"><a href="colQuantileC.html">colQuantileC</a></td>
+<td>Fast colunm- and row-wise quantile of a matrix.</td></tr>
+<tr><td style="width: 25%;"><a href="conformityBasedNetworkConcepts.html">conformityBasedNetworkConcepts</a></td>
+<td>Calculation of conformity-based network concepts.</td></tr>
+<tr><td style="width: 25%;"><a href="conformityDecomposition.html">conformityDecomposition</a></td>
+<td>Conformity and module based decomposition of a network adjacency matrix.</td></tr>
+<tr><td style="width: 25%;"><a href="consensusCalculation.html">consensusCalculation</a></td>
+<td>Calculation of a (single) consenus with optional data calibration.</td></tr>
+<tr><td style="width: 25%;"><a href="consensusDissTOMandTree.html">consensusDissTOMandTree</a></td>
+<td>Consensus clustering based on topological overlap and hierarchical clustering</td></tr>
+<tr><td style="width: 25%;"><a href="consensusKME.html">consensusKME</a></td>
+<td>Calculate consensus kME (eigengene-based connectivities) across multiple data sets.</td></tr>
+<tr><td style="width: 25%;"><a href="consensusMEDissimilarity.html">consensusMEDissimilarity</a></td>
+<td>Consensus dissimilarity of module eigengenes.</td></tr>
+<tr><td style="width: 25%;"><a href="newConsensusOptions.html">ConsensusOptions</a></td>
+<td>Create a list holding consensus calculation options.</td></tr>
+<tr><td style="width: 25%;"><a href="consensusOrderMEs.html">consensusOrderMEs</a></td>
+<td>Put close eigenvectors next to each other in several sets.</td></tr>
+<tr><td style="width: 25%;"><a href="consensusProjectiveKMeans.html">consensusProjectiveKMeans</a></td>
+<td>Consensus projective K-means (pre-)clustering of expression data</td></tr>
+<tr><td style="width: 25%;"><a href="consensusRepresentatives.html">consensusRepresentatives</a></td>
+<td>Consensus selection of group representatives</td></tr>
+<tr><td style="width: 25%;"><a href="consensusTOM.html">consensusTOM</a></td>
+<td>Consensus network (topological overlap).</td></tr>
+<tr><td style="width: 25%;"><a href="newConsensusTree.html">ConsensusTree</a></td>
+<td>Create a new consensus tree</td></tr>
+<tr><td style="width: 25%;"><a href="consensusTreeInputs.html">consensusTreeInputs</a></td>
+<td>Get all elementary inputs in a consensus tree</td></tr>
+<tr><td style="width: 25%;"><a href="convertNumericColumnsToNumeric.html">convertNumericColumnsToNumeric</a></td>
+<td>Convert character columns that represent numbers to numeric</td></tr>
+<tr><td style="width: 25%;"><a href="cor.html">cor</a></td>
+<td>Fast calculations of Pearson correlation.</td></tr>
+<tr><td style="width: 25%;"><a href="cor.html">cor1</a></td>
+<td>Fast calculations of Pearson correlation.</td></tr>
+<tr><td style="width: 25%;"><a href="corAndPvalue.html">corAndPvalue</a></td>
+<td>Calculation of correlations and associated p-values</td></tr>
+<tr><td style="width: 25%;"><a href="cor.html">corFast</a></td>
+<td>Fast calculations of Pearson correlation.</td></tr>
+<tr><td style="width: 25%;"><a href="corPredictionSuccess.html">corPredictionSuccess</a></td>
+<td>Qunatification of success of gene screening</td></tr>
+<tr><td style="width: 25%;"><a href="corPvalueFisher.html">corPvalueFisher</a></td>
+<td>Fisher's asymptotic p-value for correlation</td></tr>
+<tr><td style="width: 25%;"><a href="corPvalueStudent.html">corPvalueStudent</a></td>
+<td>Student asymptotic p-value for correlation</td></tr>
+<tr><td style="width: 25%;"><a href="newCorrelationOptions.html">CorrelationOptions</a></td>
+<td>Creates a list of correlation options.</td></tr>
+<tr><td style="width: 25%;"><a href="correlationPreservation.html">correlationPreservation</a></td>
+<td>Preservation of eigengene correlations</td></tr>
+<tr><td style="width: 25%;"><a href="coxRegressionResiduals.html">coxRegressionResiduals</a></td>
+<td>Deviance- and martingale residuals from a Cox regression model</td></tr>
+<tr><td style="width: 25%;"><a href="cutreeStatic.html">cutreeStatic</a></td>
+<td>Constant-height tree cut</td></tr>
+<tr><td style="width: 25%;"><a href="cutreeStaticColor.html">cutreeStaticColor</a></td>
+<td>Constant height tree cut using color labels</td></tr>
+</table>
+
+<h2><a name="D">-- D --</a></h2>
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="allowWGCNAThreads.html">disableWGCNAThreads</a></td>
+<td>Allow and disable multi-threading for certain WGCNA calculations</td></tr>
+<tr><td style="width: 25%;"><a href="displayColors.html">displayColors</a></td>
+<td>Show colors used to label modules</td></tr>
+<tr><td style="width: 25%;"><a href="dynamicMergeCut.html">dynamicMergeCut</a></td>
+<td>Threshold for module merging</td></tr>
+</table>
+
+<h2><a name="E">-- E --</a></h2>
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="empiricalBayesLM.html">empiricalBayesLM</a></td>
+<td>Empirical Bayes-moderated adjustment for unwanted covariates</td></tr>
+<tr><td style="width: 25%;"><a href="allowWGCNAThreads.html">enableWGCNAThreads</a></td>
+<td>Allow and disable multi-threading for certain WGCNA calculations</td></tr>
+<tr><td style="width: 25%;"><a href="exportNetworkToCytoscape.html">exportNetworkToCytoscape</a></td>
+<td>Export network to Cytoscape</td></tr>
+<tr><td style="width: 25%;"><a href="exportNetworkToVisANT.html">exportNetworkToVisANT</a></td>
+<td>Export network data in format readable by VisANT</td></tr>
+</table>
+
+<h2><a name="F">-- F --</a></h2>
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="factorizeNonNumericColumns.html">factorizeNonNumericColumns</a></td>
+<td>Turn non-numeric columns into factors</td></tr>
+<tr><td style="width: 25%;"><a href="fixDataStructure.html">fixDataStructure</a></td>
+<td>Put single-set data into a form useful for multiset calculations.</td></tr>
+<tr><td style="width: 25%;"><a href="formatLabels.html">formatLabels</a></td>
+<td>Break long character strings into multiple lines</td></tr>
+<tr><td style="width: 25%;"><a href="fundamentalNetworkConcepts.html">fundamentalNetworkConcepts</a></td>
+<td>Calculation of fundamental network concepts from an adjacency matrix.</td></tr>
+</table>
+
+<h2><a name="G">-- G --</a></h2>
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="GOenrichmentAnalysis.html">GOenrichmentAnalysis</a></td>
+<td>Calculation of GO enrichment (experimental)</td></tr>
+<tr><td style="width: 25%;"><a href="goodGenes.html">goodGenes</a></td>
+<td>Filter genes with too many missing entries</td></tr>
+<tr><td style="width: 25%;"><a href="goodGenesMS.html">goodGenesMS</a></td>
+<td>Filter genes with too many missing entries across multiple sets</td></tr>
+<tr><td style="width: 25%;"><a href="goodSamples.html">goodSamples</a></td>
+<td>Filter samples with too many missing entries</td></tr>
+<tr><td style="width: 25%;"><a href="goodSamplesGenes.html">goodSamplesGenes</a></td>
+<td>Iterative filtering of samples and genes with too many missing entries</td></tr>
+<tr><td style="width: 25%;"><a href="goodSamplesGenesMS.html">goodSamplesGenesMS</a></td>
+<td>Iterative filtering of samples and genes with too many missing entries across multiple data sets</td></tr>
+<tr><td style="width: 25%;"><a href="goodSamplesMS.html">goodSamplesMS</a></td>
+<td>Filter samples with too many missing entries across multiple data sets</td></tr>
+<tr><td style="width: 25%;"><a href="greenBlackRed.html">greenBlackRed</a></td>
+<td>Green-black-red color sequence</td></tr>
+<tr><td style="width: 25%;"><a href="greenWhiteRed.html">greenWhiteRed</a></td>
+<td>Green-white-red color sequence</td></tr>
+<tr><td style="width: 25%;"><a href="GTOMdist.html">GTOMdist</a></td>
+<td>Generalized Topological Overlap Measure</td></tr>
+</table>
+
+<h2><a name="H">-- H --</a></h2>
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="branchEigengeneDissim.html">hierarchicalBranchEigengeneDissim</a></td>
+<td>Branch dissimilarity based on eigennodes (eigengenes).</td></tr>
+<tr><td style="width: 25%;"><a href="hierarchicalConsensusCalculation.html">hierarchicalConsensusCalculation</a></td>
+<td>Hierarchical consensus calculation</td></tr>
+<tr><td style="width: 25%;"><a href="hierarchicalConsensusKME.html">hierarchicalConsensusKME</a></td>
+<td>Calculation of measures of fuzzy module membership (KME) in hierarchical consensus modules</td></tr>
+<tr><td style="width: 25%;"><a href="hierarchicalConsensusMEDissimilarity.html">hierarchicalConsensusMEDissimilarity</a></td>
+<td>Hierarchical consensus calculation of module eigengene dissimilarity</td></tr>
+<tr><td style="width: 25%;"><a href="hierarchicalConsensusModules.html">hierarchicalConsensusModules</a></td>
+<td>Hierarchical consensus network construction and module identification</td></tr>
+<tr><td style="width: 25%;"><a href="hierarchicalConsensusTOM.html">hierarchicalConsensusTOM</a></td>
+<td>Calculation of hierarchical consensus topological overlap matrix</td></tr>
+<tr><td style="width: 25%;"><a href="hierarchicalMergeCloseModules.html">hierarchicalMergeCloseModules</a></td>
+<td>Merge close (similar) hierarchical consensus modules</td></tr>
+<tr><td style="width: 25%;"><a href="hubGeneSignificance.html">hubGeneSignificance</a></td>
+<td>Hubgene significance</td></tr>
+</table>
+
+<h2><a name="I">-- I --</a></h2>
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="ImmunePathwayLists.html">ImmunePathwayLists</a></td>
+<td>Immune Pathways with Corresponding Gene Markers</td></tr>
+<tr><td style="width: 25%;"><a href="imputeByModule.html">imputeByModule</a></td>
+<td>Impute missing data separately in each module</td></tr>
+<tr><td style="width: 25%;"><a href="individualTOMs.html">individualTOMs</a></td>
+<td>Calculate individual correlation network matrices</td></tr>
+<tr><td style="width: 25%;"><a href="initProgInd.html">initProgInd</a></td>
+<td>Inline display of progress</td></tr>
+<tr><td style="width: 25%;"><a href="intramodularConnectivity.html">intramodularConnectivity</a></td>
+<td>Calculation of intramodular connectivity</td></tr>
+<tr><td style="width: 25%;"><a href="intramodularConnectivity.html">intramodularConnectivity.fromExpr</a></td>
+<td>Calculation of intramodular connectivity</td></tr>
+<tr><td style="width: 25%;"><a href="isMultiData.html">isMultiData</a></td>
+<td>Determine whether the supplied object is a valid multiData structure</td></tr>
+</table>
+
+<h2><a name="K">-- K --</a></h2>
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="keepCommonProbes.html">keepCommonProbes</a></td>
+<td>Keep probes that are shared among given data sets</td></tr>
+<tr><td style="width: 25%;"><a href="kMEcomparisonScatterplot.html">kMEcomparisonScatterplot</a></td>
+<td>Function to plot kME values between two comparable data sets.</td></tr>
+</table>
+
+<h2><a name="L">-- L --</a></h2>
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="labeledBarplot.html">labeledBarplot</a></td>
+<td>Barplot with text or color labels.</td></tr>
+<tr><td style="width: 25%;"><a href="labeledHeatmap.html">labeledHeatmap</a></td>
+<td>Produce a labeled heatmap plot</td></tr>
+<tr><td style="width: 25%;"><a href="labeledHeatmap.multiPage.html">labeledHeatmap.multiPage</a></td>
+<td>Labeled heatmap divided into several separate plots.</td></tr>
+<tr><td style="width: 25%;"><a href="labelPoints.html">labelPoints</a></td>
+<td>Label scatterplot points</td></tr>
+<tr><td style="width: 25%;"><a href="labels2colors.html">labels2colors</a></td>
+<td>Convert numerical labels to colors.</td></tr>
+<tr><td style="width: 25%;"><a href="list2multiData.html">list2multiData</a></td>
+<td>Convert a list to a multiData structure and vice-versa.</td></tr>
+<tr><td style="width: 25%;"><a href="lowerTri2matrix.html">lowerTri2matrix</a></td>
+<td>Reconstruct a symmetric matrix from a distance (lower-triangular) representation</td></tr>
+</table>
+
+<h2><a name="M">-- M --</a></h2>
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="matchLabels.html">matchLabels</a></td>
+<td>Relabel module labels to best match the given reference labels</td></tr>
+<tr><td style="width: 25%;"><a href="matrixToNetwork.html">matrixToNetwork</a></td>
+<td>Construct a network from a matrix</td></tr>
+<tr><td style="width: 25%;"><a href="newBlockwiseData.html">mergeBlockwiseData</a></td>
+<td>Create, merge and expand BlockwiseData objects</td></tr>
+<tr><td style="width: 25%;"><a href="mergeCloseModules.html">mergeCloseModules</a></td>
+<td>Merge close modules in gene expression data</td></tr>
+<tr><td style="width: 25%;"><a href="metaAnalysis.html">metaAnalysis</a></td>
+<td>Meta-analysis of binary and continuous variables</td></tr>
+<tr><td style="width: 25%;"><a href="metaZfunction.html">metaZfunction</a></td>
+<td>Meta-analysis Z statistic</td></tr>
+<tr><td style="width: 25%;"><a href="minWhichMin.html">minWhichMin</a></td>
+<td>Fast joint calculation of row- or column-wise minima and indices of minimum elements</td></tr>
+<tr><td style="width: 25%;"><a href="moduleColor.getMEprefix.html">moduleColor.getMEprefix</a></td>
+<td>Get the prefix used to label module eigengenes.</td></tr>
+<tr><td style="width: 25%;"><a href="moduleEigengenes.html">moduleEigengenes</a></td>
+<td>Calculate module eigengenes.</td></tr>
+<tr><td style="width: 25%;"><a href="moduleMergeUsingKME.html">moduleMergeUsingKME</a></td>
+<td>Merge modules and reassign genes using kME.</td></tr>
+<tr><td style="width: 25%;"><a href="moduleNumber.html">moduleNumber</a></td>
+<td>Fixed-height cut of a dendrogram.</td></tr>
+<tr><td style="width: 25%;"><a href="modulePreservation.html">modulePreservation</a></td>
+<td>Calculation of module preservation statistics</td></tr>
+<tr><td style="width: 25%;"><a href="mtd.apply.html">mtd.apply</a></td>
+<td>Apply a function to each set in a multiData structure.</td></tr>
+<tr><td style="width: 25%;"><a href="mtd.apply.html">mtd.applyToSubset</a></td>
+<td>Apply a function to each set in a multiData structure.</td></tr>
+<tr><td style="width: 25%;"><a href="branchEigengeneDissim.html">mtd.branchEigengeneDissim</a></td>
+<td>Branch dissimilarity based on eigennodes (eigengenes).</td></tr>
+<tr><td style="width: 25%;"><a href="mtd.setColnames.html">mtd.colnames</a></td>
+<td>Get and set column names in a multiData structure.</td></tr>
+<tr><td style="width: 25%;"><a href="mtd.mapply.html">mtd.mapply</a></td>
+<td>Apply a function to elements of given multiData structures.</td></tr>
+<tr><td style="width: 25%;"><a href="mtd.rbindSelf.html">mtd.rbindSelf</a></td>
+<td>Turn a multiData structure into a single matrix or data frame.</td></tr>
+<tr><td style="width: 25%;"><a href="mtd.setAttr.html">mtd.setAttr</a></td>
+<td>Set attributes on each component of a multiData structure</td></tr>
+<tr><td style="width: 25%;"><a href="mtd.setColnames.html">mtd.setColnames</a></td>
+<td>Get and set column names in a multiData structure.</td></tr>
+<tr><td style="width: 25%;"><a href="mtd.simplify.html">mtd.simplify</a></td>
+<td>If possible, simplify a multiData structure to a 3-dimensional array.</td></tr>
+<tr><td style="width: 25%;"><a href="mtd.subset.html">mtd.subset</a></td>
+<td>Subset rows and columns in a multiData structure</td></tr>
+<tr><td style="width: 25%;"><a href="multiData.html">multiData</a></td>
+<td>Create a multiData structure.</td></tr>
+<tr><td style="width: 25%;"><a href="multiData.eigengeneSignificance.html">multiData.eigengeneSignificance</a></td>
+<td>Eigengene significance across multiple sets</td></tr>
+<tr><td style="width: 25%;"><a href="list2multiData.html">multiData2list</a></td>
+<td>Convert a list to a multiData structure and vice-versa.</td></tr>
+<tr><td style="width: 25%;"><a href="multiGSub.html">multiGrep</a></td>
+<td>Analogs of grep(l) and (g)sub for multiple patterns and relacements</td></tr>
+<tr><td style="width: 25%;"><a href="multiGSub.html">multiGrepl</a></td>
+<td>Analogs of grep(l) and (g)sub for multiple patterns and relacements</td></tr>
+<tr><td style="width: 25%;"><a href="multiGSub.html">multiGSub</a></td>
+<td>Analogs of grep(l) and (g)sub for multiple patterns and relacements</td></tr>
+<tr><td style="width: 25%;"><a href="multiUnion.html">multiIntersect</a></td>
+<td>Union and intersection of multiple sets</td></tr>
+<tr><td style="width: 25%;"><a href="multiSetMEs.html">multiSetMEs</a></td>
+<td>Calculate module eigengenes.</td></tr>
+<tr><td style="width: 25%;"><a href="multiGSub.html">multiSub</a></td>
+<td>Analogs of grep(l) and (g)sub for multiple patterns and relacements</td></tr>
+<tr><td style="width: 25%;"><a href="multiUnion.html">multiUnion</a></td>
+<td>Union and intersection of multiple sets</td></tr>
+<tr><td style="width: 25%;"><a href="mutualInfoAdjacency.html">mutualInfoAdjacency</a></td>
+<td>Calculate weighted adjacency matrices based on mutual information</td></tr>
+</table>
+
+<h2><a name="N">-- N --</a></h2>
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="nearestCentroidPredictor.html">nearestCentroidPredictor</a></td>
+<td>Nearest centroid predictor</td></tr>
+<tr><td style="width: 25%;"><a href="nearestNeighborConnectivity.html">nearestNeighborConnectivity</a></td>
+<td>Connectivity to a constant number of nearest neighbors</td></tr>
+<tr><td style="width: 25%;"><a href="nearestNeighborConnectivityMS.html">nearestNeighborConnectivityMS</a></td>
+<td>Connectivity to a constant number of nearest neighbors across multiple data sets</td></tr>
+<tr><td style="width: 25%;"><a href="networkConcepts.html">networkConcepts</a></td>
+<td>Calculations of network concepts</td></tr>
+<tr><td style="width: 25%;"><a href="newNetworkOptions.html">NetworkOptions</a></td>
+<td>Create a list of network construction arguments (options).</td></tr>
+<tr><td style="width: 25%;"><a href="networkScreening.html">networkScreening</a></td>
+<td>Identification of genes related to a trait</td></tr>
+<tr><td style="width: 25%;"><a href="networkScreeningGS.html">networkScreeningGS</a></td>
+<td>Network gene screening with an external gene significance measure</td></tr>
+<tr><td style="width: 25%;"><a href="newBlockInformation.html">newBlockInformation</a></td>
+<td>Create a list holding information about dividing data into blocks</td></tr>
+<tr><td style="width: 25%;"><a href="newBlockwiseData.html">newBlockwiseData</a></td>
+<td>Create, merge and expand BlockwiseData objects</td></tr>
+<tr><td style="width: 25%;"><a href="newConsensusOptions.html">newConsensusOptions</a></td>
+<td>Create a list holding consensus calculation options.</td></tr>
+<tr><td style="width: 25%;"><a href="newConsensusTree.html">newConsensusTree</a></td>
+<td>Create a new consensus tree</td></tr>
+<tr><td style="width: 25%;"><a href="newCorrelationOptions.html">newCorrelationOptions</a></td>
+<td>Creates a list of correlation options.</td></tr>
+<tr><td style="width: 25%;"><a href="newNetworkOptions.html">newNetworkOptions</a></td>
+<td>Create a list of network construction arguments (options).</td></tr>
+<tr><td style="width: 25%;"><a href="normalizeLabels.html">normalizeLabels</a></td>
+<td>Transform numerical labels into normal order.</td></tr>
+<tr><td style="width: 25%;"><a href="nPresent.html">nPresent</a></td>
+<td>Number of present data entries.</td></tr>
+<tr><td style="width: 25%;"><a href="nSets.html">nSets</a></td>
+<td>Number of sets in a multi-set variable</td></tr>
+<tr><td style="width: 25%;"><a href="numbers2colors.html">numbers2colors</a></td>
+<td>Color representation for a numeric variable</td></tr>
+</table>
+
+<h2><a name="O">-- O --</a></h2>
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="orderBranchesUsingHubGenes.html">orderBranchesUsingHubGenes</a></td>
+<td>Optimize dendrogram using branch swaps and reflections.</td></tr>
+<tr><td style="width: 25%;"><a href="orderMEs.html">orderMEs</a></td>
+<td>Put close eigenvectors next to each other</td></tr>
+<tr><td style="width: 25%;"><a href="orderMEsByHierarchicalConsensus.html">orderMEsByHierarchicalConsensus</a></td>
+<td>Order module eigengenes by their hierarchical consensus similarity</td></tr>
+<tr><td style="width: 25%;"><a href="overlapTable.html">overlapTable</a></td>
+<td>Calculate overlap of modules</td></tr>
+<tr><td style="width: 25%;"><a href="overlapTableUsingKME.html">overlapTableUsingKME</a></td>
+<td>Determines significant overlap between modules in two networks based on kME tables.</td></tr>
+</table>
+
+<h2><a name="P">-- P --</a></h2>
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="pickHardThreshold.html">pickHardThreshold</a></td>
+<td>Analysis of scale free topology for hard-thresholding.</td></tr>
+<tr><td style="width: 25%;"><a href="pickHardThreshold.html">pickHardThreshold.fromSimilarity</a></td>
+<td>Analysis of scale free topology for hard-thresholding.</td></tr>
+<tr><td style="width: 25%;"><a href="pickSoftThreshold.html">pickSoftThreshold</a></td>
+<td>Analysis of scale free topology for soft-thresholding</td></tr>
+<tr><td style="width: 25%;"><a href="pickSoftThreshold.html">pickSoftThreshold.fromSimilarity</a></td>
+<td>Analysis of scale free topology for soft-thresholding</td></tr>
+<tr><td style="width: 25%;"><a href="plotClusterTreeSamples.html">plotClusterTreeSamples</a></td>
+<td>Annotated clustering dendrogram of microarray samples</td></tr>
+<tr><td style="width: 25%;"><a href="plotColorUnderTree.html">plotColorUnderTree</a></td>
+<td>Plot color rows in a given order, for example under a dendrogram</td></tr>
+<tr><td style="width: 25%;"><a href="plotCor.html">plotCor</a></td>
+<td>Red and Green Color Image of Correlation Matrix</td></tr>
+<tr><td style="width: 25%;"><a href="plotDendroAndColors.html">plotDendroAndColors</a></td>
+<td>Dendrogram plot with color annotation of objects</td></tr>
+<tr><td style="width: 25%;"><a href="plotEigengeneNetworks.html">plotEigengeneNetworks</a></td>
+<td>Eigengene network plot</td></tr>
+<tr><td style="width: 25%;"><a href="plotMat.html">plotMat</a></td>
+<td>Red and Green Color Image of Data Matrix</td></tr>
+<tr><td style="width: 25%;"><a href="plotMEpairs.html">plotMEpairs</a></td>
+<td>Pairwise scatterplots of eigengenes</td></tr>
+<tr><td style="width: 25%;"><a href="plotModuleSignificance.html">plotModuleSignificance</a></td>
+<td>Barplot of module significance</td></tr>
+<tr><td style="width: 25%;"><a href="plotMultiHist.html">plotMultiHist</a></td>
+<td>Plot multiple histograms in a single plot</td></tr>
+<tr><td style="width: 25%;"><a href="plotNetworkHeatmap.html">plotNetworkHeatmap</a></td>
+<td>Network heatmap plot</td></tr>
+<tr><td style="width: 25%;"><a href="plotColorUnderTree.html">plotOrderedColors</a></td>
+<td>Plot color rows in a given order, for example under a dendrogram</td></tr>
+<tr><td style="width: 25%;"><a href="pquantile.html">pmean</a></td>
+<td>Parallel quantile, median, mean</td></tr>
+<tr><td style="width: 25%;"><a href="pquantile.html">pmean.fromList</a></td>
+<td>Parallel quantile, median, mean</td></tr>
+<tr><td style="width: 25%;"><a href="pquantile.html">pmedian</a></td>
+<td>Parallel quantile, median, mean</td></tr>
+<tr><td style="width: 25%;"><a href="pquantile.html">pminWhich.fromList</a></td>
+<td>Parallel quantile, median, mean</td></tr>
+<tr><td style="width: 25%;"><a href="populationMeansInAdmixture.html">populationMeansInAdmixture</a></td>
+<td>Estimate the population-specific mean values in an admixed population.</td></tr>
+<tr><td style="width: 25%;"><a href="pquantile.html">pquantile</a></td>
+<td>Parallel quantile, median, mean</td></tr>
+<tr><td style="width: 25%;"><a href="pquantile.html">pquantile.fromList</a></td>
+<td>Parallel quantile, median, mean</td></tr>
+<tr><td style="width: 25%;"><a href="prepComma.html">prepComma</a></td>
+<td>Prepend a comma to a non-empty string</td></tr>
+<tr><td style="width: 25%;"><a href="prependZeros.html">prependZeros</a></td>
+<td>Pad numbers with leading zeros to specified total width</td></tr>
+<tr><td style="width: 25%;"><a href="preservationNetworkConnectivity.html">preservationNetworkConnectivity</a></td>
+<td>Network preservation calculations</td></tr>
+<tr><td style="width: 25%;"><a href="projectiveKMeans.html">projectiveKMeans</a></td>
+<td>Projective K-means (pre-)clustering of expression data</td></tr>
+<tr><td style="width: 25%;"><a href="proportionsInAdmixture.html">proportionsInAdmixture</a></td>
+<td>Estimate the proportion of pure populations in an admixed population based on marker expression values.</td></tr>
+<tr><td style="width: 25%;"><a href="propVarExplained.html">propVarExplained</a></td>
+<td>Proportion of variance explained by eigengenes.</td></tr>
+<tr><td style="width: 25%;"><a href="pruneAndMergeConsensusModules.html">pruneAndMergeConsensusModules</a></td>
+<td>Iterative pruning and merging of (hierarchical) consensus modules</td></tr>
+<tr><td style="width: 25%;"><a href="pruneConsensusModules.html">pruneConsensusModules</a></td>
+<td>Prune (hierarchical) consensus modules by removing genes with low eigengene-based intramodular connectivity</td></tr>
+<tr><td style="width: 25%;"><a href="PWLists.html">PWLists</a></td>
+<td>Pathways with Corresponding Gene Markers - Compiled by Mike Palazzolo and Jim Wang from CHDI</td></tr>
+</table>
+
+<h2><a name="Q">-- Q --</a></h2>
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="qvalue.html">qvalue</a></td>
+<td>Estimate the q-values for a given set of p-values</td></tr>
+<tr><td style="width: 25%;"><a href="qvalue.restricted.html">qvalue.restricted</a></td>
+<td>qvalue convenience wrapper</td></tr>
+</table>
+
+<h2><a name="R">-- R --</a></h2>
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="randIndex.html">randIndex</a></td>
+<td>Rand index of two partitions</td></tr>
+<tr><td style="width: 25%;"><a href="rankPvalue.html">rankPvalue</a></td>
+<td>Estimate the p-value for ranking consistently high (or low) on multiple lists</td></tr>
+<tr><td style="width: 25%;"><a href="recutBlockwiseTrees.html">recutBlockwiseTrees</a></td>
+<td>Repeat blockwise module detection from pre-calculated data</td></tr>
+<tr><td style="width: 25%;"><a href="recutConsensusTrees.html">recutConsensusTrees</a></td>
+<td>Repeat blockwise consensus module detection from pre-calculated data</td></tr>
+<tr><td style="width: 25%;"><a href="redWhiteGreen.html">redWhiteGreen</a></td>
+<td>Red-white-green color sequence</td></tr>
+<tr><td style="width: 25%;"><a href="swapTwoBranches.html">reflectBranch</a></td>
+<td>Select, swap, or reflect branches in a dendrogram.</td></tr>
+<tr><td style="width: 25%;"><a href="relativeCorPredictionSuccess.html">relativeCorPredictionSuccess</a></td>
+<td>Compare prediction success</td></tr>
+<tr><td style="width: 25%;"><a href="removeGreyME.html">removeGreyME</a></td>
+<td>Removes the grey eigengene from a given collection of eigengenes.</td></tr>
+<tr><td style="width: 25%;"><a href="removePrincipalComponents.html">removePrincipalComponents</a></td>
+<td>Remove leading principal components from data</td></tr>
+<tr><td style="width: 25%;"><a href="replaceMissing.html">replaceMissing</a></td>
+<td>Replace missing values with a constant.</td></tr>
+<tr><td style="width: 25%;"><a href="returnGeneSetsAsList.html">returnGeneSetsAsList</a></td>
+<td>Return pre-defined gene lists in several biomedical categories.</td></tr>
+<tr><td style="width: 25%;"><a href="rgcolors.func.html">rgcolors.func</a></td>
+<td>Red and Green Color Specification</td></tr>
+<tr><td style="width: 25%;"><a href="colQuantileC.html">rowQuantileC</a></td>
+<td>Fast colunm- and row-wise quantile of a matrix.</td></tr>
+</table>
+
+<h2><a name="S">-- S --</a></h2>
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="sampledBlockwiseModules.html">sampledBlockwiseModules</a></td>
+<td>Blockwise module identification in sampled data</td></tr>
+<tr><td style="width: 25%;"><a href="sampledHierarchicalConsensusModules.html">sampledHierarchicalConsensusModules</a></td>
+<td>Hierarchical consensus module identification in sampled data</td></tr>
+<tr><td style="width: 25%;"><a href="scaleFreeFitIndex.html">scaleFreeFitIndex</a></td>
+<td>Calculation of fitting statistics for evaluating scale free topology fit.</td></tr>
+<tr><td style="width: 25%;"><a href="scaleFreePlot.html">scaleFreePlot</a></td>
+<td>Visual check of scale-free topology</td></tr>
+<tr><td style="width: 25%;"><a href="SCsLists.html">SCsLists</a></td>
+<td>Stem Cell-Related Genes with Corresponding Gene Markers</td></tr>
+<tr><td style="width: 25%;"><a href="swapTwoBranches.html">selectBranch</a></td>
+<td>Select, swap, or reflect branches in a dendrogram.</td></tr>
+<tr><td style="width: 25%;"><a href="selectFewestConsensusMissing.html">selectFewestConsensusMissing</a></td>
+<td>Select columns with the lowest consensus number of missing data</td></tr>
+<tr><td style="width: 25%;"><a href="setCorrelationPreservation.html">setCorrelationPreservation</a></td>
+<td>Summary correlation preservation measure</td></tr>
+<tr><td style="width: 25%;"><a href="shortenStrings.html">shortenStrings</a></td>
+<td>Shorten given character strings by truncating at a suitable separator.</td></tr>
+<tr><td style="width: 25%;"><a href="sigmoidAdjacencyFunction.html">sigmoidAdjacencyFunction</a></td>
+<td>Sigmoid-type adacency function.</td></tr>
+<tr><td style="width: 25%;"><a href="signedKME.html">signedKME</a></td>
+<td>Signed eigengene-based connectivity</td></tr>
+<tr><td style="width: 25%;"><a href="signifNumeric.html">signifNumeric</a></td>
+<td>Round numeric columns to given significant digits.</td></tr>
+<tr><td style="width: 25%;"><a href="signumAdjacencyFunction.html">signumAdjacencyFunction</a></td>
+<td>Hard-thresholding adjacency function</td></tr>
+<tr><td style="width: 25%;"><a href="simpleConsensusCalculation.html">simpleConsensusCalculation</a></td>
+<td>Simple calculation of a single consenus</td></tr>
+<tr><td style="width: 25%;"><a href="simpleHierarchicalConsensusCalculation.html">simpleHierarchicalConsensusCalculation</a></td>
+<td>Simple hierarchical consensus calculation</td></tr>
+<tr><td style="width: 25%;"><a href="simulateDatExpr.html">simulateDatExpr</a></td>
+<td>Simulation of expression data</td></tr>
+<tr><td style="width: 25%;"><a href="simulateDatExpr5Modules.html">simulateDatExpr5Modules</a></td>
+<td>Simplified simulation of expression data</td></tr>
+<tr><td style="width: 25%;"><a href="simulateEigengeneNetwork.html">simulateEigengeneNetwork</a></td>
+<td>Simulate eigengene network from a causal model</td></tr>
+<tr><td style="width: 25%;"><a href="simulateModule.html">simulateModule</a></td>
+<td>Simulate a gene co-expression module</td></tr>
+<tr><td style="width: 25%;"><a href="simulateMultiExpr.html">simulateMultiExpr</a></td>
+<td>Simulate multi-set expression data</td></tr>
+<tr><td style="width: 25%;"><a href="simulateSmallLayer.html">simulateSmallLayer</a></td>
+<td>Simulate small modules</td></tr>
+<tr><td style="width: 25%;"><a href="sizeGrWindow.html">sizeGrWindow</a></td>
+<td>Opens a graphics window with specified dimensions</td></tr>
+<tr><td style="width: 25%;"><a href="sizeRestrictedClusterMerge.html">sizeRestrictedClusterMerge</a></td>
+<td>Cluter merging with size restrictions</td></tr>
+<tr><td style="width: 25%;"><a href="softConnectivity.html">softConnectivity</a></td>
+<td>Calculates connectivity of a weighted network.</td></tr>
+<tr><td style="width: 25%;"><a href="softConnectivity.html">softConnectivity.fromSimilarity</a></td>
+<td>Calculates connectivity of a weighted network.</td></tr>
+<tr><td style="width: 25%;"><a href="spaste.html">spaste</a></td>
+<td>Space-less paste</td></tr>
+<tr><td style="width: 25%;"><a href="standardColors.html">standardColors</a></td>
+<td>Colors this library uses for labeling modules.</td></tr>
+<tr><td style="width: 25%;"><a href="standardScreeningBinaryTrait.html">standardScreeningBinaryTrait</a></td>
+<td>Standard screening for binatry traits</td></tr>
+<tr><td style="width: 25%;"><a href="standardScreeningCensoredTime.html">standardScreeningCensoredTime</a></td>
+<td>Standard Screening with regard to a Censored Time Variable</td></tr>
+<tr><td style="width: 25%;"><a href="standardScreeningNumericTrait.html">standardScreeningNumericTrait</a></td>
+<td>Standard screening for numeric traits</td></tr>
+<tr><td style="width: 25%;"><a href="stdErr.html">stdErr</a></td>
+<td>Standard error of the mean of a given vector.</td></tr>
+<tr><td style="width: 25%;"><a href="stratifiedBarplot.html">stratifiedBarplot</a></td>
+<td>Bar plots of data across two splitting parameters</td></tr>
+<tr><td style="width: 25%;"><a href="subsetTOM.html">subsetTOM</a></td>
+<td>Topological overlap for a subset of a whole set of genes</td></tr>
+<tr><td style="width: 25%;"><a href="swapTwoBranches.html">swapTwoBranches</a></td>
+<td>Select, swap, or reflect branches in a dendrogram.</td></tr>
+</table>
+
+<h2><a name="T">-- T --</a></h2>
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="TOMsimilarity.html">TOMdist</a></td>
+<td>Topological overlap matrix similarity and dissimilarity</td></tr>
+<tr><td style="width: 25%;"><a href="TOMplot.html">TOMplot</a></td>
+<td>Graphical representation of the Topological Overlap Matrix</td></tr>
+<tr><td style="width: 25%;"><a href="TOMsimilarity.html">TOMsimilarity</a></td>
+<td>Topological overlap matrix similarity and dissimilarity</td></tr>
+<tr><td style="width: 25%;"><a href="TOMsimilarityFromExpr.html">TOMsimilarityFromExpr</a></td>
+<td>Topological overlap matrix</td></tr>
+<tr><td style="width: 25%;"><a href="transposeBigData.html">transposeBigData</a></td>
+<td>Transpose a big matrix or data frame</td></tr>
+<tr><td style="width: 25%;"><a href="TrueTrait.html">TrueTrait</a></td>
+<td>Estimate the true trait underlying a list of surrogate markers.</td></tr>
+</table>
+
+<h2><a name="U">-- U --</a></h2>
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="unsignedAdjacency.html">unsignedAdjacency</a></td>
+<td>Calculation of unsigned adjacency</td></tr>
+<tr><td style="width: 25%;"><a href="initProgInd.html">updateProgInd</a></td>
+<td>Inline display of progress</td></tr>
+<tr><td style="width: 25%;"><a href="userListEnrichment.html">userListEnrichment</a></td>
+<td>Measure enrichment between inputted and user-defined lists</td></tr>
+</table>
+
+<h2><a name="V">-- V --</a></h2>
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="vectorizeMatrix.html">vectorizeMatrix</a></td>
+<td>Turn a matrix into a vector of non-redundant components</td></tr>
+<tr><td style="width: 25%;"><a href="vectorTOM.html">vectorTOM</a></td>
+<td>Topological overlap for a subset of the whole set of genes</td></tr>
+<tr><td style="width: 25%;"><a href="verboseBarplot.html">verboseBarplot</a></td>
+<td>Barplot with error bars, annotated by Kruskal-Wallis or ANOVA p-value</td></tr>
+<tr><td style="width: 25%;"><a href="verboseBoxplot.html">verboseBoxplot</a></td>
+<td>Boxplot annotated by a Kruskal-Wallis p-value</td></tr>
+<tr><td style="width: 25%;"><a href="verboseIplot.html">verboseIplot</a></td>
+<td>Scatterplot with density</td></tr>
+<tr><td style="width: 25%;"><a href="verboseScatterplot.html">verboseScatterplot</a></td>
+<td>Scatterplot annotated by regression line and p-value</td></tr>
+<tr><td style="width: 25%;"><a href="votingLinearPredictor.html">votingLinearPredictor</a></td>
+<td>Voting linear predictor</td></tr>
+</table>
+
+<h2><a name="W">-- W --</a></h2>
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="allowWGCNAThreads.html">WGCNAnThreads</a></td>
+<td>Allow and disable multi-threading for certain WGCNA calculations</td></tr>
+</table>
+</body></html>

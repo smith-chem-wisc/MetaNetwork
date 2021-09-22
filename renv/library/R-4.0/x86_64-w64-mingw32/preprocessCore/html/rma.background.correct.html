@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: RMA Background Correction</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for rma.background.correct {preprocessCore}"><tr><td>rma.background.correct {preprocessCore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>RMA Background Correction</h2>
+
+<h3>Description</h3>
+
+<p>Background correct each column of a matrix
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  rma.background.correct(x,copy=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>A matrix of intensities where each column corresponds to a
+chip and each row is a probe.</p>
+</td></tr>
+<tr valign="top"><td><code>copy</code></td>
+<td>
+<p>Make a copy of matrix before background correctiong. Usually safer to
+work with a copy, but in certain situations not making a copy of the
+matrix, but instead background correcting it in place will be more memory friendly.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Assumes PMs are a convolution of normal and exponentional. So we
+observe X+Y where X is backround and Y is signal. <code>bg.adjust</code>
+returns E[Y|X+Y, Y&gt;0] as our backround corrected
+PM. 
+</p>
+
+
+<h3>Value</h3>
+
+<p>A RMA background corrected <code>matrix</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Ben Bolstad, <a href="mailto:bmbolstad.com">bmbolstad.com</a></p>
+
+
+<h3>References</h3>
+
+<p>Bolstad, BM (2004) <em>Low Level Analysis of High-density
+Oligonucleotide Array Data: Background, Normalization and
+Summarization</em>. PhD Dissertation. University of California,
+Berkeley. pp 17-21	
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>preprocessCore</em> version 1.52.1 <a href="00Index.html">Index</a>]</div>
+</body></html>

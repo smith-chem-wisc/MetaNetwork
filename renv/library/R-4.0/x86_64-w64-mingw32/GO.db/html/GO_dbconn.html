@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Collect information about the package annotation DB</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GO_dbconn {GO.db}"><tr><td>GO_dbconn {GO.db}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Collect information about the package annotation DB</h2>
+
+<h3>Description</h3>
+
+<p>Some convenience functions for getting a connection object to (or collecting
+information about) the package annotation DB.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  GO_dbconn()
+  GO_dbfile()
+  GO_dbschema(file="", show.indices=FALSE)
+  GO_dbInfo()
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>file</code></td>
+<td>
+
+<p>A connection, or a character string naming the file to print to (see
+the <code>file</code> argument of the <code><a href="../../base/html/cat.html">cat</a></code> function for
+the details).
+</p>
+</td></tr>
+<tr valign="top"><td><code>show.indices</code></td>
+<td>
+
+<p>The CREATE INDEX statements are not shown by default.
+Use <code>show.indices=TRUE</code> to get them.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><code>GO_dbconn</code> returns a connection object to the
+package annotation DB.  IMPORTANT: Don't call
+<code><a href="../../DBI/html/dbConnect.html">dbDisconnect</a></code> on the connection object
+returned by <code>GO_dbconn</code> or you will break all the
+<code><a href="../../AnnotationDbi/html/AnnDbObj-class.html">AnnDbObj</a></code> objects defined
+in this package!
+</p>
+<p><code>GO_dbfile</code> returns the path (character string) to the
+package annotation DB (this is an SQLite file).
+</p>
+<p><code>GO_dbschema</code> prints the schema definition of the
+package annotation DB.
+</p>
+<p><code>GO_dbInfo</code> prints other information about the package
+annotation DB.
+</p>
+
+
+<h3>Value</h3>
+
+<p><code>GO_dbconn</code>: a DBIConnection object representing an
+open connection to the package annotation DB.
+</p>
+<p><code>GO_dbfile</code>: a character string with the path to the
+package annotation DB.
+</p>
+<p><code>GO_dbschema</code>: none (invisible <code>NULL</code>).
+</p>
+<p><code>GO_dbInfo</code>: none (invisible <code>NULL</code>).
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../DBI/html/dbSendQuery.html">dbGetQuery</a></code>,
+<code><a href="../../DBI/html/dbConnect.html">dbConnect</a></code>,
+<code><a href="../../AnnotationDbi/html/AnnDbObj-class.html">dbconn</a></code>,
+<code><a href="../../AnnotationDbi/html/AnnDbObj-class.html">dbfile</a></code>,
+<code><a href="../../AnnotationDbi/html/AnnDbObj-class.html">dbschema</a></code>,
+<code><a href="../../AnnotationDbi/html/AnnDbObj-class.html">dbInfo</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  library(DBI)
+  ## Count the number of rows in the "go_term" table:
+  dbGetQuery(GO_dbconn(), "SELECT COUNT(*) FROM go_term")
+
+  GO_dbschema()
+
+  GO_dbInfo()
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>GO.db</em> version 3.12.1 <a href="00Index.html">Index</a>]</div>
+</body></html>
