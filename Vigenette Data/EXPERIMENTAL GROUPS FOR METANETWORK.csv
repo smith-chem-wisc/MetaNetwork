@@ -1,0 +1,25 @@
+﻿SampleID,Experiment
+A_NAT_151,1Aggressive Normal
+A_NAT_264,1Aggressive Normal
+A_NAT_661,1Aggressive Normal
+A_NAT_692,1Aggressive Normal
+A_NAT_803,1Aggressive Normal
+A_NAT_919,1Aggressive Normal
+A_T_151,2AggressiveTumor
+A_T_264,2AggressiveTumor
+A_T_661,2AggressiveTumor
+A_T_692,2AggressiveTumor
+A_T_803,2AggressiveTumor
+A_T_919,2AggressiveTumor
+I_NAT_160,3IndolentNormal
+I_NAT_253,3IndolentNormal
+I_NAT_557,3IndolentNormal
+I_NAT_693,3IndolentNormal
+I_NAT_954,3IndolentNormal
+I_NAT_978,3IndolentNormal
+I_T_160,4IndolentTumor
+I_T_253,4IndolentTumor
+I_T_557,4IndolentTumor
+I_T_693,4IndolentTumor
+I_T_954,4IndolentTumor
+I_T_978,4IndolentTumor
