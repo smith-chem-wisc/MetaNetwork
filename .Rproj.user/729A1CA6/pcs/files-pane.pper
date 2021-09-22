@@ -3,11 +3,7 @@
         {
             "columnIndex": 2,
             "ascending": true
-        },
-        {
-            "columnIndex": 4,
-            "ascending": false
         }
     ],
-    "path": "~/GitHub/MetaNetwork/R"
+    "path": "~/GitHub/MetaNetwork/renv"
 }

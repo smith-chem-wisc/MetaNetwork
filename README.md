@@ -10,9 +10,11 @@ Network analysis and visualization of proteomics data using weighted gene correl
 3. Run the following code to download and launch MetaNetwork: 
 ```
 docker pull avc167/metanetwork:latest
+
 docker run --p 3838:3838 avc167/metanetwork:latest
 ```
 Open a web browser and type localhost:3838 (Windows) or 0.0.0.0:3838 into the search bar. MetaNetwork will now be visible. 
+
 
 #### IMPORTANT NOTE FOR MAC USERS
 Docker for MacOS requires users to allocate memory for its processes. If not enough memory is allocated to MetaNetwork, it will crash without warning or throwing an error message while processing data. To increase the amount of memory allocated to MetaNetwork, you must open the Docker Desktop application and navigate to settings (circled in red in the below image): 

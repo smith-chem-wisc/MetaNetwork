@@ -1,0 +1,24 @@
+{
+    "id": "C09C44FF",
+    "path": "~/GitHub/MetaNetwork/app/app.R",
+    "project_path": "app/app.R",
+    "type": "r_source",
+    "hash": "2378626839",
+    "contents": "",
+    "dirty": false,
+    "created": 1625679002949.0,
+    "source_on_save": false,
+    "relative_order": 1,
+    "properties": {
+        "cursorPosition": "22,0",
+        "scrollLine": "7"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1625674483,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1625674483,
+    "read_only": false,
+    "read_only_alternatives": []
+}

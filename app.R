@@ -1,25 +1,26 @@
 ## Single file app script
 
 ## Libraries ####
-if(!require(tidyverse)) install.packages("tidyverse", dependencies = TRUE)
-if(!require(BiocManager)) install.packages("BiocManager", dependencies = TRUE)
-if(!require(devtools)) install.packages("devtools")
-if(!require(WGCNA)) BiocManager::install("WGCNA")
-if(!require(shiny)) install.packages("shiny", dependencies = TRUE)
-if(!require(openxlsx)) install.packages("openxlsx", dependencies = TRUE)
-if(!require(pheatmap)) install.packages("pheatmap", dependencies = TRUE)
-if(!require(plotly)) install.packages("plotly", dependencies = TRUE)
-if(!require(shinythemes)) install.packages("shinythemes", dependencies = TRUE)
-if(!require(shinyWidgets)) install.packages("shinyWidgets", dependencies = TRUE)
-if(!require(gprofiler2)) install.packages("gprofiler2", dependencies = TRUE)
-if(!require(ggdendro)) install.packages("ggdendro", dependencies = TRUE)
-if(!require(withr)) install.packages("withr")
-if(!require(zip)) devtools::install_github("zip")
-if(!require(rmarkdown)) install.packages("rmarkdown")
+# 
+# if(!require(tidyverse)) install.packages("tidyverse", dependencies = TRUE)
+# if(!require(BiocManager)) install.packages("BiocManager", dependencies = TRUE)
+# options(repos = BiocManager::repositories())
+#  options("repos")
+# if(!require(devtools)) install.packages("devtools")
+# if(!require(WGCNA)) BiocManager::install("WGCNA")
+# if(!require(shiny)) install.packages("shiny", dependencies = TRUE)
+# if(!require(openxlsx)) install.packages("openxlsx", dependencies = TRUE)
+# if(!require(pheatmap)) install.packages("pheatmap", dependencies = TRUE)
+# if(!require(plotly)) install.packages("plotly", dependencies = TRUE)
+# if(!require(shinythemes)) install.packages("shinythemes", dependencies = TRUE)
+# if(!require(shinyWidgets)) install.packages("shinyWidgets", dependencies = TRUE)
+# if(!require(gprofiler2)) install.packages("gprofiler2", dependencies = TRUE)
+# if(!require(ggdendro)) install.packages("ggdendro", dependencies = TRUE)
+# if(!require(withr)) install.packages("withr")
+# if(!require(zip)) devtools::install_github("zip")
+# if(!require(rmarkdown)) install.packages("rmarkdown")
 
 library(BiocManager)
-options(repos = BiocManager::repositories())
-options("repos")
 library(tidyverse)
 library(shiny)
 library(shinythemes)
@@ -34,8 +35,10 @@ library(withr)
 library(zip)
 library(rmarkdown)
 library(ggdendro)
+library(shiny)
+library(ggpubr)
 
-## Ensembl update to version 104 dropped a large amount of GO terms for organisms that include H. sapiens and M. musclulus, amongst others.
+## Ensembl update to version 104 dropped a large amount of GO terms for organisms that include H. sapiens and M. musclulus, among others.
 ## As a result, need to run an archived version of g:Profiler that includes those GO Terms. 
 gprofiler2::set_base_url("http://www.biit.cs.ut.ee/gprofiler_archive3/e102_eg49_p15")
 
@@ -894,7 +897,9 @@ gprofiler2::set_base_url("http://www.biit.cs.ut.ee/gprofiler_archive3/e102_eg49_
               dev.off()
 
               ## TOMPlot
-              png(filename = list_of_paths[[8]], width = 1200, height = 1200)
+              png(filename = list_of_paths[[8]], 
+                  width = 1200, height = 1200, 
+                  antialias = "none")
               replayPlot(fetch_TOM_plot(ServerOutput))
               dev.off()
             })
@@ -1573,6 +1578,9 @@ gprofiler2::set_base_url("http://www.biit.cs.ut.ee/gprofiler_archive3/e102_eg49_
   setMethod("ScaleFreeTopologyPlot",
             signature(SFTObject = "ScaleFreeTopology"),
             definition = function(SFTObject){
+              plot.new()
+              dev.control("enable")
+              
               par(mfrow = c(1,2))
               ## First Plot
               plot(SFTObject@fitIndices[,1],-sign(SFTObject@fitIndices[,3])*SFTObject@fitIndices[,2],
@@ -1600,6 +1608,7 @@ gprofiler2::set_base_url("http://www.biit.cs.ut.ee/gprofiler_archive3/e102_eg49_
                              cex = 0.9,
                              col = "red")
               SFTObject@Plot <- recordPlot()
+              dev.off()
               SFTObject
             })
 
@@ -1609,21 +1618,25 @@ gprofiler2::set_base_url("http://www.biit.cs.ut.ee/gprofiler_archive3/e102_eg49_
             definition = function(Results){
 
               EigenproteinNetwork <- new("EigenproteinNetwork")
-              EigenproteinNetwork@Plot <- recordPlot(
-                WGCNA::plotEigengeneNetworks(Results@MEs,
-                                             "Eigenprotein Network",
-                                             marHeatmap = c(3,4,2,2),
-                                             marDendro = c(3,4,2,5),
-                                             plotDendrograms = TRUE,
-                                             xLabelsAngle = 90)
-              )
+              plot.new()
+              dev.control("enable")
+              WGCNA::plotEigengeneNetworks(Results@MEs,
+                                           "Eigenprotein Network",
+                                           marHeatmap = c(3,4,2,2),
+                                           marDendro = c(3,4,2,5),
+                                           plotDendrograms = TRUE,
+                                           xLabelsAngle = 90)
+              
+              EigenproteinNetwork@Plot <- recordPlot()
+              dev.off()
               EigenproteinNetwork
             })
 
   setMethod("PlotProteinDendrogram", signature(Results = "WGCNAResults"),
             definition = function(Results){
               ProteinDendrogram <- new("ProteinDendrogram")
-
+              plot.new()
+              dev.control("enable")
               WGCNA::plotDendroAndColors(dendro = Results@dendrogram@hclust,
                                          colors = data.frame(Results@unmergedColors[Results@goodGenes == TRUE],
                                                              Results@colors[Results@goodGenes == TRUE]),
@@ -1631,6 +1644,7 @@ gprofiler2::set_base_url("http://www.biit.cs.ut.ee/gprofiler_archive3/e102_eg49_
                                                          "Merged Modules"),
                                          dendroLabels = FALSE)
               ProteinDendrogram@Plot <- recordPlot()
+              dev.off()
               ProteinDendrogram
             })
   setMethod("PlotEigenproteinHeatmap", signature(WGCNAResults = "WGCNAResults"),
@@ -1688,13 +1702,17 @@ gprofiler2::set_base_url("http://www.biit.cs.ut.ee/gprofiler_archive3/e102_eg49_
               MEs <- WGCNAResults@MEs
               MET <- WGCNA::orderMEs(MEs = MEs)
 
-
+              plot.new()
+              dev.control("enable")
               WGCNA::plotEigengeneNetworks(MET,
                                            "Eigenprotein Dendrogram \n (Distance: 1 - corr(i,j))",
                                            marDendro = c(0,4,2,0),
                                            plotHeatmaps = FALSE)
               MEOutput@CorrDendrogram <- recordPlot()
+              dev.off()
 
+              plot.new()
+              dev.control("enable")
               WGCNA::plotEigengeneNetworks(MET,
                                            "Eigenprotein Adjacency Heatmap",
                                            marHeatmap = c(3,4,2,2),
@@ -1702,7 +1720,10 @@ gprofiler2::set_base_url("http://www.biit.cs.ut.ee/gprofiler_archive3/e102_eg49_
                                            plotAdjacency = TRUE,
                                            plotDendrograms = FALSE)
               MEOutput@AdjacencyHeatmap  <- recordPlot()
-
+              dev.off()
+              
+              plot.new()
+              dev.control("enable")
               WGCNA::plotEigengeneNetworks(MET,
                                            "Eigenprotein Correlation Heatmap",
                                            marHeatmap = c(3,4,2,2),
@@ -1711,6 +1732,7 @@ gprofiler2::set_base_url("http://www.biit.cs.ut.ee/gprofiler_archive3/e102_eg49_
                                            xLabelsAngle = 90,
                                            heatmapColors = WGCNA::blueWhiteRed(50))
               MEOutput@CorrHeatmap <- recordPlot()
+              dev.off()
 
               MEOutput
             })
@@ -1958,14 +1980,25 @@ gprofiler2::set_base_url("http://www.biit.cs.ut.ee/gprofiler_archive3/e102_eg49_
                                                       TOMType = WGCNAParameters@networkType,
                                                       replaceMissingAdjacencies =
                                                         WGCNAParameters@replaceMissingAdjacencies)
+              ## Calculate dissimilarity TOM for the clustering. This matches the WGCNA 
+              ## analysis. 
               dissim_TOM <- 1 - sim_TOM
-
+              
+              ## Create the heatmap colors 
+              colors <- c("gold", "orange", "lemonchiffon")
+              heatmapColors <- colorRampPalette(colors)(250)
+              plot.new()
+              dev.control("enable")
               WGCNA::TOMplot(
                 dissim = dissim_TOM^6,
-                dendro = WGCNAResults@dendrogram@hclust,
-                ColorsLeft = WGCNAResults@colors[WGCNAResults@goodGenes == TRUE]
+                dendro = WGCNAResults@dendrogram@hclust, 
+                Colors = WGCNAResults@colors[WGCNAResults@goodGenes == TRUE], 
+                ColorsLeft = WGCNAResults@colors[WGCNAResults@goodGenes == TRUE],
+                col = colors
               )
               tomplot_output@Plot <- recordPlot()
+              dev.off()
+              
               tomplot_output
             })
   ## CreatePlotOutput ####
@@ -2082,13 +2115,13 @@ gprofiler2::set_base_url("http://www.biit.cs.ut.ee/gprofiler_archive3/e102_eg49_
                       plot = "character"),
             definition = function(parent, plot){
               switch(plot,
-                     "Protein Dendrogram" = {fetch_Protein_Dendrogram(parent)},
-                     "Module Correlation Dendrogram" = {fetch_correlation_dendrogram(parent)},
-                     "Module Adjacency Heatmap" = {fetch_adjacency_heatmap(parent)},
-                     "Module Correlation Heatmap" = {fetch_correlation_heatmap(parent)},
+                     "Protein Dendrogram" = {replayPlot(fetch_Protein_Dendrogram(parent))},
+                     "Module Correlation Dendrogram" = {replayPlot(fetch_correlation_dendrogram(parent))},
+                     "Module Adjacency Heatmap" = {replayPlot(fetch_adjacency_heatmap(parent))},
+                     "Module Correlation Heatmap" = {replayPlot(fetch_correlation_heatmap(parent))},
                      "Module Eigenprotein Heatmap" = {fetch_Eigenprotein_heatmap(parent)},
-                     "Scale Free Topology Plots" = {fetch_SFT_plot(parent)},
-                     "TOM Plot" = {fetch_TOM_plot(parent)},
+                     "Scale Free Topology Plots" = {replayPlot(fetch_SFT_plot(parent))},
+                     "TOM Plot" = {replayPlot(fetch_TOM_plot(parent))},
                      "Sample Clustering" = fetch_SampleClustering_dendro(parent))
 
             })
@@ -2198,6 +2231,8 @@ gprofiler2::set_base_url("http://www.biit.cs.ut.ee/gprofiler_archive3/e102_eg49_
             definition = function(Results){
               ProteinDendrogram <- new("ProteinDendrogram")
 
+              plot.new()
+              dev.control("enable")
               WGCNA::plotDendroAndColors(dendro = Results@dendrogram@hclust,
                                          colors = data.frame(Results@unmergedColors[Results@goodGenes == TRUE],
                                                              Results@colors[Results@goodGenes == TRUE]),
@@ -2205,6 +2240,8 @@ gprofiler2::set_base_url("http://www.biit.cs.ut.ee/gprofiler_archive3/e102_eg49_
                                                          "Merged Modules"),
                                          dendroLabels = FALSE)
               ProteinDendrogram@Plot <- recordPlot()
+              dev.off()
+              
               ProteinDendrogram
             })
   setMethod("plotEigenproteinNetwork",
@@ -2277,7 +2314,7 @@ gprofiler2::set_base_url("http://www.biit.cs.ut.ee/gprofiler_archive3/e102_eg49_
 ## App ####
   ### App script
   ### App Settings
-  options(shiny.maxRequestSize = 30 * 1024^2)
+  options(shiny.maxRequestSize = 300 * 1024^2)
   dir_temp <- tempdir()
   ## App library dependencies
 
@@ -2455,8 +2492,7 @@ gprofiler2::set_base_url("http://www.biit.cs.ut.ee/gprofiler_archive3/e102_eg49_
                         sidebarPanel(
                           downloadButton(outputId = "downloader",
                                          label = "Download MetaNetwork Results")
-                        )),
-               tabPanel("About MetaNetwork")
+                        ))
     )
   )
   ## Server ####
@@ -2601,8 +2637,7 @@ gprofiler2::set_base_url("http://www.biit.cs.ut.ee/gprofiler_archive3/e102_eg49_
       ## Combine plots and data to make final output object
       progress$set(value = 6) ## update progress bar
       CreateServerOutput(PlotsOutput = plots_output, DataOutput = data_output)
-
-      
+    
 
 
     }) ## End of WGCNA Workflow
