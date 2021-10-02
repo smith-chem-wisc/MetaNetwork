@@ -11,7 +11,7 @@ Network analysis and visualization of proteomics data using weighted gene correl
 ```
 docker pull avc167/metanetwork:latest
 
-docker run --p 3838:3838 avc167/metanetwork:latest
+docker run -p 3838:3838 avc167/metanetwork:latest
 ```
 Open a web browser and type localhost:3838 (Windows) or 0.0.0.0:3838 into the search bar. MetaNetwork will now be visible. 
 
