@@ -2154,7 +2154,7 @@ gprofiler2::set_base_url("http://www.biit.cs.ut.ee/gprofiler_archive3/e102_eg49_
                      "Module Correlation Heatmap" = {replayPlot(fetch_correlation_heatmap(parent))},
                      "Module Eigenprotein Heatmap" = {fetch_Eigenprotein_heatmap(parent)},
                      "Scale Free Topology Plots" = {replayPlot(fetch_SFT_plot(parent))},
-                     "TOM Plot" = {replayPlot(fetch_TOM_plot(parent))},
+                     #"TOM Plot" = {replayPlot(fetch_TOM_plot(parent))},
                      "Sample Clustering" = fetch_SampleClustering_dendro(parent))
 
             })
