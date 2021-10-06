@@ -897,11 +897,11 @@ gprofiler2::set_base_url("http://www.biit.cs.ut.ee/gprofiler_archive3/e102_eg49_
               dev.off()
 
               ## TOMPlot
-              png(filename = list_of_paths[[8]], 
-                  width = 1200, height = 1200, 
-                  antialias = "none")
-              replayPlot(fetch_TOM_plot(ServerOutput))
-              dev.off()
+              # png(filename = list_of_paths[[8]], 
+              #     width = 1200, height = 1200, 
+              #     antialias = "none")
+              # replayPlot(fetch_TOM_plot(ServerOutput))
+              # dev.off()
             })
 
   ## Methods ####
