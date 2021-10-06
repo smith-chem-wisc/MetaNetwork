@@ -321,7 +321,7 @@ gprofiler2::set_base_url("http://www.biit.cs.ut.ee/gprofiler_archive3/e102_eg49_
              ProteinDendrogram = "ProteinDendrogram",
              EigenproteinDiagnostics = "ModuleEigenproteinDiagnostics",
              ModuleEigenproteinPlots = "ModuleEigenproteinPlots",
-             TOMPlot = "missing",
+             TOMPlot = "missingOrNULL",
              SFTPlot = "ScaleFreeTopology",
              EigenproteinHeatmap = "EigenproteinHeatmap"
            ))
@@ -2002,6 +2002,39 @@ gprofiler2::set_base_url("http://www.biit.cs.ut.ee/gprofiler_archive3/e102_eg49_
               tomplot_output
             })
   ## CreatePlotOutput ####
+  setMethod("CreatePlotsOutput", signature(PathToOutput = "characterOrNULL",
+                                           gProfilerPlots = "GostPlotCollection",
+                                           SampleClustering = "SampleClustering",
+                                           ProteinDendrogram = "ProteinDendrogram",
+                                           EigenproteinDiagnostics =
+                                             "ModuleEigenproteinDiagnostics",
+                                           ModuleEigenproteinPlots =
+                                             "ModuleEigenproteinPlots",
+                                           TOMPlot = "TOMPlot",
+                                           SFTPlot = "ScaleFreeTopology",
+                                           EigenproteinHeatmap = "EigenproteinHeatmap"),
+            definition = function(PathToOutput,
+                                  gProfilerPlots,
+                                  SampleClustering,
+                                  ProteinDendrogram,
+                                  EigenproteinDiagnostics,
+                                  ModuleEigenproteinPlots,
+                                  TOMPlot,
+                                  SFTPlot,
+                                  EigenproteinHeatmap){
+              PlotsOutput <- new("PlotsOutput")
+              PlotsOutput@PathToOutput <- ifelse(is.null(PathToOutput),
+                                                 "", PathToOutput)
+              PlotsOutput@gProfilerPlots <- gProfilerPlots
+              PlotsOutput@SampleClustering <- SampleClustering
+              PlotsOutput@ProteinDendrogram <- ProteinDendrogram
+              PlotsOutput@EigenproteinDiagnostics <- EigenproteinDiagnostics
+              PlotsOutput@ModuleEigenproteinPlots <- ModuleEigenproteinPlots
+              PlotsOutput@TOMPlot <- TOMPlot
+              PlotsOutput@SFTPlot <- SFTPlot
+              PlotsOutput@EigenproteinHeatmap <- EigenproteinHeatmap
+              PlotsOutput
+            })
   setMethod("CreatePlotsOutput", signature(PathToOutput = "characterOrNULL",
                                            gProfilerPlots = "GostPlotCollection",
                                            SampleClustering = "SampleClustering",
