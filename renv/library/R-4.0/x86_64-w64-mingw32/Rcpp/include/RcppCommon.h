@@ -1,9 +1,10 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
+
 //
 // RcppCommon.h: Rcpp R/C++ interface class library -- common include and defines statements
 //
 // Copyright (C) 2008 - 2009  Dirk Eddelbuettel
-// Copyright (C) 2009 - 2017  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2009 - 2020  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2021         Dirk Eddelbuettel, Romain Francois and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //
@@ -62,6 +63,7 @@ namespace Rcpp {
 #include <numeric>
 #include <algorithm>
 #include <complex>
+#include <cfloat>
 #include <limits>
 #include <typeinfo>
 #include <Rcpp/sprintf.h>
@@ -77,6 +79,9 @@ namespace Rcpp {
     SEXP Rcpp_fast_eval(SEXP expr_, SEXP env);
     SEXP Rcpp_eval(SEXP expr_, SEXP env = R_GlobalEnv);
 
+    SEXP Rcpp_precious_preserve(SEXP object);
+    void Rcpp_precious_remove(SEXP token);
+
     namespace internal {
         SEXP Rcpp_eval_impl(SEXP expr, SEXP env);
     }
@@ -87,28 +92,32 @@ namespace Rcpp {
         template <typename T> class named_object;
     }
 
+    // begin deprecated interface not using precious list
+    // use Rcpp_PreciousPreserve + Rcpp_PreciousRelease below it
     inline SEXP Rcpp_PreserveObject(SEXP x) {
-        if (x != R_NilValue) {
-            R_PreserveObject(x);
-        }
+        if (x != R_NilValue) R_PreserveObject(x);
         return x;
     }
-
     inline void Rcpp_ReleaseObject(SEXP x) {
-        if (x != R_NilValue) {
-            R_ReleaseObject(x);
-        }
+        if (x != R_NilValue) R_ReleaseObject(x);
     }
-
     inline SEXP Rcpp_ReplaceObject(SEXP x, SEXP y) {
-
         // if we are setting to the same SEXP as we already have, do nothing
         if (x != y) {
             Rcpp_ReleaseObject(x);
             Rcpp_PreserveObject(y);
         }
-
         return y;
+    }
+    // end deprecated interface not using precious list
+
+    // new preferred interface using token-based precious list
+    inline SEXP Rcpp_PreciousPreserve(SEXP object) {
+        return Rcpp_precious_preserve(object);
+    }
+
+    inline void Rcpp_PreciousRelease(SEXP token) {
+        Rcpp_precious_remove(token);
     }
 
 }

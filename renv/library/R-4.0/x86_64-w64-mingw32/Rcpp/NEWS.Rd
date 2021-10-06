@@ -3,7 +3,40 @@
 \newcommand{\ghpr}{\href{https://github.com/RcppCore/Rcpp/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/RcppCore/Rcpp/issues/#1}{##1}}
 
-\section{Changes in Rcpp patch release version 1.0.6 (2021-01-14)}{
+\section{Changes in Rcpp release version 1.0.7 (2021-07-06)}{
+  \itemize{
+    \item Changes in Rcpp API:
+    \itemize{
+      \item Refactored \code{Rcpp_PreserveObject} and \code{Rcpp_ReleaseObject}
+      which are now O(1) (Dirk and Iñaki in \ghpr{1133} and \ghpr{1135}
+      fixing \ghit{382} and \ghit{1081}).
+      \item A spuriously assigned variable was removed (Dirk in
+      \ghpr{1138} fixing \ghit{1137}).
+      \item Global \code{Rcout} and \code{Rcerr} objects are supported
+      via a compiler directive (Iñaki in \ghpr{1139} fixing \ghit{928})
+      \item Add support for \code{Rcpp::message} (Dirk in \ghpr{1146}
+      fixing \ghit{1145}).
+      \item The \code{uint32_t} type is used throughout instead of
+      \code{unsigned int} (Dirk in \ghpr{1153} fixing \ghit{1152}).
+      \item The \code{cfloat} header for floating point limits is now
+      included (Dirk in \ghpr{1162} fixing \ghit{1161}).
+    }
+    \item Changes in Rcpp Attributes:
+    \itemize{
+      \item Packages with dots in their name can now have per-package
+      include files (Dirk in \ghpr{1132} fixing \ghit{1129}).
+      \item New argument \code{echo} to quieten optional evaluation in
+      \code{sourceCpp} (Dirk in \ghpr{1138} fixing \ghit{1126}).
+    }
+    \item Forthcoming Changes in Rcpp API:
+    \itemize{
+      \item Starting with Rcpp 1.0.8 anticipated in January 2022,
+      \code{STRICT_R_HEADERS} will be enabled by default, see \ghit{1126}.
+    }
+  }
+}
+
+\section{Changes in Rcpp release version 1.0.6 (2021-01-14)}{
   \itemize{
     \item Changes in Rcpp API:
     \itemize{
@@ -37,7 +70,7 @@
   }
 }
 
-\section{Changes in Rcpp patch release version 1.0.5 (2020-07-01)}{
+\section{Changes in Rcpp release version 1.0.5 (2020-07-01)}{
   \itemize{
     \item Changes in Rcpp API:
     \itemize{

@@ -1,7 +1,7 @@
 HTML                    Mark Characters as HTML
 as.tags                 Convert a value to tags
 browsable               Make an HTML object browsable
-builder                 HTML Builder Functions
+builder                 Create HTML tags
 capturePlot             Capture a plot as a saved file
 copyDependencyToDir     Copy an HTML dependency to a directory
 css                     CSS string helper
@@ -30,8 +30,12 @@ singleton               Include content only once
 singleton_tools         Singleton manipulation functions
 subtractDependencies    Subtract dependencies
 suppressDependencies    Suppress web dependencies
-tag                     HTML Tag Object
+tagAddRenderHook        Modify a tag prior to rendering
+tagAppendAttributes     Append tag attributes
+tagAppendChild          Modify tag contents
 tagFunction             Tag function
+tagList                 Create a list of tags
+tagQuery                Query and modify HTML tags
 urlEncodePath           Encode a URL path
 validateCssUnit         Validate proper CSS formatting of a unit
 withTags                Evaluate an expression using 'tags'
