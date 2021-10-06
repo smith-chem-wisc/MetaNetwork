@@ -321,7 +321,7 @@ gprofiler2::set_base_url("http://www.biit.cs.ut.ee/gprofiler_archive3/e102_eg49_
              ProteinDendrogram = "ProteinDendrogram",
              EigenproteinDiagnostics = "ModuleEigenproteinDiagnostics",
              ModuleEigenproteinPlots = "ModuleEigenproteinPlots",
-             TOMPlot = "TOMPlot",
+             TOMPlot = "missing",
              SFTPlot = "ScaleFreeTopology",
              EigenproteinHeatmap = "EigenproteinHeatmap"
            ))
@@ -1065,7 +1065,7 @@ gprofiler2::set_base_url("http://www.biit.cs.ut.ee/gprofiler_archive3/e102_eg49_
                                      gProfilerResults = gProfilerResults)
 
               ## TOMPlot
-              tom_plot <- plotTOM(CleanData, WGCNAResults, WGCNAParameters)
+              #tom_plot <- plotTOM(CleanData, WGCNAResults, WGCNAParameters)
 
               eigenprotein_heatmap <- PlotEigenproteinHeatmap(WGCNAResults)
 
@@ -1075,7 +1075,7 @@ gprofiler2::set_base_url("http://www.biit.cs.ut.ee/gprofiler_archive3/e102_eg49_
                                                 ProteinDendrogram = protein_dendrogram,
                                                 EigenproteinDiagnostics = EP_diagnostics,
                                                 ModuleEigenproteinPlots = ME_plots,
-                                                TOMPlot = tom_plot,
+                                                TOMPlot = "missing",
                                                 SFTPlot = sft_plot,
                                                 EigenproteinHeatmap = eigenprotein_heatmap
               )
@@ -2010,7 +2010,7 @@ gprofiler2::set_base_url("http://www.biit.cs.ut.ee/gprofiler_archive3/e102_eg49_
                                              "ModuleEigenproteinDiagnostics",
                                            ModuleEigenproteinPlots =
                                              "ModuleEigenproteinPlots",
-                                           TOMPlot = "TOMPlot",
+                                           #TOMPlot = "TOMPlot",
                                            SFTPlot = "ScaleFreeTopology",
                                            EigenproteinHeatmap = "EigenproteinHeatmap"),
             definition = function(PathToOutput,
@@ -2019,7 +2019,7 @@ gprofiler2::set_base_url("http://www.biit.cs.ut.ee/gprofiler_archive3/e102_eg49_
                                   ProteinDendrogram,
                                   EigenproteinDiagnostics,
                                   ModuleEigenproteinPlots,
-                                  TOMPlot,
+                                  #TOMPlot,
                                   SFTPlot,
                                   EigenproteinHeatmap){
               PlotsOutput <- new("PlotsOutput")
@@ -2030,7 +2030,7 @@ gprofiler2::set_base_url("http://www.biit.cs.ut.ee/gprofiler_archive3/e102_eg49_
               PlotsOutput@ProteinDendrogram <- ProteinDendrogram
               PlotsOutput@EigenproteinDiagnostics <- EigenproteinDiagnostics
               PlotsOutput@ModuleEigenproteinPlots <- ModuleEigenproteinPlots
-              PlotsOutput@TOMPlot <- TOMPlot
+              #PlotsOutput@TOMPlot <- TOMPlot
               PlotsOutput@SFTPlot <- SFTPlot
               PlotsOutput@EigenproteinHeatmap <- EigenproteinHeatmap
               PlotsOutput
