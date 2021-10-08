@@ -1498,10 +1498,18 @@ gprofiler2::set_base_url("http://www.biit.cs.ut.ee/gprofiler_archive3/e102_eg49_
                 temp_gProfilerPlot <- new("gProfilerPlot")
                 temp_gProfilerPlot@Parameters <- GostPlotParameters
                 temp_gProfilerPlot@Plot <-
-                  gprofiler2::gostplot(gostres = gProfilerResults@EnrichmentResults[[i]],
-                                       capped = GostPlotParameters@capped,
-                                       interactive = GostPlotParameters@interactive)
-                plots[[names(gProfilerResults@EnrichmentResults)[i]]] <- temp_gProfilerPlot
+                  tryCatch({
+                    gprofiler2::gostplot(gostres = gProfilerResults@EnrichmentResults[[i]],
+                                         capped = GostPlotParameters@capped,
+                                         interactive = GostPlotParameters@interactive)
+                    plots[[names(gProfilerResults@EnrichmentResults)[i]]] <- temp_gProfilerPlot
+                  }, 
+                  {
+                    error = function(cond){
+                      message("No results to plot. Returning NA.")
+                      return(NA)
+                    }
+                  })
               }
 
               plots
