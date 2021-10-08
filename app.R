@@ -1506,9 +1506,8 @@ gprofiler2::set_base_url("http://www.biit.cs.ut.ee/gprofiler_archive3/e102_eg49_
                   }, 
                   {
                     error = function(GPerror){
-                        message("No results in gostplot.")
-                        message(GPerror)
-                        return(NULL)
+                      message(GPerror)
+                      message("No results in gostplot.")
                       }
                   })
               }
