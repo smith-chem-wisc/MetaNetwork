@@ -1505,9 +1505,9 @@ gprofiler2::set_base_url("http://www.biit.cs.ut.ee/gprofiler_archive3/e102_eg49_
                     plots[[names(gProfilerResults@EnrichmentResults)[i]]] <- temp_gProfilerPlot
                   }, 
                   {
-                    error = function(cond){
-                      message("No results to plot. Returning NA.")
-                      return(NA)
+                    error = function(e){
+                      message("No results to plot. Returning null")
+                      next
                     }
                   })
               }
