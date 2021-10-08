@@ -1505,10 +1505,11 @@ gprofiler2::set_base_url("http://www.biit.cs.ut.ee/gprofiler_archive3/e102_eg49_
                     plots[[names(gProfilerResults@EnrichmentResults)[i]]] <- temp_gProfilerPlot
                   }, 
                   {
-                    error = function(e){
-                      message("No results to plot. Returning null")
-                      next
-                    }
+                    error = function(GPerror){
+                        message("No results in gostplot.")
+                        message(GPerror)
+                        return(NULL)
+                      }
                   })
               }
 
