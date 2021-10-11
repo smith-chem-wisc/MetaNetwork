@@ -1506,17 +1506,19 @@ gprofiler2::set_base_url("http://www.biit.cs.ut.ee/gprofiler_archive3/e102_eg49_
                   }, 
                   {
                     error = function(e){
-                      message(e)
-                      message("No results in gostplot.")
+                      message(e$message)
+                      message("No results in gostplot1.")
                       }
+                    }, warning = function(w){
+                      message(w$message)
+                      message("No results in gostplot2.")
                     }, 
-                    {
-                    warning = function(w){
-                      message(w)
-                      message("No results in gostplot.")
-                    }
-                  })
-              }
+                  message = function(m){
+                    message(m$message)
+                    message("No results in gostplot3.")
+                  }
+                  )
+                  }
               plots
             })
 
