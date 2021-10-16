@@ -852,19 +852,21 @@ gprofiler2::set_base_url("http://www.biit.cs.ut.ee/gprofiler_archive3/e102_eg49_
               gost_plots <- fetch_gostplots(ServerOutput)
               withr::with_dir(new = dirname(list_of_paths[[1]][1]),
                               code = {
-                                  tryCatch(
-                                    {for(i in 1:length(gost_plots)){
+                                for(i in 1:length(gost_plots)){  
+                                tryCatch(
+                                    {
                                       htmlwidgets::saveWidget(gost_plots[[i]]@Plot,
                                                               file = list_of_paths[[1]][i],
                                                               selfcontained = TRUE)
-                                    }}, 
+                                    }, 
                                     error = function(e){
                                       message(e)
-                                      next 
+                                      next
                                     }
                                   )
                                 }
-                              )
+                              }
+              )
 
               violin_plots <- fetch_violin_plots(ServerOutput)
               boxplots <- fetch_boxplots(ServerOutput)
