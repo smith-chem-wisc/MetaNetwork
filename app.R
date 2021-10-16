@@ -851,11 +851,20 @@ gprofiler2::set_base_url("http://www.biit.cs.ut.ee/gprofiler_archive3/e102_eg49_
               ## gProfilerPlots
               gost_plots <- fetch_gostplots(ServerOutput)
               withr::with_dir(new = dirname(list_of_paths[[1]][1]),
-                              code =               for(i in 1:length(gost_plots)){
-                                htmlwidgets::saveWidget(gost_plots[[i]]@Plot,
-                                                        file = list_of_paths[[1]][i],
-                                                        selfcontained = TRUE)
-                              })
+                              code = {
+                                  tryCatch(
+                                    {for(i in 1:length(gost_plots)){
+                                      htmlwidgets::saveWidget(gost_plots[[i]]@Plot,
+                                                              file = list_of_paths[[1]][i],
+                                                              selfcontained = TRUE)
+                                    }}, 
+                                    error = function(e){
+                                      message(e)
+                                      return(NULL)
+                                    }
+                                  )
+                                }
+                              )
 
               violin_plots <- fetch_violin_plots(ServerOutput)
               boxplots <- fetch_boxplots(ServerOutput)
@@ -1516,7 +1525,8 @@ gprofiler2::set_base_url("http://www.biit.cs.ut.ee/gprofiler_archive3/e102_eg49_
                   message = function(m){
                     message(m$message)
                     message("No results in gostplot3.")
-                  }
+                  }, 
+                  finally = {return(plots)}
                   )
                   }
               plots
