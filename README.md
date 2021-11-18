@@ -1,5 +1,5 @@
 # MetaNetwork
-Network analysis and visualization of proteomics data using weighted gene correlation network analysis. This file details how to run MetaNetwork. [MetaNetwork's wiki](https://github.com/smith-chem-wisc/MetaNetwork/wiki) contains a vignette using data available in this GitHub repository and details how to use and interpret MetaNetwork's results.
+Network analysis and visualization of proteomics data using weighted gene correlation network analysis. This file details how to run MetaNetwork. [MetaNetwork's wiki](https://github.com/smith-chem-wisc/MetaNetwork/wiki) contains an overview of the options available for MetaNetwork's  WGCNA workflow and a vignette that details how to use and interpret MetaNetwork's results.
 
 ## How to Run MetaNetwork
 
