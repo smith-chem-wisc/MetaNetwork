@@ -313,7 +313,7 @@ gprofiler2::set_base_url("http://www.biit.cs.ut.ee/gprofiler_archive3/e102_eg49_
            ))
   ### Class Definition PlotsOutput ####
   
-  setClass("Class",
+  setClass("PlotsOutput",
            slots = c(
              PathToOutput = "character",
              gProfilerPlots = "GostPlotCollection",
