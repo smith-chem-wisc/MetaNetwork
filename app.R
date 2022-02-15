@@ -38,10 +38,6 @@ library(ggdendro)
 library(shiny)
 library(ggpubr)
 
-## Ensembl update to version 104 dropped a large amount of GO terms for organisms that include H. sapiens and M. musclulus, among others.
-## As a result, need to run an archived version of g:Profiler that includes those GO Terms. 
-gprofiler2::set_base_url("http://www.biit.cs.ut.ee/gprofiler_archive3/e102_eg49_p15")
-
 ## Classes ####
 ### Classesx
   ## Classes not S4 need to be set as S4 classes using the setClass function: ####
